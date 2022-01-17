@@ -11,7 +11,7 @@ color06="5F/87/87" # Cyan
 color07="BC/BC/BC" # Grey
 
 # Bright
-color08="44/44/44" # Dark Grey
+color08="51/51/51" # Dark Grey
 color09="AF/5F/5F" # Red
 color10="5F/87/5F" # Green
 color11="87/87/5F" # Yellow
@@ -22,7 +22,7 @@ color15="FF/FF/FF" # White
 
 # 256 color
 color208="b0/87/5e" # Orange
-color247="FF/FF/AF" # Black +5
+color247="33/33/33" # Black +5
 
 # Base
 color_background="26/26/26" # Black

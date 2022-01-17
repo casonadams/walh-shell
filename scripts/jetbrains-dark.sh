@@ -11,7 +11,7 @@ color06="00/91/91" # Cyan
 color07="BB/BB/BB" # Grey
 
 # Bright
-color08="4F/4F/4F" # Dark Grey
+color08="59/59/59" # Dark Grey
 color09="DB/54/51" # Red
 color10="54/8C/26" # Green
 color11="A8/90/22" # Yellow
@@ -22,11 +22,11 @@ color15="FF/FF/FF" # White
 
 # 256 color
 color208="CC/66/6E" # Orange
-color247="45/45/45" # Black +5
+color247="38/38/38" # Black +5
 
 # Base
-color_background="BB/BB/BB" # Black
-color_foreground="2B/2B/2B" # Grey
+color_background="2B/2B/2B" # Black
+color_foreground="BB/BB/BB" # Grey
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -74,13 +74,13 @@ put_template 247 $color247
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg 2B2B2B # foreground
-  put_template_custom Ph BBBBBB # background
+  put_template_custom Pg BBBBBB # foreground
+  put_template_custom Ph 2B2B2B # background
   put_template_custom Pi FFFFFF     # bold color
   put_template_custom Pj A89022     # selection color
-  put_template_custom Pk BBBBBB # selected text color
-  put_template_custom Pl 2B2B2B # cursor
-  put_template_custom Pm BBBBBB # cursor text
+  put_template_custom Pk 2B2B2B # selected text color
+  put_template_custom Pl BBBBBB # cursor
+  put_template_custom Pm 2B2B2B # cursor text
 else
   put_template_var 10 $color_foreground
   if [ "$WALH_SHELL_SET_BACKGROUND" != false ]; then

@@ -11,7 +11,7 @@ color06="88/c0/d0" # Cyan
 color07="e5/e9/f0" # Grey
 
 # Bright
-color08="4c/56/6a" # Dark Grey
+color08="61/6E/88" # Dark Grey
 color09="bf/61/6a" # Red
 color10="a3/be/8c" # Green
 color11="eb/cb/8b" # Yellow
@@ -22,7 +22,7 @@ color15="ec/ef/f4" # White
 
 # 256 color
 color208="d0/87/70" # Orange
-color247="3b/42/52" # Black +5
+color247="37/3e/4c" # Black +5
 
 # Base
 color_background="2e/34/40" # Black
