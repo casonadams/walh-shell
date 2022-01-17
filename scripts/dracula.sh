@@ -31,46 +31,22 @@ color_foreground="e9/e9/f4" # Grey
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
   # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
-  put_template() {
-    printf '\033Ptmux;\033\033]4;%d;rgb:%s\033\033\\\033\\' "$@"
-  }
-  put_template_var() {
-    printf '\033Ptmux;\033\033]%d;rgb:%s\033\033\\\033\\' "$@"
-  }
-  put_template_custom() {
-    printf '\033Ptmux;\033\033]%s%s\033\033\\\033\\' "$@"
-  }
+  put_template() { printf '\033Ptmux;\033\033]4;%d;rgb:%s\033\033\\\033\\' $@; }
+  put_template_var() { printf '\033Ptmux;\033\033]%d;rgb:%s\033\033\\\033\\' $@; }
+  put_template_custom() { printf '\033Ptmux;\033\033]%s%s\033\033\\\033\\' $@; }
 elif [ "${TERM%%[-.]*}" = "screen" ]; then
   # GNU screen (screen, screen-256color, screen-256color-bce)
-  put_template() {
-    printf '\033P\033]4;%d;rgb:%s\007\033\\' "$@"
-  }
-  put_template_var() {
-    printf '\033P\033]%d;rgb:%s\007\033\\' "$@"
-  }
-  put_template_custom() {
-    printf '\033P\033]%s%s\007\033\\' "$@"
-  }
+  put_template() { printf '\033P\033]4;%d;rgb:%s\007\033\\' $@; }
+  put_template_var() { printf '\033P\033]%d;rgb:%s\007\033\\' $@; }
+  put_template_custom() { printf '\033P\033]%s%s\007\033\\' $@; }
 elif [ "${TERM%%-*}" = "linux" ]; then
-  put_template() {
-    [ "$1" -lt 16 ] && printf "\e]P%x%s" "$1" "$(echo "$2" | sed 's/\///g')"
-  }
-  put_template_var() {
-    true
-  }
-  put_template_custom() {
-    true
-  }
+  put_template() { [ $1 -lt 16 ] && printf "\e]P%x%s" $1 $(echo $2 | sed 's/\///g'); }
+  put_template_var() { true; }
+  put_template_custom() { true; }
 else
-  put_template() {
-    printf '\033]4;%d;rgb:%s\033\\' "$@"
-  }
-  put_template_var() {
-    printf '\033]%d;rgb:%s\033\\' "$@"
-  }
-  put_template_custom() {
-    printf '\033]%s%s\033\\' "$@"
-  }
+  put_template() { printf '\033]4;%d;rgb:%s\033\\' $@; }
+  put_template_var() { printf '\033]%d;rgb:%s\033\\' $@; }
+  put_template_custom() { printf '\033]%s%s\033\\' $@; }
 fi
 
 # 16 color space
@@ -100,8 +76,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg e9e9f4 # foreground
   put_template_custom Ph 282936 # background
-  put_template_custom Pi f7f7fb # bold color
-  put_template_custom Pj 00f769 # selection color
+  put_template_custom Pi f7f7fb     # bold color
+  put_template_custom Pj 00f769     # selection color
   put_template_custom Pk 282936 # selected text color
   put_template_custom Pl e9e9f4 # cursor
   put_template_custom Pm 282936 # cursor text
