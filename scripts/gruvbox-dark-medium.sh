@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Theme: gruvbox-dark-medium
 
 # Normal
 color00="28/28/28" # Black
@@ -76,8 +77,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg d5c4a1 # foreground
   put_template_custom Ph 282828 # background
-  put_template_custom Pi fbf1c7     # bold color
-  put_template_custom Pj fabd2f     # selection color
+  put_template_custom Pi fbf1c7 # bold color
+  put_template_custom Pj fabd2f # selection color
   put_template_custom Pk 282828 # selected text color
   put_template_custom Pl d5c4a1 # cursor
   put_template_custom Pm 282828 # cursor text

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Theme: onedark
 
 # Normal
 color00="28/2c/34" # Black
@@ -76,8 +77,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg abb2bf # foreground
   put_template_custom Ph 282c34 # background
-  put_template_custom Pi c8ccd4     # bold color
-  put_template_custom Pj e5c07b     # selection color
+  put_template_custom Pi c8ccd4 # bold color
+  put_template_custom Pj e5c07b # selection color
   put_template_custom Pk 282c34 # selected text color
   put_template_custom Pl abb2bf # cursor
   put_template_custom Pm 282c34 # cursor text

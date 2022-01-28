@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Theme: github-dark
 
 # Normal
 color00="00/00/00" # Black
@@ -76,8 +77,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 8b949e # foreground
   put_template_custom Ph 101216 # background
-  put_template_custom Pi ffffff     # bold color
-  put_template_custom Pj e3b341     # selection color
+  put_template_custom Pi ffffff # bold color
+  put_template_custom Pj e3b341 # selection color
   put_template_custom Pk 101216 # selected text color
   put_template_custom Pl 8b949e # cursor
   put_template_custom Pm 101216 # cursor text

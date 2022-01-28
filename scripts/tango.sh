@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Theme: tango
 
 # Normal
 color00="2e/34/36" # Black
@@ -76,8 +77,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 00ff00 # foreground
   put_template_custom Ph 000000 # background
-  put_template_custom Pi eeeeec     # bold color
-  put_template_custom Pj edd400     # selection color
+  put_template_custom Pi eeeeec # bold color
+  put_template_custom Pj edd400 # selection color
   put_template_custom Pk 000000 # selected text color
   put_template_custom Pl 00ff00 # cursor
   put_template_custom Pm 000000 # cursor text

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Theme: jetbrains-dark
 
 # Normal
 color00="2B/2B/2B" # Black
@@ -76,8 +77,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg BBBBBB # foreground
   put_template_custom Ph 2B2B2B # background
-  put_template_custom Pi FFFFFF     # bold color
-  put_template_custom Pj A89022     # selection color
+  put_template_custom Pi FFFFFF # bold color
+  put_template_custom Pj A89022 # selection color
   put_template_custom Pk 2B2B2B # selected text color
   put_template_custom Pl BBBBBB # cursor
   put_template_custom Pm 2B2B2B # cursor text

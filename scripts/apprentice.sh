@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Theme: apprentice
 
 # Normal
 color00="26/26/26" # Black
@@ -76,8 +77,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg BCBCBC # foreground
   put_template_custom Ph 262626 # background
-  put_template_custom Pi FFFFFF     # bold color
-  put_template_custom Pj 87875F     # selection color
+  put_template_custom Pi FFFFFF # bold color
+  put_template_custom Pj 87875F # selection color
   put_template_custom Pk 262626 # selected text color
   put_template_custom Pl BCBCBC # cursor
   put_template_custom Pm 262626 # cursor text

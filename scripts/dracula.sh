@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Theme: dracula
 
 # Normal
 color00="28/29/36" # Black
@@ -76,8 +77,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg e9e9f4 # foreground
   put_template_custom Ph 282936 # background
-  put_template_custom Pi f7f7fb     # bold color
-  put_template_custom Pj 00f769     # selection color
+  put_template_custom Pi f7f7fb # bold color
+  put_template_custom Pj 00f769 # selection color
   put_template_custom Pk 282936 # selected text color
   put_template_custom Pl e9e9f4 # cursor
   put_template_custom Pm 282936 # cursor text

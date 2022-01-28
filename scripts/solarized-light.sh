@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Theme: solarized-light
 
 # Normal
 color00="fd/f6/e3" # Black
@@ -76,8 +77,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 586e75 # foreground
   put_template_custom Ph fdf6e3 # background
-  put_template_custom Pi 002b36     # bold color
-  put_template_custom Pj b58900     # selection color
+  put_template_custom Pi 002b36 # bold color
+  put_template_custom Pj b58900 # selection color
   put_template_custom Pk fdf6e3 # selected text color
   put_template_custom Pl 586e75 # cursor
   put_template_custom Pm fdf6e3 # cursor text
