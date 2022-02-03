@@ -22,7 +22,7 @@ color14="5F/87/87" # Cyan
 color15="FF/FF/FF" # White
 
 # 256 color
-color208="b0/87/5e" # Orange
+color208="9b/73/5f" # Orange
 color247="33/33/33" # Black +5
 
 # Base
