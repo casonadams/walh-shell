@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Theme: molokai
 
 # Normal
 color00="12/12/12" # Black
@@ -76,8 +77,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg bbbbbb # foreground
   put_template_custom Ph 121212 # background
-  put_template_custom Pi ffffff     # bold color
-  put_template_custom Pj dfd460     # selection color
+  put_template_custom Pi ffffff # bold color
+  put_template_custom Pj dfd460 # selection color
   put_template_custom Pk 121212 # selected text color
   put_template_custom Pl bbbbbb # cursor
   put_template_custom Pm 121212 # cursor text

@@ -43,6 +43,7 @@ for dir in os.listdir("themes"):
         args = {
             "template": f,
             "data": {
+                "theme_name": theme_name,
                 "foreground-hex": foreground[1:7],
                 "foreground-hex-r": foreground[1:3],
                 "foreground-hex-g": foreground[3:5],

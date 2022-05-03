@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Theme: vscode
 
 # Normal
 color00="00/00/00" # Black
@@ -76,8 +77,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg cccccc # foreground
   put_template_custom Ph 1e1e1e # background
-  put_template_custom Pi e5e5e5     # bold color
-  put_template_custom Pj e5e510     # selection color
+  put_template_custom Pi e5e5e5 # bold color
+  put_template_custom Pj e5e510 # selection color
   put_template_custom Pk 1e1e1e # selected text color
   put_template_custom Pl cccccc # cursor
   put_template_custom Pm 1e1e1e # cursor text

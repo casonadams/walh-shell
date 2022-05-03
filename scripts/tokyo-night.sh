@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Theme: tokyo-night
 
 # Normal
 color00="32/34/4a" # Black
@@ -76,8 +77,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg a9b1d6 # foreground
   put_template_custom Ph 1a1b26 # background
-  put_template_custom Pi acb0d0     # bold color
-  put_template_custom Pj e0af68     # selection color
+  put_template_custom Pi acb0d0 # bold color
+  put_template_custom Pj e0af68 # selection color
   put_template_custom Pk 1a1b26 # selected text color
   put_template_custom Pl a9b1d6 # cursor
   put_template_custom Pm 1a1b26 # cursor text
