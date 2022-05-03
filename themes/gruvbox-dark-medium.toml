@@ -9,7 +9,7 @@ color04    = "#83a598" # blue
 color05    = "#d3869b" # magenta
 color06    = "#8ec07c" # cyan
 color07    = "#d5c4a1" # grey
-color08    = "#665c54" # dark grey
+color08    = "#7f7664" # dark grey
 color09    = "#fb4934" # bright red
 color10    = "#b8bb26" # bright green
 color11    = "#fabd2f" # birght yellow
@@ -19,4 +19,4 @@ color14    = "#8ec07c" # bright cyan
 color15    = "#fbf1c7" # white
 
 color208   = "#fe8019" # orange
-color247   = "#3c3836" # black +5
+color247   = "#353535" # black +5
