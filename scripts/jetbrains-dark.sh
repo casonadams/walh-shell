@@ -2,7 +2,7 @@
 # Theme: jetbrains-dark
 
 # Normal
-color00="2B/2B/2B" # Black
+color00="00/00/00" # Black
 color01="DB/54/51" # Red
 color02="54/8C/26" # Green
 color03="A8/90/22" # Yellow
