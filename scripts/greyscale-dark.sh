@@ -2,7 +2,7 @@
 # Theme: greyscale-dark
 
 # Normal
-color00="10/10/10" # Black
+color00="00/00/00" # Black
 color01="7c/7c/7c" # Red
 color02="8e/8e/8e" # Green
 color03="a0/a0/a0" # Yellow
