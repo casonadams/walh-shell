@@ -2,7 +2,7 @@
 # Theme: apprentice
 
 # Normal
-color00="26/26/26" # Black
+color00="00/00/00" # Black
 color01="AF/5F/5F" # Red
 color02="5F/87/5F" # Green
 color03="87/87/5F" # Yellow

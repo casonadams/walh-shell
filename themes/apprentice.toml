@@ -1,7 +1,7 @@
 background = "#262626"
 foreground = "#BCBCBC"
 
-color00    = "#262626" # black
+color00    = "#000000" # black
 color01    = "#AF5F5F" # red
 color02    = "#5F875F" # green
 color03    = "#87875F" # yellow
