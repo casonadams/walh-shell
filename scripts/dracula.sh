@@ -2,7 +2,7 @@
 # Theme: dracula
 
 # Normal
-color00="28/29/36" # Black
+color00="3a/3c/4e" # Black
 color01="ea/51/b2" # Red
 color02="eb/ff/87" # Green
 color03="00/f7/69" # Yellow
@@ -23,7 +23,7 @@ color15="f7/f7/fb" # White
 
 # 256 color
 color208="b4/5b/cf" # Orange
-color247="3a/3c/4e" # Black +5
+color247="//" # Black +5
 
 # Base
 color_background="28/29/36" # Black

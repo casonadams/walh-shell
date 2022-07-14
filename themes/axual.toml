@@ -1,22 +1,21 @@
 background = "#113851"
-foreground = "#d8d7cd"
+foreground = "#D8D7CD"
 
-color00    = "#113851" # black
+color00    = "#13415E" # black
 color01    = "#D7595F" # red
-color02    = "#b5bd68" # green
+color02    = "#B5BD68" # green
 color03    = "#F2BF40" # yellow
-color04    = "#81a2be" # blue
-color05    = "#b294bb" # magenta
+color04    = "#81A2BE" # blue
+color05    = "#B294BB" # magenta
 color06    = "#47B0AB" # cyan
-color07    = "#d8d7cd" # grey
+color07    = "#D8D7CD" # grey
 color08    = "#A99688" # dark grey
 color09    = "#D7595F" # bright red
-color10    = "#b5bd68" # bright green
+color10    = "#B5BD68" # bright green
 color11    = "#F2BF40" # birght yellow
-color12    = "#81a2be" # bright blue
-color13    = "#b294bb" # bright magenta
+color12    = "#81A2BE" # bright blue
+color13    = "#B294BB" # bright magenta
 color14    = "#47B0AB" # bright cyan
-color15    = "#fffdf1" # white
+color15    = "#ECEBE6" # white
 
-color208   = "#e58c4f" # orange
-color247   = "#13415e" # black +5
+color208   = "#E58C4F" # orange

@@ -1,7 +1,7 @@
 background = "#262626"
 foreground = "#BCBCBC"
 
-color00    = "#000000" # black
+color00    = "#333333" # black
 color01    = "#AF5F5F" # red
 color02    = "#5F875F" # green
 color03    = "#87875F" # yellow
@@ -18,5 +18,5 @@ color13    = "#5F5F87" # bright magenta
 color14    = "#5F8787" # bright cyan
 color15    = "#FFFFFF" # white
 
-color208   = "#9b735f" # orange
+color208   = "#9B735F" # orange
 color247   = "#333333" # black +5

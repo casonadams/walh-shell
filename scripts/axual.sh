@@ -2,32 +2,32 @@
 # Theme: axual
 
 # Normal
-color00="11/38/51" # Black
+color00="13/41/5E" # Black
 color01="D7/59/5F" # Red
-color02="b5/bd/68" # Green
+color02="B5/BD/68" # Green
 color03="F2/BF/40" # Yellow
-color04="81/a2/be" # Blue
-color05="b2/94/bb" # Magenta
+color04="81/A2/BE" # Blue
+color05="B2/94/BB" # Magenta
 color06="47/B0/AB" # Cyan
-color07="d8/d7/cd" # Grey
+color07="D8/D7/CD" # Grey
 
 # Bright
 color08="A9/96/88" # Dark Grey
 color09="D7/59/5F" # Red
-color10="b5/bd/68" # Green
+color10="B5/BD/68" # Green
 color11="F2/BF/40" # Yellow
-color12="81/a2/be" # Blue
-color13="b2/94/bb" # Magenta
+color12="81/A2/BE" # Blue
+color13="B2/94/BB" # Magenta
 color14="47/B0/AB" # Cyan
-color15="ff/fd/f1" # White
+color15="EC/EB/E6" # White
 
 # 256 color
-color208="e5/8c/4f" # Orange
-color247="13/41/5e" # Black +5
+color208="E5/8C/4F" # Orange
+color247="//" # Black +5
 
 # Base
 color_background="11/38/51" # Black
-color_foreground="d8/d7/cd" # Grey
+color_foreground="D8/D7/CD" # Grey
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -75,12 +75,12 @@ put_template 247 $color247
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg d8d7cd # foreground
+  put_template_custom Pg D8D7CD # foreground
   put_template_custom Ph 113851 # background
-  put_template_custom Pi fffdf1 # bold color
+  put_template_custom Pi ECEBE6 # bold color
   put_template_custom Pj F2BF40 # selection color
   put_template_custom Pk 113851 # selected text color
-  put_template_custom Pl d8d7cd # cursor
+  put_template_custom Pl D8D7CD # cursor
   put_template_custom Pm 113851 # cursor text
 else
   put_template_var 10 $color_foreground

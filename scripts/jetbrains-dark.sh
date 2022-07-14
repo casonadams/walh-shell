@@ -2,7 +2,7 @@
 # Theme: jetbrains-dark
 
 # Normal
-color00="00/00/00" # Black
+color00="38/38/38" # Black
 color01="DB/54/51" # Red
 color02="54/8C/26" # Green
 color03="A8/90/22" # Yellow
@@ -23,7 +23,7 @@ color15="FF/FF/FF" # White
 
 # 256 color
 color208="D5/85/5E" # Orange
-color247="38/38/38" # Black +5
+color247="//" # Black +5
 
 # Base
 color_background="2B/2B/2B" # Black

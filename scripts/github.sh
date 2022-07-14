@@ -2,7 +2,7 @@
 # Theme: github
 
 # Normal
-color00="ff/ff/ff" # Black
+color00="e2/e2/e2" # Black
 color01="97/0b/16" # Red
 color02="07/96/2a" # Green
 color03="df/b7/1c" # Yellow
@@ -23,7 +23,7 @@ color15="23/23/23" # White
 
 # 256 color
 color208="bb/61/19" # Orange
-color247="e2/e2/e2" # Black +5
+color247="//" # Black +5
 
 # Base
 color_background="ff/ff/ff" # Black

@@ -2,32 +2,32 @@
 # Theme: github-dark
 
 # Normal
-color00="00/00/00" # Black
-color01="f7/81/66" # Red
-color02="56/d3/64" # Green
-color03="e3/b3/41" # Yellow
-color04="6c/a4/f8" # Blue
-color05="db/61/a2" # Magenta
-color06="2b/74/89" # Cyan
-color07="8b/94/9e" # Grey
+color00="1A/1D/23" # Black
+color01="F7/81/66" # Red
+color02="56/D3/64" # Green
+color03="E3/B3/41" # Yellow
+color04="6C/A4/F8" # Blue
+color05="DB/61/A2" # Magenta
+color06="2B/74/89" # Cyan
+color07="8B/94/9E" # Grey
 
 # Bright
-color08="4d/4d/4d" # Dark Grey
-color09="f7/81/66" # Red
-color10="56/d3/64" # Green
-color11="e3/b3/41" # Yellow
-color12="6c/a4/f8" # Blue
-color13="db/61/a2" # Magenta
-color14="2b/74/89" # Cyan
-color15="ff/ff/ff" # White
+color08="4D/4D/4D" # Dark Grey
+color09="F7/81/66" # Red
+color10="56/D3/64" # Green
+color11="E3/B3/41" # Yellow
+color12="6C/A4/F8" # Blue
+color13="DB/61/A2" # Magenta
+color14="2B/74/89" # Cyan
+color15="C5/C9/CF" # White
 
 # 256 color
-color208="ed/9a/54" # Orange
-color247="1a/1d/23" # Black +5
+color208="ED/9A/54" # Orange
+color247="//" # Black +5
 
 # Base
 color_background="10/12/16" # Black
-color_foreground="8b/94/9e" # Grey
+color_foreground="8B/94/9E" # Grey
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -75,12 +75,12 @@ put_template 247 $color247
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg 8b949e # foreground
+  put_template_custom Pg 8B949E # foreground
   put_template_custom Ph 101216 # background
-  put_template_custom Pi ffffff # bold color
-  put_template_custom Pj e3b341 # selection color
+  put_template_custom Pi C5C9CF # bold color
+  put_template_custom Pj E3B341 # selection color
   put_template_custom Pk 101216 # selected text color
-  put_template_custom Pl 8b949e # cursor
+  put_template_custom Pl 8B949E # cursor
   put_template_custom Pm 101216 # cursor text
 else
   put_template_var 10 $color_foreground

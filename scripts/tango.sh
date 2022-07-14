@@ -2,32 +2,32 @@
 # Theme: tango
 
 # Normal
-color00="2e/34/36" # Black
-color01="cc/00/00" # Red
-color02="73/d2/16" # Green
-color03="ed/d4/00" # Yellow
-color04="34/65/a4" # Blue
-color05="75/50/7b" # Magenta
-color06="06/98/9a" # Cyan
-color07="d3/d7/cf" # Grey
+color00="3B/42/45" # Black
+color01="CC/00/00" # Red
+color02="73/D2/16" # Green
+color03="ED/D4/00" # Yellow
+color04="34/65/A4" # Blue
+color05="75/50/7B" # Magenta
+color06="06/98/9A" # Cyan
+color07="D3/D7/CF" # Grey
 
 # Bright
-color08="2e/34/36" # Dark Grey
-color09="ef/29/29" # Red
-color10="8a/e2/34" # Green
-color11="fc/e9/4f" # Yellow
-color12="72/9f/cf" # Blue
-color13="ad/7f/a8" # Magenta
-color14="34/e2/e2" # Cyan
-color15="ee/ee/ec" # White
+color08="2E/34/36" # Dark Grey
+color09="EF/29/29" # Red
+color10="8A/E2/34" # Green
+color11="FC/E9/4F" # Yellow
+color12="72/9F/CF" # Blue
+color13="AD/7F/A8" # Magenta
+color14="34/E2/E2" # Cyan
+color15="EE/EE/EC" # White
 
 # 256 color
 color208="DD/6A/00" # Orange
-color247="3b/42/45" # Black +5
+color247="//" # Black +5
 
 # Base
 color_background="00/00/00" # Black
-color_foreground="00/ff/00" # Grey
+color_foreground="00/FF/00" # Grey
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -75,12 +75,12 @@ put_template 247 $color247
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg 00ff00 # foreground
+  put_template_custom Pg 00FF00 # foreground
   put_template_custom Ph 000000 # background
-  put_template_custom Pi eeeeec # bold color
-  put_template_custom Pj edd400 # selection color
+  put_template_custom Pi EEEEEC # bold color
+  put_template_custom Pj EDD400 # selection color
   put_template_custom Pk 000000 # selected text color
-  put_template_custom Pl 00ff00 # cursor
+  put_template_custom Pl 00FF00 # cursor
   put_template_custom Pm 000000 # cursor text
 else
   put_template_var 10 $color_foreground

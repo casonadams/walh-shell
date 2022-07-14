@@ -2,32 +2,32 @@
 # Theme: gruvbox-dark-medium
 
 # Normal
-color00="28/28/28" # Black
-color01="fb/49/34" # Red
-color02="b8/bb/26" # Green
-color03="fa/bd/2f" # Yellow
-color04="83/a5/98" # Blue
-color05="d3/86/9b" # Magenta
-color06="8e/c0/7c" # Cyan
-color07="d5/c4/a1" # Grey
+color00="35/35/35" # Black
+color01="FB/49/34" # Red
+color02="B8/BB/26" # Green
+color03="FA/BD/2F" # Yellow
+color04="83/A5/98" # Blue
+color05="D3/86/9B" # Magenta
+color06="8E/C0/7C" # Cyan
+color07="D5/C4/A1" # Grey
 
 # Bright
-color08="7f/76/64" # Dark Grey
-color09="fb/49/34" # Red
-color10="b8/bb/26" # Green
-color11="fa/bd/2f" # Yellow
-color12="83/a5/98" # Blue
-color13="d3/86/9b" # Magenta
-color14="8e/c0/7c" # Cyan
-color15="fb/f1/c7" # White
+color08="7F/76/64" # Dark Grey
+color09="FB/49/34" # Red
+color10="B8/BB/26" # Green
+color11="FA/BD/2F" # Yellow
+color12="83/A5/98" # Blue
+color13="D3/86/9B" # Magenta
+color14="8E/C0/7C" # Cyan
+color15="FB/F1/C7" # White
 
 # 256 color
-color208="fe/80/19" # Orange
-color247="35/35/35" # Black +5
+color208="FE/80/19" # Orange
+color247="//" # Black +5
 
 # Base
 color_background="28/28/28" # Black
-color_foreground="d5/c4/a1" # Grey
+color_foreground="D5/C4/A1" # Grey
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -75,12 +75,12 @@ put_template 247 $color247
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg d5c4a1 # foreground
+  put_template_custom Pg D5C4A1 # foreground
   put_template_custom Ph 282828 # background
-  put_template_custom Pi fbf1c7 # bold color
-  put_template_custom Pj fabd2f # selection color
+  put_template_custom Pi FBF1C7 # bold color
+  put_template_custom Pj FABD2F # selection color
   put_template_custom Pk 282828 # selected text color
-  put_template_custom Pl d5c4a1 # cursor
+  put_template_custom Pl D5C4A1 # cursor
   put_template_custom Pm 282828 # cursor text
 else
   put_template_var 10 $color_foreground

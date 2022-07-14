@@ -1,33 +1,33 @@
 #!/usr/bin/env bash
-# Theme: apprentice
+# Theme: darcula
 
 # Normal
-color00="33/33/33" # Black
-color01="AF/5F/5F" # Red
-color02="5F/87/5F" # Green
-color03="87/87/5F" # Yellow
-color04="5F/87/AF" # Blue
-color05="5F/5F/87" # Magenta
-color06="5F/87/87" # Cyan
-color07="BC/BC/BC" # Grey
+color00="3C/3F/41" # Black
+color01="BC/3F/3C" # Red
+color02="A5/C2/61" # Green
+color03="FF/C6/6D" # Yellow
+color04="68/97/BB" # Blue
+color05="98/76/AA" # Magenta
+color06="89/C0/BE" # Cyan
+color07="BA/BA/BA" # Grey
 
 # Bright
-color08="51/51/51" # Dark Grey
-color09="AF/5F/5F" # Red
-color10="5F/87/5F" # Green
-color11="87/87/5F" # Yellow
-color12="5F/87/AF" # Blue
-color13="5F/5F/87" # Magenta
-color14="5F/87/87" # Cyan
-color15="FF/FF/FF" # White
+color08="80/80/80" # Dark Grey
+color09="BC/3F/3C" # Red
+color10="A5/C2/61" # Green
+color11="FF/C6/6D" # Yellow
+color12="68/97/BB" # Blue
+color13="98/76/AA" # Magenta
+color14="89/C0/BE" # Cyan
+color15="F4/F4/FA" # White
 
 # 256 color
-color208="9B/73/5F" # Orange
+color208="CC/78/32" # Orange
 color247="//" # Black +5
 
 # Base
-color_background="26/26/26" # Black
-color_foreground="BC/BC/BC" # Grey
+color_background="28/28/28" # Black
+color_foreground="A9/B7/C6" # Grey
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -75,13 +75,13 @@ put_template 247 $color247
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg BCBCBC # foreground
-  put_template_custom Ph 262626 # background
-  put_template_custom Pi FFFFFF # bold color
-  put_template_custom Pj 87875F # selection color
-  put_template_custom Pk 262626 # selected text color
-  put_template_custom Pl BCBCBC # cursor
-  put_template_custom Pm 262626 # cursor text
+  put_template_custom Pg A9B7C6 # foreground
+  put_template_custom Ph 282828 # background
+  put_template_custom Pi F4F4FA # bold color
+  put_template_custom Pj FFC66D # selection color
+  put_template_custom Pk 282828 # selected text color
+  put_template_custom Pl A9B7C6 # cursor
+  put_template_custom Pm 282828 # cursor text
 else
   put_template_var 10 $color_foreground
   if [ "$WALH_SHELL_SET_BACKGROUND" != false ]; then

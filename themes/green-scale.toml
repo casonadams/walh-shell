@@ -1,0 +1,21 @@
+background = "#081D08"
+foreground = "#4AA23C"
+
+color00    = "#0F2A0E" # black
+color01    = "#2F6C1C" # red
+color02    = "#50AD32" # green
+color03    = "#58BD38" # yellow
+color04    = "#46992C" # blue
+color05    = "#317029" # magenta
+color06    = "#50AD32" # cyan
+color07    = "#45972B" # grey
+color08    = "#3A8124" # dark grey
+color09    = "#2F6C1C" # bright red
+color10    = "#50AD32" # bright green
+color11    = "#58BD38" # birght yellow
+color12    = "#46992C" # bright blue
+color13    = "#317029" # bright magenta
+color14    = "#50AD32" # bright cyan
+color15    = "#6FEB48" # white
+
+color208   = "#31701E" # orange

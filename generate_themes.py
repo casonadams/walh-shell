@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import chevron
 import os
@@ -36,7 +36,6 @@ for dir in os.listdir("themes"):
     color15 = theme["color15"]
 
     color208 = theme["color208"]
-    color247 = theme["color247"]
 
     with open("template/default.mustache", "r") as file:
         f = file.read()
@@ -120,10 +119,6 @@ for dir in os.listdir("themes"):
                 "base208-hex-r": color208[1:3],
                 "base208-hex-g": color208[3:5],
                 "base208-hex-b": color208[5:7],
-                "base247-hex": color247[1:7],
-                "base247-hex-r": color247[1:3],
-                "base247-hex-g": color247[3:5],
-                "base247-hex-b": color247[5:7],
             },
         }
         render = chevron.render(**args)

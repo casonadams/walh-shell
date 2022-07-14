@@ -2,31 +2,31 @@
 # Theme: gruvbox-light-medium
 
 # Normal
-color00="fb/f1/c7" # Black
-color01="9d/00/06" # Red
-color02="79/74/0e" # Green
-color03="b5/76/14" # Yellow
+color00="EB/DB/B2" # Black
+color01="9D/00/06" # Red
+color02="79/74/0E" # Green
+color03="B5/76/14" # Yellow
 color04="07/66/78" # Blue
-color05="8f/3f/71" # Magenta
-color06="42/7b/58" # Cyan
+color05="8F/3F/71" # Magenta
+color06="42/7B/58" # Cyan
 color07="50/49/45" # Grey
 
 # Bright
-color08="bd/ae/93" # Dark Grey
-color09="9d/00/06" # Red
-color10="79/74/0e" # Green
-color11="b5/76/14" # Yellow
+color08="BD/AE/93" # Dark Grey
+color09="9D/00/06" # Red
+color10="79/74/0E" # Green
+color11="B5/76/14" # Yellow
 color12="07/66/78" # Blue
-color13="8f/3f/71" # Magenta
-color14="42/7b/58" # Cyan
+color13="8F/3F/71" # Magenta
+color14="42/7B/58" # Cyan
 color15="28/28/28" # White
 
 # 256 color
-color208="af/3a/03" # Orange
-color247="eb/db/b2" # Black +5
+color208="AF/3A/03" # Orange
+color247="//" # Black +5
 
 # Base
-color_background="fb/f1/c7" # Black
+color_background="FB/F1/C7" # Black
 color_foreground="50/49/45" # Grey
 
 if [ -n "$TMUX" ]; then
@@ -76,12 +76,12 @@ put_template 247 $color247
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 504945 # foreground
-  put_template_custom Ph fbf1c7 # background
+  put_template_custom Ph FBF1C7 # background
   put_template_custom Pi 282828 # bold color
-  put_template_custom Pj b57614 # selection color
-  put_template_custom Pk fbf1c7 # selected text color
+  put_template_custom Pj B57614 # selection color
+  put_template_custom Pk FBF1C7 # selected text color
   put_template_custom Pl 504945 # cursor
-  put_template_custom Pm fbf1c7 # cursor text
+  put_template_custom Pm FBF1C7 # cursor text
 else
   put_template_var 10 $color_foreground
   if [ "$WALH_SHELL_SET_BACKGROUND" != false ]; then

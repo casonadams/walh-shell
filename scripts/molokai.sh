@@ -2,32 +2,32 @@
 # Theme: molokai
 
 # Normal
-color00="12/12/12" # Black
-color01="fa/25/73" # Red
-color02="98/e1/23" # Green
-color03="df/d4/60" # Yellow
-color04="10/80/d0" # Blue
-color05="87/00/ff" # Magenta
-color06="43/a8/d0" # Cyan
-color07="bb/bb/bb" # Grey
+color00="1E/1E/1E" # Black
+color01="FA/25/73" # Red
+color02="98/E1/23" # Green
+color03="DF/D4/60" # Yellow
+color04="10/80/D0" # Blue
+color05="87/00/FF" # Magenta
+color06="43/A8/D0" # Cyan
+color07="BB/BB/BB" # Grey
 
 # Bright
 color08="55/55/55" # Dark Grey
-color09="fa/25/73" # Red
-color10="98/e1/23" # Green
-color11="df/d4/60" # Yellow
-color12="10/80/d0" # Blue
-color13="87/00/ff" # Magenta
-color14="43/a8/d0" # Cyan
-color15="ff/ff/ff" # White
+color09="FA/25/73" # Red
+color10="98/E1/23" # Green
+color11="DF/D4/60" # Yellow
+color12="10/80/D0" # Blue
+color13="87/00/FF" # Magenta
+color14="43/A8/D0" # Cyan
+color15="FF/FF/FF" # White
 
 # 256 color
-color208="ed/7d/6a" # Orange
-color247="1e/1e/1e" # Black +5
+color208="ED/7D/6A" # Orange
+color247="//" # Black +5
 
 # Base
 color_background="12/12/12" # Black
-color_foreground="bb/bb/bb" # Grey
+color_foreground="BB/BB/BB" # Grey
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -75,12 +75,12 @@ put_template 247 $color247
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg bbbbbb # foreground
+  put_template_custom Pg BBBBBB # foreground
   put_template_custom Ph 121212 # background
-  put_template_custom Pi ffffff # bold color
-  put_template_custom Pj dfd460 # selection color
+  put_template_custom Pi FFFFFF # bold color
+  put_template_custom Pj DFD460 # selection color
   put_template_custom Pk 121212 # selected text color
-  put_template_custom Pl bbbbbb # cursor
+  put_template_custom Pl BBBBBB # cursor
   put_template_custom Pm 121212 # cursor text
 else
   put_template_var 10 $color_foreground

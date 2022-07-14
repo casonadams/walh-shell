@@ -2,32 +2,32 @@
 # Theme: utah-dark
 
 # Normal
-color00="0a/0b/0c" # Black
-color01="6d/33/33" # Red
+color00="10/12/14" # Black
+color01="6D/33/33" # Red
 color02="60/64/34" # Green
-color03="81/69/3b" # Yellow
+color03="81/69/3B" # Yellow
 color04="43/55/65" # Blue
-color05="5e/4d/63" # Magenta
+color05="5E/4D/63" # Magenta
 color06="48/65/61" # Cyan
-color07="69/6b/69" # Grey
+color07="69/6B/69" # Grey
 
 # Bright
-color08="4e/4f/4e" # Dark Grey
-color09="6d/33/33" # Red
+color08="4E/4F/4E" # Dark Grey
+color09="6D/33/33" # Red
 color10="60/64/34" # Green
-color11="81/69/3b" # Yellow
+color11="81/69/3B" # Yellow
 color12="43/55/65" # Blue
-color13="5e/4d/63" # Magenta
+color13="5E/4D/63" # Magenta
 color14="48/65/61" # Cyan
 color15="89/89/89" # White
 
 # 256 color
-color208="77/4d/2f" # Orange
-color247="10/12/14" # Black +5
+color208="77/4D/2F" # Orange
+color247="//" # Black +5
 
 # Base
-color_background="0a/0b/0c" # Black
-color_foreground="69/6b/69" # Grey
+color_background="0A/0B/0C" # Black
+color_foreground="69/6B/69" # Grey
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -75,13 +75,13 @@ put_template 247 $color247
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg 696b69 # foreground
-  put_template_custom Ph 0a0b0c # background
+  put_template_custom Pg 696B69 # foreground
+  put_template_custom Ph 0A0B0C # background
   put_template_custom Pi 898989 # bold color
-  put_template_custom Pj 81693b # selection color
-  put_template_custom Pk 0a0b0c # selected text color
-  put_template_custom Pl 696b69 # cursor
-  put_template_custom Pm 0a0b0c # cursor text
+  put_template_custom Pj 81693B # selection color
+  put_template_custom Pk 0A0B0C # selected text color
+  put_template_custom Pl 696B69 # cursor
+  put_template_custom Pm 0A0B0C # cursor text
 else
   put_template_var 10 $color_foreground
   if [ "$WALH_SHELL_SET_BACKGROUND" != false ]; then
