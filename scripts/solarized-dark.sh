@@ -1,102 +1,51 @@
 #!/usr/bin/env bash
 # Theme: solarized-dark
 
-# Normal
-color00="07/36/42" # Black
-color01="DC/32/2F" # Red
-color02="85/99/00" # Green
-color03="B5/89/00" # Yellow
-color04="26/8B/D2" # Blue
-color05="6C/71/C4" # Magenta
-color06="2A/A1/98" # Cyan
-color07="93/A1/A1" # Grey
+set_foreground() {
+  hex_color=$1
+  printf '\e]10;%s\e\\' "$hex_color"
+}
 
-# Bright
-color08="65/7B/83" # Dark Grey
-color09="DC/32/2F" # Red
-color10="85/99/00" # Green
-color11="B5/89/00" # Yellow
-color12="26/8B/D2" # Blue
-color13="6C/71/C4" # Magenta
-color14="2A/A1/98" # Cyan
-color15="FD/F6/E3" # White
+set_background() {
+  hex_color=$1
+  printf '\e]11;%s\e\\' "$hex_color"
+}
 
-# 256 color
-color208="C9/5E/17" # Orange
-color247="//" # Black +5
+set_color() {
+  color_index=$1
+  hex_color=$2
+  printf '\e]4;%d;%s\e\\' "$color_index" "$hex_color"
+}
 
-# Base
-color_background="00/2B/36" # Black
-color_foreground="93/A1/A1" # Grey
-
-if [ -n "$TMUX" ]; then
-  # Tell tmux to pass the escape sequences through
-  # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
-  put_template() { printf '\033Ptmux;\033\033]4;%d;rgb:%s\033\033\\\033\\' "$@"; }
-  put_template_var() { printf '\033Ptmux;\033\033]%d;rgb:%s\033\033\\\033\\' "$@"; }
-  put_template_custom() { printf '\033Ptmux;\033\033]%s%s\033\033\\\033\\' "$@"; }
-elif [ "${TERM%%[-.]*}" = "screen" ]; then
-  # GNU screen (screen, screen-256color, screen-256color-bce)
-  put_template() { printf '\033P\033]4;%d;rgb:%s\007\033\\' "$@"; }
-  put_template_var() { printf '\033P\033]%d;rgb:%s\007\033\\' "$@"; }
-  put_template_custom() { printf '\033P\033]%s%s\007\033\\' "$@"; }
-elif [ "${TERM%%-*}" = "linux" ]; then
-  put_template() { [ "$1" -lt 16 ] && printf "\e]P%x%s" "$1" "$(echo "$2" | sed 's/\///g')"; }
-  put_template_var() { true; }
-  put_template_custom() { true; }
-else
-  put_template() { printf '\033]4;%d;rgb:%s\033\\' "$@"; }
-  put_template_var() { printf '\033]%d;rgb:%s\033\\' "$@"; }
-  put_template_custom() { printf '\033]%s%s\033\\' "$@"; }
-fi
+set_foreground "#93A1A1"
+set_background "#002B36"
 
 # 16 color space
-put_template 0 $color00
-put_template 1 $color01
-put_template 2 $color02
-put_template 3 $color03
-put_template 4 $color04
-put_template 5 $color05
-put_template 6 $color06
-put_template 7 $color07
-put_template 8 $color08
-put_template 9 $color09
-put_template 10 $color10
-put_template 11 $color11
-put_template 12 $color12
-put_template 13 $color13
-put_template 14 $color14
-put_template 15 $color15
+set_color 0 "#073642"
+set_color 1 "#DC322F"
+set_color 2 "#859900"
+set_color 3 "#B58900"
+set_color 4 "#268BD2"
+set_color 5 "#6C71C4"
+set_color 6 "#2AA198"
+set_color 7 "#93A1A1"
+set_color 8 "#657B83"
+set_color 9 "#DC322F"
+set_color 10 "#859900"
+set_color 11 "#B58900"
+set_color 12 "#268BD2"
+set_color 13 "#6C71C4"
+set_color 14 "#2AA198"
+set_color 15 "#FDF6E3"
 
 # 256 color space
-put_template 208 $color208
-put_template 247 $color247
-
-# foreground / background / cursor color
-if [ -n "$ITERM_SESSION_ID" ]; then
-  # iTerm2 proprietary escape codes
-  put_template_custom Pg 93A1A1 # foreground
-  put_template_custom Ph 002B36 # background
-  put_template_custom Pi FDF6E3 # bold color
-  put_template_custom Pj B58900 # selection color
-  put_template_custom Pk 002B36 # selected text color
-  put_template_custom Pl 93A1A1 # cursor
-  put_template_custom Pm 002B36 # cursor text
-else
-  put_template_var 10 $color_foreground
-  if [ "$WALH_SHELL_SET_BACKGROUND" != false ]; then
-    put_template_var 11 $color_background
-    if [ "${TERM%%-*}" = "rxvt" ]; then
-      put_template_var 708 $color_background # internal border (rxvt)
-    fi
-  fi
-  put_template_custom 12 ";7" # cursor (reverse video)
-fi
+set_color 208 "#C95E17"
 
 # clean up
-unset -f put_template
-unset -f put_template_var
-unset -f put_template_custom
+unset -f set_color
+unset -f set_background
+unset -f set_foreground
+
 unset color00
 unset color01
 unset color02
@@ -114,6 +63,6 @@ unset color13
 unset color14
 unset color15
 unset color208
-unset color247
+
 unset color_foreground
 unset color_background
