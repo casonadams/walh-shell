@@ -37,3 +37,4 @@ for script in "$script_dir"/scripts/*.sh; do
   echo "alias $func_name=\"_walh \\\"$script\\\" $theme\""
 done;
 
+echo "alias walh_list_themes=\"$script_dir/list-themes.sh\""

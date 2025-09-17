@@ -10,3 +10,5 @@ WALH_SHELL=$(dirname "${(%):-%x}")
 [ -n "$PS1" ] \
     && [ -s "${WALH_SHELL}/profile_helper.sh" ] \
     && eval "$(${WALH_SHELL}/profile_helper.sh)"
+
+alias walh_list_themes="${WALH_SHELL}/list-themes.sh"
