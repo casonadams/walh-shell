@@ -1,11 +1,10 @@
-# Cobalt2 (Wes Bos)
-# Source: https://github.com/wesbos/Cobalt2-iterm
 background = "#132738"
 foreground = "#ffffff"
-cursor = "#ffffff"
-color01 = "#ff0000"  # red
-color02 = "#37de21"  # green
-color03 = "#f4d300"  # yellow
-color04 = "#14c2d2"  # blue
-color05 = "#ff5dff"  # magenta
-color06 = "#bbbb00"  # cyan
+
+color01 = "#ff0000"
+color02 = "#37de21"
+color03 = "#f4d300"
+color04 = "#14c2d2"
+color05 = "#ff5dff"
+color06 = "#bbbb00"
+

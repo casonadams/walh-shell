@@ -1,8 +1,10 @@
 background = "#002B36"
 foreground = "#93A1A1"
-color01    = "#DC322F" # red
-color02    = "#859900" # green
-color03    = "#B58900" # yellow
-color04    = "#268BD2" # blue
-color05    = "#6C71C4" # magenta
-color06    = "#2AA198" # cyan
+
+color01 = "#DC322F"
+color02 = "#859900"
+color03 = "#B58900"
+color04 = "#268BD2"
+color05 = "#6C71C4"
+color06 = "#2AA198"
+

@@ -1,8 +1,10 @@
 background = "#eeeeee"
 foreground = "#444444"
+
 color01 = "#af0000"
 color02 = "#008700"
 color03 = "#5f8700"
 color04 = "#0087af"
 color05 = "#8787af"
 color06 = "#005f87"
+

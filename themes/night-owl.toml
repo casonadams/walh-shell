@@ -1,11 +1,10 @@
-# Night Owl (Dark)
-# Source: https://github.com/jsit/night-owl-iterm2-theme
 background = "#011627"
 foreground = "#bec5d4"
-cursor = "#bec5d4"
-color01 = "#f78c6c"  # red
-color02 = "#addb67"  # green
-color03 = "#ffcb8b"  # yellow
-color04 = "#82aaff"  # blue
-color05 = "#c792ea"  # magenta
-color06 = "#7fdbca"  # cyan
+
+color01 = "#f78c6c"
+color02 = "#addb67"
+color03 = "#ffcb8b"
+color04 = "#82aaff"
+color05 = "#c792ea"
+color06 = "#7fdbca"
+

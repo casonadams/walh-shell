@@ -1,10 +1,10 @@
-# Rose Pine Dawn (Light)
 background = "#faf4ed"
 foreground = "#575279"
-# For light themes: black is darker than background
-color01    = "#b4637a" # red
-color02    = "#286983" # green
-color03    = "#ea9d34" # yellow
-color04    = "#56949f" # blue
-color05    = "#907aa9" # magenta
-color06    = "#d7827e" # cyan
+
+color01 = "#b4637a"
+color02 = "#286983"
+color03 = "#ea9d34"
+color04 = "#56949f"
+color05 = "#907aa9"
+color06 = "#d7827e"
+

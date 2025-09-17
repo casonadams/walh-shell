@@ -1,14 +1,10 @@
-# PaperColor (Dark) theme for walh-shell
-# Source: https://github.com/NLKNguyen/papercolor-theme
-
-# PaperColor Dark
-# PaperColor dark variant, inspired by Google's Material Design.
 background = "#1c1c1c"
 foreground = "#d0d0d0"
-cursor = "#d0d0d0"
-color01 = "#af005f"  # red
-color02 = "#5faf00"  # green
-color03 = "#d7af5f"  # yellow
-color04 = "#5fafd7"  # blue
-color05 = "#808080"  # magenta
-color06 = "#d7875f"  # cyan
+
+color01 = "#af005f"
+color02 = "#5faf00"
+color03 = "#d7af5f"
+color04 = "#5fafd7"
+color05 = "#808080"
+color06 = "#d7875f"
+
