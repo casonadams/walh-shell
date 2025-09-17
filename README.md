@@ -25,15 +25,6 @@ walh_onedark
 walh_onelight
 ```
 
-## using with vim
-
-install [walh](https://github.com/casonadams/walh) colorscheme
-
-```vimrc
-set notermguicolors
-colorscheme walh-default
-```
-
 ## tmux Truecolor and Dynamic Color Troubleshooting
 
 If you want to change terminal colors dynamically (e.g., using walh-shell scripts) **inside tmux**, you need to ensure tmux is configured to allow passthrough of escape sequences and truecolor support.
@@ -57,8 +48,3 @@ tmux kill-server
 tmux
 ```
 
-### Vim: Seeing Escape Sequences Instead of Colors?
-
-- Make sure your `$TERM` is set to `xterm-256color` (outside tmux) and `xterm-256color` or `tmux-256color` (inside tmux).
-- Try toggling `:set termguicolors` and `:set notermguicolors` in Vim to see which works best for your terminal and theme.
-- If you still see escape codes, check your terminal emulator and tmux config as above.

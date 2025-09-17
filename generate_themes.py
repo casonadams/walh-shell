@@ -6,6 +6,33 @@ import shutil
 import subprocess
 import toml
 
+def hex_to_rgb(hex_color):
+    hex_color = hex_color.lstrip('#')
+    return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+
+def rgb_to_hex(rgb):
+    return '#{:02X}{:02X}{:02X}'.format(*rgb)
+
+def lighten(hex_color, amount):
+    rgb = hex_to_rgb(hex_color)
+    return rgb_to_hex(tuple(min(int(c + (255 - c) * amount), 255) for c in rgb))
+
+def darken(hex_color, amount):
+    rgb = hex_to_rgb(hex_color)
+    return rgb_to_hex(tuple(max(int(c * (1 - amount)), 0) for c in rgb))
+
+def blend(hex1, hex2, ratio):
+    rgb1 = hex_to_rgb(hex1)
+    rgb2 = hex_to_rgb(hex2)
+    return rgb_to_hex(tuple(int(rgb1[i] * (1 - ratio) + rgb2[i] * ratio) for i in range(3)))
+
+def luminance(hex_color):
+    r, g, b = hex_to_rgb(hex_color)
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+def is_dark_theme(background, foreground):
+    return luminance(background) < luminance(foreground)
+
 shutil.rmtree("scripts")
 os.mkdir("scripts")
 
@@ -18,24 +45,34 @@ for dir in os.listdir("themes"):
     background = theme["background"]
     foreground = theme["foreground"]
 
-    color00 = theme["color00"]
     color01 = theme["color01"]
     color02 = theme["color02"]
     color03 = theme["color03"]
     color04 = theme["color04"]
     color05 = theme["color05"]
     color06 = theme["color06"]
-    color07 = theme["color07"]
-    color08 = theme["color08"]
-    color09 = theme["color09"]
-    color10 = theme["color10"]
-    color11 = theme["color11"]
-    color12 = theme["color12"]
-    color13 = theme["color13"]
-    color14 = theme["color14"]
-    color15 = theme["color15"]
 
-    color208 = theme["color208"]
+    # Determine if theme is dark or light
+    dark_theme = is_dark_theme(background, foreground)
+
+    # Auto-generate color00, color07, color08, color15, color208 if missing
+    if dark_theme:
+        color00 = theme.get("color00") or lighten(background, 0.1)
+        color15 = theme.get("color15") or lighten(foreground, 0.8)
+    else:
+        color00 = theme.get("color00") or darken(background, 0.1)
+        color15 = theme.get("color15") or darken(foreground, 0.2)
+    color07 = theme.get("color07") or lighten(foreground, 0.1)
+    color08 = theme.get("color08") or blend(background, foreground, 0.5)
+    color208 = theme.get("color208") or blend(color01, color03, 0.5)
+
+    # Bright colors: match normal if not present
+    color09 = theme.get("color09") or color01
+    color10 = theme.get("color10") or color02
+    color11 = theme.get("color11") or color03
+    color12 = theme.get("color12") or color04
+    color13 = theme.get("color13") or color05
+    color14 = theme.get("color14") or color06
 
     with open("template/default.mustache", "r") as file:
         f = file.read()

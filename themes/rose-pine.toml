@@ -1,0 +1,10 @@
+# Rose Pine (Main)
+background = "#191724"
+foreground = "#e0def4"
+# For dark themes: black is lighter than background
+color01    = "#eb6f92" # red
+color02    = "#31748f" # green
+color03    = "#f6c177" # yellow
+color04    = "#9ccfd8" # blue
+color05    = "#c4a7e7" # magenta
+color06    = "#ebbcba" # cyan

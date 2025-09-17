@@ -1,0 +1,9 @@
+# Monokai Pro (default)
+background = "#2d2a2e"
+foreground = "#fcfcfa"
+color01    = "#ff6188" # red
+color02    = "#a9dc76" # green
+color03    = "#ffd866" # yellow
+color04    = "#78dce8" # blue
+color05    = "#ab9df2" # magenta
+color06    = "#78dce8" # cyan

@@ -22,7 +22,6 @@ _walh()
   [ -f $script ] && . $script
   ln -fs $script ~/.walh_theme
   export WALH_THEME=${theme}
-  echo -e "if \0041exists('g:colors_name') || g:colors_name != 'walh-$theme'\n  colorscheme walh-$theme\nendif" >| ~/.vimrc_background
   if [ -n ${WALH_SHELL_HOOKS:+s} ] && [ -d "${WALH_SHELL_HOOKS}" ]; then
     for hook in $WALH_SHELL_HOOKS/*; do
       [ -f "$hook" ] && [ -x "$hook" ] && "$hook"

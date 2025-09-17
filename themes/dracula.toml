@@ -1,22 +1,8 @@
 background = "#282936"
 foreground = "#e9e9f4"
-
-color00    = "#3a3c4e" # black
 color01    = "#ea51b2" # red
 color02    = "#ebff87" # green
 color03    = "#00f769" # yellow
 color04    = "#62d6e8" # blue
 color05    = "#b45bcf" # magenta
 color06    = "#a1efe4" # cyan
-color07    = "#e9e9f4" # grey
-color08    = "#626483" # dark grey
-color09    = "#ea51b2" # bright red
-color10    = "#ebff87" # bright green
-color11    = "#00f769" # bright yellow
-color12    = "#62d6e8" # bright blue
-color13    = "#b45bcf" # bright magenta
-color14    = "#a1efe4" # bright cyan
-color15    = "#f7f7fb" # white
-
-color208   = "#b45bcf" # orange
-color247   = "#3a3c4e" # black +5

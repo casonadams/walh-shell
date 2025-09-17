@@ -1,0 +1,10 @@
+# Rose Pine Moon
+dark = true
+background = "#232136"
+foreground = "#e0def4"
+color01    = "#eb6f92" # red
+color02    = "#3e8fb0" # green
+color03    = "#f6c177" # yellow
+color04    = "#9ccfd8" # blue
+color05    = "#c4a7e7" # magenta
+color06    = "#ea9a97" # cyan
