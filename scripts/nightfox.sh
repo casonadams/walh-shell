@@ -49,10 +49,6 @@ if [ -n "$TMUX" ]; then
   put_template() { printf '\033Ptmux;\033\033]4;%d;rgb:%s\033\033\\\033\\' "$@"; }
   put_template_var() { printf '\033Ptmux;\033\033]%d;rgb:%s\033\033\\\033\\' "$@"; }
   put_template_custom() { printf '\033Ptmux;\033\033]%s%s\033\033\\\033\\' "$@"; }
-  # tmux parses default fg/bg (OSC 10/11) natively: sent unwrapped, tmux
-  # tracks them and answers colour queries with the live theme instead of a
-  # background it learned at tmux startup.
-  put_template_var_native() { printf '\033]%d;rgb:%s\033\\' "$@"; }
 elif [ "${TERM%%[-.]*}" = "screen" ]; then
   # GNU screen (screen, screen-256color, screen-256color-bce)
   put_template() { printf '\033P\033]4;%d;rgb:%s\007\033\\' "$@"; }
@@ -100,9 +96,9 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   put_template_custom Pl cdcecf # cursor
   put_template_custom Pm 192330 # cursor text
 else
-  put_template_var_native 10 "$color_foreground"
+  put_template_var 10 "$color_foreground"
   if [ "$WALH_SHELL_SET_BACKGROUND" != false ]; then
-    put_template_var_native 11 "$color_background"
+    put_template_var 11 "$color_background"
     if [ "${TERM%%-*}" = "rxvt" ]; then
       put_template_var 708 "$color_background" # internal border (rxvt)
     fi
@@ -111,7 +107,7 @@ else
 fi
 
 # clean up
-for fn in put_template put_template_var put_template_var_native put_template_custom; do
+for fn in put_template put_template_var put_template_custom; do
   unset -f "$fn" 2>/dev/null || true
 done
 for var in \
