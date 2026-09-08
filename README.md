@@ -15,8 +15,9 @@ walh-shell lets you instantly change your terminal’s color scheme with a singl
 - **Zsh & Bash support**: Works in both Zsh and Bash shells.
 - **Plugin-friendly**: Simple to install with any Zsh plugin manager (zinit, zplug, etc).
 - **Truecolor & tmux support**: Works with modern terminals and tmux (see below for config tips).
-- **Mode announcement**: Every theme script exports `WALH_MODE=dark|light` (derived from palette
-  luminance), so programs launched from the shell can adapt without guessing.
+- **Mode announcement**: Every theme script exports `WALH_MODE=dark|light` and `COLORFGBG` (the
+  ncurses/rxvt convention), both derived from palette luminance, so programs launched from the
+  shell can adopt the mode without querying the terminal.
 - **Derived base colors**: `color00` (surface: background mixed 15% toward the foreground) and
   `color08` (dim: foreground washed 40% toward the background on dark palettes, 50% on light) are
   computed from each theme's own foreground/background, so panels and secondary text stay distinct

@@ -33,6 +33,9 @@ color_foreground="4D/4D/4C" # Grey
 
 # Announce the active palette to programs launched from this shell
 export WALH_MODE=light
+# ncurses/rxvt convention: programs like mutt and rho read this to adopt
+# the palette's mode without querying the terminal
+export COLORFGBG="0;15"
 state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
 mkdir -p "$state_dir"
 cat > "$state_dir/state.toml" <<STATEEOF
