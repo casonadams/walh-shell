@@ -15,7 +15,7 @@ color06="00/91/91" # Cyan
 color07="C1/C1/C1" # Grey
 
 # Bright
-color08="73/73/73" # Dark Grey
+color08="81/81/81" # Dark Grey
 color09="DB/54/51" # Red
 color10="54/8C/26" # Green
 color11="A8/90/22" # Yellow
@@ -30,6 +30,9 @@ color208="C1/72/39" # Orange
 # Base
 color_background="2B/2B/2B" # Black
 color_foreground="BB/BB/BB" # Grey
+
+# Announce the palette's mode to programs launched from this shell
+export WALH_MODE=dark
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through

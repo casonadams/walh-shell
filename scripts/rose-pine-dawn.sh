@@ -5,23 +5,23 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="E1/DB/D5" # Black
+color00="E1/DB/DB" # Black
 color01="b4/63/7a" # Red
 color02="28/69/83" # Green
-color03="ea/9d/34" # Yellow
+color03="B4/79/27" # Yellow
 color04="56/94/9f" # Blue
 color05="90/7a/a9" # Magenta
-color06="d7/82/7e" # Cyan
+color06="BD/72/6E" # Cyan
 color07="67/63/86" # Grey
 
 # Bright
 color08="A8/A3/B3" # Dark Grey
 color09="b4/63/7a" # Red
 color10="28/69/83" # Green
-color11="ea/9d/34" # Yellow
+color11="B4/79/27" # Yellow
 color12="56/94/9f" # Blue
 color13="90/7a/a9" # Magenta
-color14="d7/82/7e" # Cyan
+color14="BD/72/6E" # Cyan
 color15="45/41/60" # White
 
 # 256 color
@@ -30,6 +30,9 @@ color208="CF/80/57" # Orange
 # Base
 color_background="fa/f4/ed" # Black
 color_foreground="57/52/79" # Grey
+
+# Announce the palette's mode to programs launched from this shell
+export WALH_MODE=light
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -79,7 +82,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   put_template_custom Pg 575279 # foreground
   put_template_custom Ph faf4ed # background
   put_template_custom Pi 454160 # bold color
-  put_template_custom Pj ea9d34 # selection color
+  put_template_custom Pj B47927 # selection color
   put_template_custom Pk faf4ed # selected text color
   put_template_custom Pl 575279 # cursor
   put_template_custom Pm faf4ed # cursor text

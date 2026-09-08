@@ -5,22 +5,22 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="E1/D2/D2" # Black
-color01="d4/6a/6a" # Red
+color00="F0/D6/D6" # Black
+color01="BA/5D/5D" # Red
 color02="a8/32/32" # Green
 color03="6a/23/23" # Yellow
-color04="c1/7f/7f" # Blue
-color05="e6/9a/9a" # Magenta
+color04="A9/6F/6F" # Blue
+color05="B1/76/76" # Magenta
 color06="c1/4a/4a" # Cyan
 color07="BF/78/78" # Grey
 
 # Bright
 color08="D9/AA/AA" # Dark Grey
-color09="d4/6a/6a" # Red
+color09="BA/5D/5D" # Red
 color10="a8/32/32" # Green
 color11="6a/23/23" # Yellow
-color12="c1/7f/7f" # Blue
-color13="e6/9a/9a" # Magenta
+color12="A9/6F/6F" # Blue
+color13="B1/76/76" # Magenta
 color14="c1/4a/4a" # Cyan
 color15="93/54/54" # White
 
@@ -30,6 +30,9 @@ color208="9F/46/46" # Orange
 # Base
 color_background="fb/ea/ea" # Black
 color_foreground="b8/6a/6a" # Grey
+
+# Announce the palette's mode to programs launched from this shell
+export WALH_MODE=light
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through

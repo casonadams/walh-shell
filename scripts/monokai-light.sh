@@ -5,23 +5,23 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="E0/DF/DC" # Black
-color01="ff/61/88" # Red
-color02="a9/dc/76" # Green
-color03="ff/d8/66" # Yellow
-color04="78/dc/e8" # Blue
-color05="ab/9d/f2" # Magenta
-color06="78/dc/e8" # Cyan
+color00="DD/DC/DA" # Black
+color01="E0/55/77" # Red
+color02="72/94/4F" # Green
+color03="98/80/3B" # Yellow
+color04="50/94/9D" # Blue
+color05="84/79/BA" # Magenta
+color06="50/94/9D" # Cyan
 color07="53/51/54" # Grey
 
 # Bright
 color08="9C/9B/9B" # Dark Grey
-color09="ff/61/88" # Red
-color10="a9/dc/76" # Green
-color11="ff/d8/66" # Yellow
-color12="78/dc/e8" # Blue
-color13="ab/9d/f2" # Magenta
-color14="78/dc/e8" # Cyan
+color09="E0/55/77" # Red
+color10="72/94/4F" # Green
+color11="98/80/3B" # Yellow
+color12="50/94/9D" # Blue
+color13="84/79/BA" # Magenta
+color14="50/94/9D" # Cyan
 color15="33/31/34" # White
 
 # 256 color
@@ -30,6 +30,9 @@ color208="FF/9C/77" # Orange
 # Base
 color_background="f9/f8/f5" # Black
 color_foreground="40/3e/41" # Grey
+
+# Announce the palette's mode to programs launched from this shell
+export WALH_MODE=light
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -79,7 +82,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   put_template_custom Pg 403e41 # foreground
   put_template_custom Ph f9f8f5 # background
   put_template_custom Pi 333134 # bold color
-  put_template_custom Pj ffd866 # selection color
+  put_template_custom Pj 98803B # selection color
   put_template_custom Pk f9f8f5 # selected text color
   put_template_custom Pl 403e41 # cursor
   put_template_custom Pm f9f8f5 # cursor text

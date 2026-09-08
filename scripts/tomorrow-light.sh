@@ -5,10 +5,10 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="E5/E5/E5" # Black
+color00="E4/E4/E4" # Black
 color01="C8/28/29" # Red
 color02="71/8C/00" # Green
-color03="EA/B7/00" # Yellow
+color03="B4/8D/00" # Yellow
 color04="42/71/AE" # Blue
 color05="89/59/A8" # Magenta
 color06="3E/99/9F" # Cyan
@@ -18,7 +18,7 @@ color07="5E/5E/5D" # Grey
 color08="A6/A6/A5" # Dark Grey
 color09="C8/28/29" # Red
 color10="71/8C/00" # Green
-color11="EA/B7/00" # Yellow
+color11="B4/8D/00" # Yellow
 color12="42/71/AE" # Blue
 color13="89/59/A8" # Magenta
 color14="3E/99/9F" # Cyan
@@ -30,6 +30,9 @@ color208="D9/6F/14" # Orange
 # Base
 color_background="FF/FF/FF" # Black
 color_foreground="4D/4D/4C" # Grey
+
+# Announce the palette's mode to programs launched from this shell
+export WALH_MODE=light
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -79,7 +82,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   put_template_custom Pg 4D4D4C # foreground
   put_template_custom Ph FFFFFF # background
   put_template_custom Pi 3D3D3C # bold color
-  put_template_custom Pj EAB700 # selection color
+  put_template_custom Pj B48D00 # selection color
   put_template_custom Pk FFFFFF # selected text color
   put_template_custom Pl 4D4D4C # cursor
   put_template_custom Pm FFFFFF # cursor text

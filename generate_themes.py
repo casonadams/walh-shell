@@ -30,6 +30,26 @@ def luminance(hex_color):
     r, g, b = hex_to_rgb(hex_color)
     return 0.2126 * r + 0.7152 * g + 0.0722 * b
 
+def relative_luminance(hex_color):
+    r, g, b = hex_to_rgb(hex_color)
+    def linear(channel):
+        channel /= 255
+        return channel / 12.92 if channel <= 0.04045 else ((channel + 0.055) / 1.055) ** 2.4
+    return 0.2126 * linear(r) + 0.7152 * linear(g) + 0.0722 * linear(b)
+
+def contrast_ratio(hex1, hex2):
+    lighter = max(relative_luminance(hex1), relative_luminance(hex2))
+    darker = min(relative_luminance(hex1), relative_luminance(hex2))
+    return (lighter + 0.05) / (darker + 0.05)
+
+def ensure_contrast(hex_color, background, min_ratio):
+    color = hex_color
+    for _ in range(12):
+        if contrast_ratio(color, background) >= min_ratio:
+            break
+        color = darken(color, 0.12)
+    return color
+
 def is_dark_theme(background, foreground):
     return luminance(background) < luminance(foreground)
 
@@ -55,16 +75,26 @@ for dir in os.listdir("themes"):
     # Determine if theme is dark or light
     dark_theme = is_dark_theme(background, foreground)
 
-    # Auto-generate color00, color07, color08, color15, color208 if missing
+    # Derived base-16 defaults: color00 acts as the panel surface and color08
+    # as dimmed text, blended from the theme's own foreground/background so
+    # they stay distinct on any palette. A given wash reads heavier on light
+    # backgrounds, so dim takes a stronger wash there.
+    color00 = theme.get("color00") or blend(background, foreground, 0.15)
+    color08 = theme.get("color08") or blend(foreground, background, 0.40 if dark_theme else 0.50)
+
     if dark_theme:
-        color00 = theme.get("color00") or lighten(background, 0.1)
         color15 = theme.get("color15") or lighten(foreground, 0.8)
     else:
-        color00 = theme.get("color00") or darken(background, 0.1)
         color15 = theme.get("color15") or darken(foreground, 0.2)
     color07 = theme.get("color07") or lighten(foreground, 0.1)
-    color08 = theme.get("color08") or blend(background, foreground, 0.5)
     color208 = theme.get("color208") or blend(color01, color03, 0.5)
+
+    # Light palettes pair a near-white background with accents that were
+    # drawn for a dark canvas; darken any accent that cannot reach a
+    # readable contrast floor so the palette comes together on light terms.
+    if not dark_theme:
+        for slot in ("color01", "color02", "color03", "color04", "color05", "color06"):
+            locals()[slot] = ensure_contrast(locals()[slot], background, 3.0)
 
     # Bright colors: match normal if not present
     color09 = theme.get("color09") or color01
@@ -156,6 +186,7 @@ for dir in os.listdir("themes"):
                 "base208-hex-r": color208[1:3],
                 "base208-hex-g": color208[3:5],
                 "base208-hex-b": color208[5:7],
+                "mode": "dark" if dark_theme else "light",
             },
         }
         render = chevron.render(**args)
