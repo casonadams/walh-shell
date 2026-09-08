@@ -80,13 +80,17 @@ for dir in os.listdir("themes"):
     # they stay distinct on any palette. A given wash reads heavier on light
     # backgrounds, so dim takes a stronger wash there.
     color00 = theme.get("color00") or blend(background, foreground, 0.15)
-    color08 = theme.get("color08") or blend(foreground, background, 0.40 if dark_theme else 0.50)
+    color08 = theme.get("color08") or blend(foreground, background, 0.40 if dark_theme else 0.25)
 
+    # Light canvases keep the canonical neutral roles: grey (07) sits closer
+    # to the background as a ghosted mid tone, and white (15) stays near-white
+    # instead of inverting to near-black.
     if dark_theme:
+        color07 = theme.get("color07") or lighten(foreground, 0.1)
         color15 = theme.get("color15") or lighten(foreground, 0.8)
     else:
-        color15 = theme.get("color15") or darken(foreground, 0.2)
-    color07 = theme.get("color07") or lighten(foreground, 0.1)
+        color07 = theme.get("color07") or blend(foreground, background, 0.50)
+        color15 = theme.get("color15") or blend(foreground, background, 0.90)
     color208 = theme.get("color208") or blend(color01, color03, 0.5)
 
     # Light palettes pair a near-white background with accents that were

@@ -12,17 +12,17 @@ color03="98/80/3B" # Yellow
 color04="50/94/9D" # Blue
 color05="84/79/BA" # Magenta
 color06="50/94/9D" # Cyan
-color07="53/51/54" # Grey
+color07="9C/9B/9B" # Grey
 
 # Bright
-color08="9C/9B/9B" # Dark Grey
+color08="6E/6C/6E" # Dark Grey
 color09="E0/55/77" # Red
 color10="72/94/4F" # Green
 color11="98/80/3B" # Yellow
 color12="50/94/9D" # Blue
 color13="84/79/BA" # Magenta
 color14="50/94/9D" # Cyan
-color15="33/31/34" # White
+color15="E6/E5/E3" # White
 
 # 256 color
 color208="FF/9C/77" # Orange
@@ -31,8 +31,17 @@ color208="FF/9C/77" # Orange
 color_background="f9/f8/f5" # Black
 color_foreground="40/3e/41" # Grey
 
-# Announce the palette's mode to programs launched from this shell
+# Announce the active palette to programs launched from this shell
 export WALH_MODE=light
+state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
+mkdir -p "$state_dir"
+cat > "$state_dir/state.toml" <<STATEEOF
+mode = "light"
+background = "#f9f8f5"
+foreground = "#403e41"
+surface = "#DDDCDA"
+dim = "#6E6C6E"
+STATEEOF
 
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
@@ -81,7 +90,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 403e41 # foreground
   put_template_custom Ph f9f8f5 # background
-  put_template_custom Pi 333134 # bold color
+  put_template_custom Pi E6E5E3 # bold color
   put_template_custom Pj 98803B # selection color
   put_template_custom Pk f9f8f5 # selected text color
   put_template_custom Pl 403e41 # cursor
@@ -104,6 +113,6 @@ done
 for var in \
   color00 color01 color02 color03 color04 color05 color06 color07 \
   color08 color09 color10 color11 color12 color13 color14 color15 \
-  color208 color_foreground color_background; do
+  color208 color_foreground color_background state_dir; do
   unset "$var" 2>/dev/null || true
 done
