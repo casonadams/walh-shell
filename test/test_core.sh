@@ -69,7 +69,8 @@ test_escape_batching_and_cleanup() {
 
   # Source the theme in a subshell and check emitted output and unsetting of temp variables
   local check_script
-  check_script="$(cat <<EOF
+  check_script="$(
+    cat <<EOF
 XDG_CACHE_HOME="$tmp_cache" . "$script"
 # Check that temporary variables were unset
 [ -z "\${walh_buffer+x}" ] || echo "LEAK: walh_buffer"
@@ -82,7 +83,7 @@ type put_template >/dev/null 2>&1 && echo "LEAK_FN: put_template"
 echo "MODE:\$WALH_MODE"
 echo "COLORFGBG:\$COLORFGBG"
 EOF
-)"
+  )"
 
   local output
   output="$(bash -c "$check_script")"
@@ -255,13 +256,14 @@ test_interactive_walh_dispatcher() {
   tmp_home="$(mktemp -d)"
 
   local test_script
-  test_script="$(cat <<EOF
+  test_script="$(
+    cat <<EOF
 HOME="$tmp_home"
 eval "\$("$REPO_DIR/profile_helper.sh")"
 walh gruvbox-dark
 echo "APPLIED:\$WALH_THEME"
 EOF
-)"
+  )"
 
   local output
   output="$(bash -c "$test_script")"

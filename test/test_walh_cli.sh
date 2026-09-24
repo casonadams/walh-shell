@@ -52,14 +52,15 @@ test_apply_theme() {
   tmp_home="$(mktemp -d)"
 
   local test_script
-  test_script="$(cat <<EOF
+  test_script="$(
+    cat <<EOF
 HOME="$tmp_home"
 eval "\$("$REPO_DIR/profile_helper.sh")"
 walh onedark
 echo "THEME:\$WALH_THEME"
 echo "MODE:\$WALH_MODE"
 EOF
-)"
+  )"
 
   local output
   output="$(bash -c "$test_script")"
@@ -77,13 +78,14 @@ test_current() {
   tmp_home="$(mktemp -d)"
 
   local test_script
-  test_script="$(cat <<EOF
+  test_script="$(
+    cat <<EOF
 HOME="$tmp_home"
 eval "\$("$REPO_DIR/profile_helper.sh")"
 walh gruvbox-dark
 walh current
 EOF
-)"
+  )"
 
   local output
   output="$(bash -c "$test_script")"
@@ -101,7 +103,8 @@ test_toggle() {
   tmp_home="$(mktemp -d)"
 
   local test_script
-  test_script="$(cat <<EOF
+  test_script="$(
+    cat <<EOF
 HOME="$tmp_home"
 eval "\$("$REPO_DIR/profile_helper.sh")"
 # Start on onedark
@@ -124,7 +127,7 @@ echo "TOGGLE2:\$WALH_THEME:\$WALH_MODE"
 walh toggle
 echo "TOGGLE3:\$WALH_THEME:\$WALH_MODE"
 EOF
-)"
+  )"
 
   local output
   output="$(bash -c "$test_script")"
@@ -145,7 +148,8 @@ test_list() {
   tmp_home="$(mktemp -d)"
 
   local test_script
-  test_script="$(cat <<EOF
+  test_script="$(
+    cat <<EOF
 HOME="$tmp_home"
 eval "\$("$REPO_DIR/profile_helper.sh")"
 echo "===ALL==="
@@ -155,7 +159,7 @@ walh list --dark
 echo "===LIGHT==="
 walh list --light
 EOF
-)"
+  )"
 
   local output
   output="$(bash -c "$test_script")"
@@ -187,7 +191,8 @@ test_random() {
   tmp_home="$(mktemp -d)"
 
   local test_script
-  test_script="$(cat <<EOF
+  test_script="$(
+    cat <<EOF
 HOME="$tmp_home"
 eval "\$("$REPO_DIR/profile_helper.sh")"
 walh random dark
@@ -195,7 +200,7 @@ echo "RANDOM_DARK_MODE:\$WALH_MODE"
 walh random light
 echo "RANDOM_LIGHT_MODE:\$WALH_MODE"
 EOF
-)"
+  )"
 
   local output
   output="$(bash -c "$test_script")"
@@ -213,7 +218,8 @@ test_errors() {
   tmp_home="$(mktemp -d)"
 
   local test_script
-  test_script="$(cat <<EOF
+  test_script="$(
+    cat <<EOF
 HOME="$tmp_home"
 eval "\$("$REPO_DIR/profile_helper.sh")"
 
@@ -229,7 +235,7 @@ walh list --bogus 2>&1 || echo "CAUGHT_INVALID_LIST_OPT"
 # Invalid random option
 walh random --bogus 2>&1 || echo "CAUGHT_INVALID_RANDOM_OPT"
 EOF
-)"
+  )"
 
   local output
   output="$(bash -c "$test_script")"

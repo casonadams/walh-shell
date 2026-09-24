@@ -52,12 +52,13 @@ test_preview_headless_fallback() {
   tmp_home="$(mktemp -d)"
 
   local test_script
-  test_script="$(cat <<EOF
+  test_script="$(
+    cat <<EOF
 HOME="$tmp_home"
 eval "\$("$REPO_DIR/profile_helper.sh")"
 walh preview 2>&1 || echo "PREVIEW_EXIT:\$?"
 EOF
-)"
+  )"
 
   # Running in non-interactive subshell (no TTY on stdin/stdout)
   local output
@@ -76,7 +77,8 @@ test_preview_fzf_missing() {
   tmp_home="$(mktemp -d)"
 
   local test_script
-  test_script="$(cat <<EOF
+  test_script="$(
+    cat <<EOF
 HOME="$tmp_home"
 eval "\$("$REPO_DIR/profile_helper.sh")"
 # Shadow fzf
@@ -89,7 +91,7 @@ _walh_preview_test() {
 }
 _walh_preview_test
 EOF
-)"
+  )"
 
   local output
   output="$(bash -c "$test_script")"
@@ -103,7 +105,8 @@ EOF
 # ---------------------------------------------------------------------------
 test_bash_completions() {
   local test_script
-  test_script="$(cat <<EOF
+  test_script="$(
+    cat <<EOF
 WALH_SHELL="$REPO_DIR"
 . "$REPO_DIR/completions/walh.bash"
 
@@ -136,7 +139,7 @@ COMP_CWORD=2
 _walh_bash_completion
 echo "COMP_RANDOM:\${COMPREPLY[*]}"
 EOF
-)"
+  )"
 
   local output
   output="$(bash -c "$test_script")"
@@ -158,7 +161,7 @@ test_rich_hook_variables() {
 
   # Create mock hook
   local hook_log="$tmp_home/hook.log"
-  cat > "$hooks_dir/99-test-hook.sh" <<EOF
+  cat >"$hooks_dir/99-test-hook.sh" <<EOF
 #!/bin/sh
 echo "HOOK_THEME=\$WALH_THEME" >> "$hook_log"
 echo "HOOK_MODE=\$WALH_MODE" >> "$hook_log"
@@ -168,13 +171,14 @@ EOF
   chmod +x "$hooks_dir/99-test-hook.sh"
 
   local test_script
-  test_script="$(cat <<EOF
+  test_script="$(
+    cat <<EOF
 HOME="$tmp_home"
 export WALH_SHELL_HOOKS="$hooks_dir"
 eval "\$("$REPO_DIR/profile_helper.sh")"
 walh gruvbox-dark >/dev/null 2>&1
 EOF
-)"
+  )"
 
   bash -c "$test_script"
 
@@ -202,21 +206,23 @@ test_fzf_sync() {
 
   # Without WALH_SYNC_FZF: FZF_DEFAULT_OPTS is untouched
   local test_script_nosync
-  test_script_nosync="$(cat <<EOF
+  test_script_nosync="$(
+    cat <<EOF
 HOME="$tmp_home"
 FZF_DEFAULT_OPTS="--height 40%"
 eval "\$("$REPO_DIR/profile_helper.sh")"
 walh gruvbox-dark >/dev/null 2>&1
 echo "FZF_OPTS:\$FZF_DEFAULT_OPTS"
 EOF
-)"
+  )"
   local out_nosync
   out_nosync="$(bash -c "$test_script_nosync")"
   assert_eq "FZF_OPTS:--height 40%" "$out_nosync" "FZF_DEFAULT_OPTS is not changed when WALH_SYNC_FZF is unset"
 
   # With WALH_SYNC_FZF=1: FZF_DEFAULT_OPTS has theme colors
   local test_script_sync
-  test_script_sync="$(cat <<EOF
+  test_script_sync="$(
+    cat <<EOF
 HOME="$tmp_home"
 FZF_DEFAULT_OPTS="--height 40%"
 export WALH_SYNC_FZF=1
@@ -224,7 +230,7 @@ eval "\$("$REPO_DIR/profile_helper.sh")"
 walh gruvbox-dark >/dev/null 2>&1
 echo "FZF_OPTS:\$FZF_DEFAULT_OPTS"
 EOF
-)"
+  )"
   local out_sync
   out_sync="$(bash -c "$test_script_sync")"
   assert_contains "$out_sync" "--color=bg:#282828" "FZF_DEFAULT_OPTS synced background color"

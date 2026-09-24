@@ -14,7 +14,7 @@ _walh_bash_completion() {
   local cur prev
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
-  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  prev="${COMP_WORDS[COMP_CWORD - 1]}"
 
   local subcommands="current toggle list random preview help"
 

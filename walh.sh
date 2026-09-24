@@ -6,7 +6,7 @@ if [ -z "${WALH_SHELL:-}" ]; then
     WALH_SHELL="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
   elif [ -n "${ZSH_VERSION:-}" ]; then
     # shellcheck disable=SC2296
-    WALH_SHELL="$(cd "$(dirname "${(%):-%x}")" && pwd)"
+    eval 'WALH_SHELL="$(cd "$(dirname "${(%):-%x}")" && pwd)"'
   fi
 fi
 
@@ -52,9 +52,9 @@ _walh_apply() {
   local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/walh"
   mkdir -p "$state_dir"
   if [ "${WALH_MODE:-}" = "dark" ]; then
-    printf '%s\n' "$theme" > "$state_dir/last_dark"
+    printf '%s\n' "$theme" >"$state_dir/last_dark"
   elif [ "${WALH_MODE:-}" = "light" ]; then
-    printf '%s\n' "$theme" > "$state_dir/last_light"
+    printf '%s\n' "$theme" >"$state_dir/last_light"
   fi
 
   # Execute user hooks
@@ -128,13 +128,16 @@ _walh_list() {
   local filter=""
   while [ $# -gt 0 ]; do
     case "$1" in
-      --dark|-d)
-        filter="dark" ;;
-      --light|-l)
-        filter="light" ;;
+      --dark | -d)
+        filter="dark"
+        ;;
+      --light | -l)
+        filter="light"
+        ;;
       *)
         echo "walh list: unknown option: $1" >&2
-        return 1 ;;
+        return 1
+        ;;
     esac
     shift
   done
@@ -149,15 +152,18 @@ _walh_list() {
     dark)
       grep -l '^export WALH_MODE=.*dark' "$scripts_dir"/*.sh 2>/dev/null | while read -r f; do
         basename "$f" .sh
-      done | sort ;;
+      done | sort
+      ;;
     light)
       grep -l '^export WALH_MODE=.*light' "$scripts_dir"/*.sh 2>/dev/null | while read -r f; do
         basename "$f" .sh
-      done | sort ;;
+      done | sort
+      ;;
     *)
       for f in "$scripts_dir"/*.sh; do
         [ -f "$f" ] && basename "$f" .sh
-      done | sort ;;
+      done | sort
+      ;;
   esac
 }
 
@@ -165,13 +171,16 @@ _walh_random() {
   local mode_filter=""
   if [ $# -gt 0 ]; then
     case "$1" in
-      dark|--dark|-d)
-        mode_filter="--dark" ;;
-      light|--light|-l)
-        mode_filter="--light" ;;
+      dark | --dark | -d)
+        mode_filter="--dark"
+        ;;
+      light | --light | -l)
+        mode_filter="--light"
+        ;;
       *)
         echo "walh random: unknown option: $1" >&2
-        return 1 ;;
+        return 1
+        ;;
     esac
   fi
 
@@ -191,7 +200,7 @@ _walh_random() {
 
   local idx
   if [ -n "${RANDOM:-}" ]; then
-    idx=$(( (RANDOM % count) + 1 ))
+    idx=$(((RANDOM % count) + 1))
   else
     idx=$(awk -v n="$count" 'BEGIN {srand(); print int(rand() * n) + 1}')
   fi
@@ -315,23 +324,31 @@ walh() {
   local cmd="${1:-}"
   case "$cmd" in
     "")
-      _walh_preview ;;
+      _walh_preview
+      ;;
     current)
-      _walh_current ;;
+      _walh_current
+      ;;
     toggle)
-      _walh_toggle ;;
+      _walh_toggle
+      ;;
     list)
       shift
-      _walh_list "$@" ;;
+      _walh_list "$@"
+      ;;
     random)
       shift
-      _walh_random "$@" ;;
+      _walh_random "$@"
+      ;;
     preview)
       shift
-      _walh_preview "$@" ;;
-    -h|--help|help)
-      _walh_help ;;
+      _walh_preview "$@"
+      ;;
+    -h | --help | help)
+      _walh_help
+      ;;
     *)
-      _walh_apply "$cmd" ;;
+      _walh_apply "$cmd"
+      ;;
   esac
 }

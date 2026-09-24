@@ -3,9 +3,9 @@ set -euo pipefail
 
 if [ -n "${BASH_SOURCE[0]:-}" ]; then
   SCRIPT_PATH="${BASH_SOURCE[0]}"
-elif [ -n "${(%):-%x}" ]; then
+elif [ -n "${ZSH_VERSION:-}" ]; then
   # shellcheck disable=SC2296
-  SCRIPT_PATH="${(%):-%x}"
+  eval 'SCRIPT_PATH="${(%):-%x}"'
 else
   SCRIPT_PATH="$0"
 fi
@@ -24,7 +24,21 @@ shellcheck \
   "$REPO_DIR/scripts/catppuccin-mocha.sh"
 echo "ShellCheck passed with 0 warnings."
 
-echo "=== 2. Python Quality Gates ==="
+if command -v shfmt >/dev/null 2>&1; then
+  echo "=== 2. shfmt Format Verification ==="
+  shfmt -d -i 2 -ci \
+    "$REPO_DIR/profile_helper.sh" \
+    "$REPO_DIR/walh.sh" \
+    "$REPO_DIR/list-themes.sh" \
+    "$REPO_DIR/completions/walh.bash" \
+    "$REPO_DIR/test/test_core.sh" \
+    "$REPO_DIR/test/test_walh_cli.sh" \
+    "$REPO_DIR/test/test_preview_and_hooks.sh" \
+    "$REPO_DIR/test/run_all.sh"
+  echo "shfmt passed."
+fi
+
+echo "=== 3. Python Quality Gates ==="
 uv run ruff check "$REPO_DIR/generate_themes.py"
 python3 -m py_compile "$REPO_DIR/generate_themes.py"
 echo "Python checks passed."

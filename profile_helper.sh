@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 if [ -s "$BASH" ]; then
-    file_name=${BASH_SOURCE[0]}
+  file_name=${BASH_SOURCE[0]}
 elif [ -s "$ZSH_NAME" ]; then
-    # shellcheck disable=SC2296
-    file_name=${(%):-%x}
+  # shellcheck disable=SC2296
+  eval 'file_name=${(%):-%x}'
 fi
 script_dir=$(cd "$(dirname "$file_name")" && pwd)
 
