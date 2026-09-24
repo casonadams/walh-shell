@@ -5,37 +5,37 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="D6/F0/EF" # Black
-color01="47/8F/8F" # Red
-color02="2C/93/93" # Green
+color00="DB/EC/EA" # Black
+color01="6a/d4/d4" # Red
+color02="32/a8/a8" # Green
 color03="23/6a/6a" # Yellow
-color04="55/8D/8D" # Blue
-color05="5A/88/88" # Magenta
-color06="39/94/94" # Cyan
-color07="AA/D9/D8" # Grey
+color04="7f/d1/d1" # Blue
+color05="9a/e6/e6" # Magenta
+color06="4a/c1/c1" # Cyan
+color07="6a/b8/b8" # Grey
 
 # Bright
-color08="8A/C8/C8" # Dark Grey
-color09="47/8F/8F" # Red
-color10="2C/93/93" # Green
-color11="23/6a/6a" # Yellow
-color12="55/8D/8D" # Blue
-color13="5A/88/88" # Magenta
-color14="39/94/94" # Cyan
-color15="DD/F4/F2" # White
+color08="B5/E3/E2" # Dark Grey
+color09="33/BD/BD" # Red
+color10="00/8F/8F" # Green
+color11="00/53/53" # Yellow
+color12="57/B9/BA" # Blue
+color13="74/CE/CE" # Magenta
+color14="00/A9/A9" # Cyan
+color15="4A/99/99" # White
 
 # 256 color
-color208="46/9F/9F" # Orange
+color208="46/9D/9D" # Orange
 
 # Base
 color_background="ea/fb/f9" # Black
-color_foreground="6a/b8/b8" # Grey
+color_foreground="44/77/77" # Grey
 
 # Announce the active palette to programs launched from this shell
 export WALH_THEME="cyan-light"
 export WALH_MODE="light"
 export WALH_BG="#eafbf9"
-export WALH_FG="#6ab8b8"
+export WALH_FG="#447777"
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
 export COLORFGBG="0;15"
@@ -46,9 +46,9 @@ if [ -z "$WALH_RESTORE" ]; then
 theme = "cyan-light"
 mode = "light"
 background = "#eafbf9"
-foreground = "#6ab8b8"
-surface = "#D6F0EF"
-dim = "#8AC8C8"
+foreground = "#447777"
+surface = "#DBECEA"
+dim = "#B5E3E2"
 STATEEOF
 fi
 
@@ -113,12 +113,12 @@ put_template 208 "$color208"
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg 6ab8b8 # foreground
+  put_template_custom Pg 447777 # foreground
   put_template_custom Ph eafbf9 # background
-  put_template_custom Pi DDF4F2 # bold color
+  put_template_custom Pi 4A9999 # bold color
   put_template_custom Pj 236a6a # selection color
   put_template_custom Pk eafbf9 # selected text color
-  put_template_custom Pl 6ab8b8 # cursor
+  put_template_custom Pl 447777 # cursor
   put_template_custom Pm eafbf9 # cursor text
 else
   put_template_var 10 "$color_foreground"

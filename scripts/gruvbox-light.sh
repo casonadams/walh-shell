@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="E1/D7/B3" # Black
+color00="fb/f1/c7" # Black
 color01="9D/00/06" # Red
 color02="79/74/0E" # Green
 color03="B5/76/14" # Yellow
 color04="07/66/78" # Blue
 color05="8F/3F/71" # Magenta
 color06="42/7B/58" # Cyan
-color07="A5/9D/86" # Grey
+color07="7c/6f/64" # Grey
 
 # Bright
-color08="7A/73/65" # Dark Grey
-color09="9D/00/06" # Red
-color10="79/74/0E" # Green
-color11="B5/76/14" # Yellow
-color12="07/66/78" # Blue
-color13="8F/3F/71" # Magenta
-color14="42/7B/58" # Cyan
-color15="E9/E0/BA" # White
+color08="92/83/74" # Dark Grey
+color09="cc/24/1d" # Red
+color10="98/97/1a" # Green
+color11="d7/99/21" # Yellow
+color12="45/85/88" # Blue
+color13="b1/62/86" # Magenta
+color14="68/9d/6a" # Cyan
+color15="3c/38/36" # White
 
 # 256 color
-color208="A9/3B/0D" # Orange
+color208="AB/4A/0D" # Orange
 
 # Base
 color_background="FB/F1/C7" # Black
@@ -47,8 +47,8 @@ theme = "gruvbox-light"
 mode = "light"
 background = "#FBF1C7"
 foreground = "#504945"
-surface = "#E1D7B3"
-dim = "#7A7365"
+surface = "#fbf1c7"
+dim = "#928374"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 504945 # foreground
   put_template_custom Ph FBF1C7 # background
-  put_template_custom Pi E9E0BA # bold color
+  put_template_custom Pi 3c3836 # bold color
   put_template_custom Pj B57614 # selection color
   put_template_custom Pk FBF1C7 # selected text color
   put_template_custom Pl 504945 # cursor

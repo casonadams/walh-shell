@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="DD/DC/DA" # Black
-color01="E0/55/77" # Red
-color02="72/94/4F" # Green
-color03="98/80/3B" # Yellow
-color04="50/94/9D" # Blue
-color05="84/79/BA" # Magenta
-color06="50/94/9D" # Cyan
-color07="9C/9B/9B" # Grey
+color00="EA/E9/E6" # Black
+color01="ff/61/88" # Red
+color02="a9/dc/76" # Green
+color03="ff/d8/66" # Yellow
+color04="78/dc/e8" # Blue
+color05="ab/9d/f2" # Magenta
+color06="78/dc/e8" # Cyan
+color07="40/3e/41" # Grey
 
 # Bright
-color08="6E/6C/6E" # Dark Grey
-color09="E0/55/77" # Red
-color10="72/94/4F" # Green
-color11="98/80/3B" # Yellow
-color12="50/94/9D" # Blue
-color13="84/79/BA" # Magenta
-color14="50/94/9D" # Cyan
-color15="E6/E5/E3" # White
+color08="AE/AC/AD" # Dark Grey
+color09="ED/31/6D" # Red
+color10="8B/C4/4B" # Green
+color11="E9/BD/22" # Yellow
+color12="47/C4/D2" # Blue
+color13="93/81/E1" # Magenta
+color14="47/C4/D2" # Cyan
+color15="27/25/28" # White
 
 # 256 color
-color208="FF/9C/77" # Orange
+color208="FF/A3/80" # Orange
 
 # Base
 color_background="f9/f8/f5" # Black
@@ -47,8 +47,8 @@ theme = "monokai-light"
 mode = "light"
 background = "#f9f8f5"
 foreground = "#403e41"
-surface = "#DDDCDA"
-dim = "#6E6C6E"
+surface = "#EAE9E6"
+dim = "#AEACAD"
 STATEEOF
 fi
 
@@ -115,8 +115,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 403e41 # foreground
   put_template_custom Ph f9f8f5 # background
-  put_template_custom Pi E6E5E3 # bold color
-  put_template_custom Pj 98803B # selection color
+  put_template_custom Pi 272528 # bold color
+  put_template_custom Pj ffd866 # selection color
   put_template_custom Pk f9f8f5 # selected text color
   put_template_custom Pl 403e41 # cursor
   put_template_custom Pm f9f8f5 # cursor text

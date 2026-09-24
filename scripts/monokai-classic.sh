@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="46/47/41" # Black
+color00="1D/1E/19" # Black
 color01="f9/26/72" # Red
 color02="a6/e2/2e" # Green
 color03="f4/bf/75" # Yellow
 color04="66/d9/ef" # Blue
 color05="ae/81/ff" # Magenta
 color06="a1/ef/e4" # Cyan
-color07="F8/F8/F3" # Grey
+color07="f8/f8/f2" # Grey
 
 # Bright
-color08="A4/A4/9E" # Dark Grey
-color09="f9/26/72" # Red
-color10="a6/e2/2e" # Green
-color11="f4/bf/75" # Yellow
-color12="66/d9/ef" # Blue
-color13="ae/81/ff" # Magenta
-color14="a1/ef/e4" # Cyan
-color15="FD/FD/FC" # White
+color08="6F/70/69" # Dark Grey
+color09="FF/86/A1" # Red
+color10="BD/FE/44" # Green
+color11="FF/DF/B5" # Yellow
+color12="B0/F1/FF" # Blue
+color13="CC/B6/FF" # Magenta
+color14="A4/F7/EB" # Cyan
+color15="FC/FC/F6" # White
 
 # 256 color
-color208="F6/72/73" # Orange
+color208="FB/82/75" # Orange
 
 # Base
 color_background="27/28/22" # Black
@@ -47,8 +47,8 @@ theme = "monokai-classic"
 mode = "dark"
 background = "#272822"
 foreground = "#f8f8f2"
-surface = "#464741"
-dim = "#A4A49E"
+surface = "#1D1E19"
+dim = "#6F7069"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg f8f8f2 # foreground
   put_template_custom Ph 272822 # background
-  put_template_custom Pi FDFDFC # bold color
+  put_template_custom Pi FCFCF6 # bold color
   put_template_custom Pj f4bf75 # selection color
   put_template_custom Pk 272822 # selected text color
   put_template_custom Pl f8f8f2 # cursor

@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="E4/E1/D2" # Black
+color00="EE/E7/D4" # Black
 color01="DC/32/2F" # Red
-color02="75/86/00" # Green
-color03="9F/78/00" # Yellow
+color02="85/99/00" # Green
+color03="B5/89/00" # Yellow
 color04="26/8B/D2" # Blue
 color05="6C/71/C4" # Magenta
-color06="24/8D/85" # Cyan
-color07="AA/B2/AC" # Grey
+color06="2A/A1/98" # Cyan
+color07="58/6E/75" # Grey
 
 # Bright
-color08="81/90/90" # Dark Grey
-color09="DC/32/2F" # Red
-color10="75/86/00" # Green
-color11="9F/78/00" # Yellow
-color12="26/8B/D2" # Blue
-color13="6C/71/C4" # Magenta
-color14="24/8D/85" # Cyan
-color15="EC/E8/D8" # White
+color08="B8/C1/BC" # Dark Grey
+color09="BF/00/12" # Red
+color10="6F/80/00" # Green
+color11="98/72/00" # Yellow
+color12="00/72/B5" # Blue
+color13="55/56/B4" # Magenta
+color14="00/88/80" # Cyan
+color15="3D/52/59" # White
 
 # 256 color
-color208="C8/5D/17" # Orange
+color208="CB/66/22" # Orange
 
 # Base
 color_background="FD/F6/E3" # Black
@@ -47,8 +47,8 @@ theme = "solarized-light"
 mode = "light"
 background = "#FDF6E3"
 foreground = "#586E75"
-surface = "#E4E1D2"
-dim = "#819090"
+surface = "#EEE7D4"
+dim = "#B8C1BC"
 STATEEOF
 fi
 
@@ -115,8 +115,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 586E75 # foreground
   put_template_custom Ph FDF6E3 # background
-  put_template_custom Pi ECE8D8 # bold color
-  put_template_custom Pj 9F7800 # selection color
+  put_template_custom Pi 3D5259 # bold color
+  put_template_custom Pj B58900 # selection color
   put_template_custom Pk FDF6E3 # selected text color
   put_template_custom Pl 586E75 # cursor
   put_template_custom Pm FDF6E3 # cursor text

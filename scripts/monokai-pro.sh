@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="4C/49/4C" # Black
+color00="23/20/24" # Black
 color01="ff/61/88" # Red
 color02="a9/dc/76" # Green
 color03="ff/d8/66" # Yellow
 color04="78/dc/e8" # Blue
 color05="ab/9d/f2" # Magenta
 color06="78/dc/e8" # Cyan
-color07="FC/FC/FA" # Grey
+color07="fc/fc/fa" # Grey
 
 # Bright
-color08="A9/A8/A8" # Dark Grey
-color09="ff/61/88" # Red
-color10="a9/dc/76" # Green
-color11="ff/d8/66" # Yellow
-color12="78/dc/e8" # Blue
-color13="ab/9d/f2" # Magenta
-color14="78/dc/e8" # Cyan
-color15="FE/FE/FE" # White
+color08="74/73/74" # Dark Grey
+color09="FF/AB/B9" # Red
+color10="C2/F9/8C" # Green
+color11="FF/E2/92" # Yellow
+color12="A2/F5/FF" # Blue
+color13="D0/CA/FF" # Magenta
+color14="A2/F5/FF" # Cyan
+color15="FC/FC/FA" # White
 
 # 256 color
-color208="FF/9C/77" # Orange
+color208="FF/A3/80" # Orange
 
 # Base
 color_background="2d/2a/2e" # Black
@@ -47,8 +47,8 @@ theme = "monokai-pro"
 mode = "dark"
 background = "#2d2a2e"
 foreground = "#fcfcfa"
-surface = "#4C494C"
-dim = "#A9A8A8"
+surface = "#232024"
+dim = "#747374"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg fcfcfa # foreground
   put_template_custom Ph 2d2a2e # background
-  put_template_custom Pi FEFEFE # bold color
+  put_template_custom Pi FCFCFA # bold color
   put_template_custom Pj ffd866 # selection color
   put_template_custom Pk 2d2a2e # selected text color
   put_template_custom Pl fcfcfa # cursor

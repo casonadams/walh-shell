@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="E1/DB/DB" # Black
+color00="EB/E5/DE" # Black
 color01="b4/63/7a" # Red
 color02="28/69/83" # Green
-color03="B4/79/27" # Yellow
+color03="ea/9d/34" # Yellow
 color04="56/94/9f" # Blue
 color05="90/7a/a9" # Magenta
-color06="BD/72/6E" # Cyan
-color07="A8/A3/B3" # Grey
+color06="d7/82/7e" # Cyan
+color07="57/52/79" # Grey
 
 # Bright
-color08="7F/7A/96" # Dark Grey
-color09="b4/63/7a" # Red
-color10="28/69/83" # Green
-color11="B4/79/27" # Yellow
-color12="56/94/9f" # Blue
-color13="90/7a/a9" # Magenta
-color14="BD/72/6E" # Cyan
-color15="E9/E3/E1" # White
+color08="B7/B3/C6" # Dark Grey
+color09="A0/46/62" # Red
+color10="00/52/6D" # Green
+color11="CF/84/00" # Yellow
+color12="31/7D/8A" # Blue
+color13="7A/61/95" # Magenta
+color14="C3/65/62" # Cyan
+color15="3C/37/5C" # White
 
 # 256 color
-color208="CF/80/57" # Orange
+color208="CE/81/62" # Orange
 
 # Base
 color_background="fa/f4/ed" # Black
@@ -47,8 +47,8 @@ theme = "rose-pine-dawn"
 mode = "light"
 background = "#faf4ed"
 foreground = "#575279"
-surface = "#E1DBDB"
-dim = "#7F7A96"
+surface = "#EBE5DE"
+dim = "#B7B3C6"
 STATEEOF
 fi
 
@@ -115,8 +115,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 575279 # foreground
   put_template_custom Ph faf4ed # background
-  put_template_custom Pi E9E3E1 # bold color
-  put_template_custom Pj B47927 # selection color
+  put_template_custom Pi 3C375C # bold color
+  put_template_custom Pj ea9d34 # selection color
   put_template_custom Pk faf4ed # selected text color
   put_template_custom Pl 575279 # cursor
   put_template_custom Pm faf4ed # cursor text

@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="3B/40/53" # Black
+color00="1F/23/34" # Black
 color01="F0/71/78" # Red
 color02="C3/E8/8D" # Green
 color03="FF/CB/6B" # Yellow
 color04="82/AA/FF" # Blue
 color05="C7/92/EA" # Magenta
 color06="89/DD/FF" # Cyan
-color07="AE/B4/D2" # Grey
+color07="A6/AC/CD" # Grey
 
 # Bright
-color08="74/79/93" # Dark Grey
-color09="F0/71/78" # Red
-color10="C3/E8/8D" # Green
-color11="FF/CB/6B" # Yellow
-color12="82/AA/FF" # Blue
-color13="C7/92/EA" # Magenta
-color14="89/DD/FF" # Cyan
-color15="ED/EE/F5" # White
+color08="55/5A/72" # Dark Grey
+color09="FF/AA/AB" # Red
+color10="CE/F5/94" # Green
+color11="FF/E0/AB" # Yellow
+color12="BD/D3/FF" # Blue
+color13="E6/C1/FF" # Magenta
+color14="C1/EC/FF" # Cyan
+color15="BF/C5/E7" # White
 
 # 256 color
-color208="F7/9E/71" # Orange
+color208="F9/A0/74" # Orange
 
 # Base
 color_background="29/2D/3E" # Black
@@ -47,8 +47,8 @@ theme = "material-palenight"
 mode = "dark"
 background = "#292D3E"
 foreground = "#A6ACCD"
-surface = "#3B4053"
-dim = "#747993"
+surface = "#1F2334"
+dim = "#555A72"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg A6ACCD # foreground
   put_template_custom Ph 292D3E # background
-  put_template_custom Pi EDEEF5 # bold color
+  put_template_custom Pi BFC5E7 # bold color
   put_template_custom Pj FFCB6B # selection color
   put_template_custom Pk 292D3E # selected text color
   put_template_custom Pl A6ACCD # cursor

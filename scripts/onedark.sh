@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="3B/40/48" # Black
+color00="1E/22/2A" # Black
 color01="E0/6C/75" # Red
 color02="98/C3/79" # Green
 color03="E5/C0/7B" # Yellow
 color04="61/AF/EF" # Blue
 color05="C6/78/DD" # Magenta
 color06="56/B6/C2" # Cyan
-color07="B3/B9/C5" # Grey
+color07="AB/B2/BF" # Grey
 
 # Bright
-color08="76/7C/87" # Dark Grey
-color09="E0/6C/75" # Red
-color10="98/C3/79" # Green
-color11="E5/C0/7B" # Yellow
-color12="61/AF/EF" # Blue
-color13="C6/78/DD" # Magenta
-color14="56/B6/C2" # Cyan
-color15="EE/EF/F2" # White
+color08="56/5B/65" # Dark Grey
+color09="FF/9A/9F" # Red
+color10="BC/EB/9B" # Green
+color11="FF/E0/A8" # Yellow
+color12="A3/D4/FF" # Blue
+color13="EA/A2/FF" # Magenta
+color14="79/DE/EB" # Cyan
+color15="C4/CB/D9" # White
 
 # 256 color
-color208="E2/96/78" # Orange
+color208="E5/97/79" # Orange
 
 # Base
 color_background="28/2C/34" # Black
@@ -47,8 +47,8 @@ theme = "onedark"
 mode = "dark"
 background = "#282C34"
 foreground = "#ABB2BF"
-surface = "#3B4048"
-dim = "#767C87"
+surface = "#1E222A"
+dim = "#565B65"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg ABB2BF # foreground
   put_template_custom Ph 282C34 # background
-  put_template_custom Pi EEEFF2 # bold color
+  put_template_custom Pi C4CBD9 # bold color
   put_template_custom Pj E5C07B # selection color
   put_template_custom Pk 282C34 # selected text color
   put_template_custom Pl ABB2BF # cursor

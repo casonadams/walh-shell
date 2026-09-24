@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="40/40/40" # Black
+color00="21/21/21" # Black
 color01="DB/54/51" # Red
 color02="54/8C/26" # Green
 color03="A8/90/22" # Yellow
 color04="3A/91/CF" # Blue
 color05="A5/75/BA" # Magenta
 color06="00/91/91" # Cyan
-color07="C1/C1/C1" # Grey
+color07="BB/BB/BB" # Grey
 
 # Bright
-color08="81/81/81" # Dark Grey
-color09="DB/54/51" # Red
-color10="54/8C/26" # Green
-color11="A8/90/22" # Yellow
-color12="3A/91/CF" # Blue
-color13="A5/75/BA" # Magenta
-color14="00/91/91" # Cyan
-color15="F1/F1/F1" # White
+color08="5E/5E/5E" # Dark Grey
+color09="FF/80/7A" # Red
+color10="75/B2/49" # Green
+color11="CF/B5/48" # Yellow
+color12="5D/B7/FB" # Blue
+color13="CD/98/E4" # Magenta
+color14="3B/B8/B7" # Cyan
+color15="D5/D5/D5" # White
 
 # 256 color
-color208="C1/72/39" # Orange
+color208="C4/76/3F" # Orange
 
 # Base
 color_background="2B/2B/2B" # Black
@@ -47,8 +47,8 @@ theme = "jetbrains"
 mode = "dark"
 background = "#2B2B2B"
 foreground = "#BBBBBB"
-surface = "#404040"
-dim = "#818181"
+surface = "#212121"
+dim = "#5E5E5E"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg BBBBBB # foreground
   put_template_custom Ph 2B2B2B # background
-  put_template_custom Pi F1F1F1 # bold color
+  put_template_custom Pi D5D5D5 # bold color
   put_template_custom Pj A89022 # selection color
   put_template_custom Pk 2B2B2B # selected text color
   put_template_custom Pl BBBBBB # cursor

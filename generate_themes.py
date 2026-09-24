@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import math
 import os
 import shutil
 
@@ -7,29 +7,113 @@ import chevron
 import toml
 
 
+def srgb_to_linear(c):
+    c = c / 255.0
+    return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+
+def linear_to_srgb(c):
+    c = max(0.0, min(1.0, c))
+    return 12.92 * c if c <= 0.0031308 else 1.055 * (c ** (1.0 / 2.4)) - 0.055
+
 def hex_to_rgb(hex_color):
     hex_color = hex_color.lstrip('#')
     return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
 
 def rgb_to_hex(rgb):
-    return '#{:02X}{:02X}{:02X}'.format(*rgb)
+    return '#{:02X}{:02X}{:02X}'.format(*[max(0, min(255, round(c))) for c in rgb])
 
-def lighten(hex_color, amount):
+def rgb_to_oklab(rgb):
+    r, g, b = [srgb_to_linear(c) for c in rgb]
+    l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b
+    m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b
+    s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b
+    l_ = l ** (1.0 / 3.0) if l > 0 else 0
+    m_ = m ** (1.0 / 3.0) if m > 0 else 0
+    s_ = s ** (1.0 / 3.0) if s > 0 else 0
+    L = 0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_
+    a = 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_
+    b_ = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_
+    return L, a, b_
+
+def oklab_to_linear(L, a, b_):
+    l_ = L + 0.3963377774 * a + 0.2158037573 * b_
+    m_ = L - 0.1055613458 * a - 0.0638541728 * b_
+    s_ = L - 0.0894841775 * a - 1.2914855480 * b_
+    l = l_ ** 3
+    m = m_ ** 3
+    s = s_ ** 3
+    r = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s
+    g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s
+    b = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s
+    return r, g, b
+
+def is_in_gamut(L, a, b_):
+    r, g, b = oklab_to_linear(L, a, b_)
+    eps = 1e-4
+    return -eps <= r <= 1.0 + eps and -eps <= g <= 1.0 + eps and -eps <= b <= 1.0 + eps
+
+def oklab_to_rgb_gamut_mapped(L, a, b_):
+    if is_in_gamut(L, a, b_):
+        r, g, b = oklab_to_linear(L, a, b_)
+        return (linear_to_srgb(r) * 255, linear_to_srgb(g) * 255, linear_to_srgb(b) * 255)
+    C = math.sqrt(a * a + b_ * b_)
+    if C < 1e-6:
+        r, g, b = oklab_to_linear(L, 0, 0)
+        return (linear_to_srgb(r) * 255, linear_to_srgb(g) * 255, linear_to_srgb(b) * 255)
+    unit_a = a / C
+    unit_b = b_ / C
+    lo, hi = 0.0, C
+    for _ in range(16):
+        mid = (lo + hi) / 2.0
+        if is_in_gamut(L, mid * unit_a, mid * unit_b):
+            lo = mid
+        else:
+            hi = mid
+    r, g, b = oklab_to_linear(L, lo * unit_a, lo * unit_b)
+    return (linear_to_srgb(r) * 255, linear_to_srgb(g) * 255, linear_to_srgb(b) * 255)
+
+def oklch_brighten(hex_color, dark=True):
     rgb = hex_to_rgb(hex_color)
-    return rgb_to_hex(tuple(min(int(c + (255 - c) * amount), 255) for c in rgb))
+    L, a, b_ = rgb_to_oklab(rgb)
+    C = math.sqrt(a * a + b_ * b_)
+    h = math.atan2(b_, a)
+    if dark:
+        new_L = min(0.92, L + 0.12)
+        new_C = C * 1.05
+    else:
+        new_L = max(0.25, L - 0.08)
+        new_C = C * 1.15
+    new_a = new_C * math.cos(h)
+    new_b = new_C * math.sin(h)
+    return rgb_to_hex(oklab_to_rgb_gamut_mapped(new_L, new_a, new_b))
+
+def derive_neutrals(bg_hex, fg_hex, dark=True):
+    bg_L, bg_a, bg_b = rgb_to_oklab(hex_to_rgb(bg_hex))
+    fg_L, fg_a, fg_b = rgb_to_oklab(hex_to_rgb(fg_hex))
+    if dark:
+        c00_L = max(0.0, bg_L - 0.04)
+        c08_L = bg_L + (fg_L - bg_L) * 0.38
+        c15_L = min(0.99, fg_L + 0.08)
+    else:
+        c00_L = max(0.0, bg_L - 0.045)
+        c08_L = bg_L - (bg_L - fg_L) * 0.38
+        c15_L = max(0.01, fg_L - 0.10)
+    c00 = rgb_to_hex(oklab_to_rgb_gamut_mapped(c00_L, bg_a, bg_b))
+    c08 = rgb_to_hex(oklab_to_rgb_gamut_mapped(c08_L, (bg_a + fg_a) / 2, (bg_b + fg_b) / 2))
+    c15 = rgb_to_hex(oklab_to_rgb_gamut_mapped(c15_L, fg_a, fg_b))
+    return c00, fg_hex, c08, c15
+
+def derive_orange(c01_hex, c03_hex):
+    L1, a1, b1 = rgb_to_oklab(hex_to_rgb(c01_hex))
+    L3, a3, b3 = rgb_to_oklab(hex_to_rgb(c03_hex))
+    L = (L1 + L3) / 2
+    a = (a1 + a3) / 2
+    b = (b1 + b3) / 2
+    return rgb_to_hex(oklab_to_rgb_gamut_mapped(L, a, b))
 
 def darken(hex_color, amount):
     rgb = hex_to_rgb(hex_color)
     return rgb_to_hex(tuple(max(int(c * (1 - amount)), 0) for c in rgb))
-
-def blend(hex1, hex2, ratio):
-    rgb1 = hex_to_rgb(hex1)
-    rgb2 = hex_to_rgb(hex2)
-    return rgb_to_hex(tuple(int(rgb1[i] * (1 - ratio) + rgb2[i] * ratio) for i in range(3)))
-
-def luminance(hex_color):
-    r, g, b = hex_to_rgb(hex_color)
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b
 
 def relative_luminance(hex_color):
     r, g, b = hex_to_rgb(hex_color)
@@ -45,75 +129,91 @@ def contrast_ratio(hex1, hex2):
 
 def ensure_contrast(hex_color, background, min_ratio):
     color = hex_color
-    for _ in range(12):
+    for _ in range(20):
         if contrast_ratio(color, background) >= min_ratio:
             break
-        color = darken(color, 0.12)
+        color = darken(color, 0.08)
     return color
 
 def is_dark_theme(background, foreground):
-    return luminance(background) < luminance(foreground)
+    return relative_luminance(background) < relative_luminance(foreground)
 
-shutil.rmtree("scripts")
-os.mkdir("scripts")
 
-for dir in os.listdir("themes"):
-    theme_name = dir.split(".")[0]
+def gen_theme():
+    output_dir = "scripts"
+    if os.path.exists(output_dir):
+        shutil.rmtree(output_dir)
+    os.makedirs(output_dir, exist_ok=True)
 
-    with open(f"themes/{dir}", "r") as f:
-        theme = toml.load(f)
+    with open("template/default.mustache", "r") as f:
+        template = f.read()
 
-    background = theme["background"]
-    foreground = theme["foreground"]
+    for theme_file in os.listdir("themes"):
+        if not theme_file.endswith(".toml"):
+            continue
 
-    color01 = theme["color01"]
-    color02 = theme["color02"]
-    color03 = theme["color03"]
-    color04 = theme["color04"]
-    color05 = theme["color05"]
-    color06 = theme["color06"]
+        theme_name = os.path.splitext(theme_file)[0]
+        theme_path = os.path.join("themes", theme_file)
 
-    # Determine if theme is dark or light
-    dark_theme = is_dark_theme(background, foreground)
+        with open(theme_path, "r") as f:
+            theme = toml.load(f)
 
-    # Derived base-16 defaults: color00 acts as the panel surface and color08
-    # as dimmed text, blended from the theme's own foreground/background so
-    # they stay distinct on any palette. A given wash reads heavier on light
-    # backgrounds, so dim takes a stronger wash there.
-    color00 = theme.get("color00") or blend(background, foreground, 0.15)
-    color08 = theme.get("color08") or blend(foreground, background, 0.40 if dark_theme else 0.25)
+        foreground = theme.get("foreground")
+        background = theme.get("background")
 
-    # Light canvases keep the canonical neutral roles: grey (07) sits closer
-    # to the background as a ghosted mid tone, and white (15) stays near-white
-    # instead of inverting to near-black.
-    if dark_theme:
-        color07 = theme.get("color07") or lighten(foreground, 0.1)
-        color15 = theme.get("color15") or lighten(foreground, 0.8)
-    else:
-        color07 = theme.get("color07") or blend(foreground, background, 0.50)
-        color15 = theme.get("color15") or blend(foreground, background, 0.90)
-    color208 = theme.get("color208") or blend(color01, color03, 0.5)
+        if not foreground or not background:
+            continue
 
-    # Light palettes pair a near-white background with accents that were
-    # drawn for a dark canvas; darken any accent that cannot reach a
-    # readable contrast floor so the palette comes together on light terms.
-    if not dark_theme:
-        for slot in ("color01", "color02", "color03", "color04", "color05", "color06"):
-            locals()[slot] = ensure_contrast(locals()[slot], background, 3.0)
+        dark_theme = is_dark_theme(background, foreground)
 
-    # Bright colors: match normal if not present
-    color09 = theme.get("color09") or color01
-    color10 = theme.get("color10") or color02
-    color11 = theme.get("color11") or color03
-    color12 = theme.get("color12") or color04
-    color13 = theme.get("color13") or color05
-    color14 = theme.get("color14") or color06
+        color01 = theme.get("color01") or "#CC6666"
+        color02 = theme.get("color02") or "#B5BD68"
+        color03 = theme.get("color03") or "#F0C674"
+        color04 = theme.get("color04") or "#81A2BE"
+        color05 = theme.get("color05") or "#B294BB"
+        color06 = theme.get("color06") or "#8ABE87"
 
-    with open("template/default.mustache", "r") as file:
-        f = file.read()
-        args = {
-            "template": f,
-            "data": {
+        d_c00, d_c07, d_c08, d_c15 = derive_neutrals(background, foreground, dark_theme)
+
+        color00 = theme.get("color00") or d_c00
+        color07 = theme.get("color07") or d_c07
+        color08 = theme.get("color08") or d_c08
+        color15 = theme.get("color15") or d_c15
+
+        color09 = theme.get("color09") or oklch_brighten(color01, dark_theme)
+        color10 = theme.get("color10") or oklch_brighten(color02, dark_theme)
+        color11 = theme.get("color11") or oklch_brighten(color03, dark_theme)
+        color12 = theme.get("color12") or oklch_brighten(color04, dark_theme)
+        color13 = theme.get("color13") or oklch_brighten(color05, dark_theme)
+        color14 = theme.get("color14") or oklch_brighten(color06, dark_theme)
+
+        color208 = theme.get("color208") or derive_orange(color01, color03)
+
+        if not dark_theme:
+            foreground = ensure_contrast(foreground, background, 4.5)
+            for slot in (
+                "color01",
+                "color02",
+                "color03",
+                "color04",
+                "color05",
+                "color06",
+                "color09",
+                "color10",
+                "color11",
+                "color12",
+                "color13",
+                "color14",
+                "color208",
+            ):
+                locals()[slot] = ensure_contrast(locals()[slot], background, 3.0)
+
+        colorfgbg = "15;0" if dark_theme else "0;15"
+        mode = "dark" if dark_theme else "light"
+
+        rendered = chevron.render(
+            template,
+            {
                 "theme_name": theme_name,
                 "foreground-hex": foreground[1:7],
                 "foreground-hex-r": foreground[1:3],
@@ -192,15 +292,16 @@ for dir in os.listdir("themes"):
                 "base208-hex-g": color208[3:5],
                 "base208-hex-b": color208[5:7],
                 "theme": theme_name,
-                "mode": "dark" if dark_theme else "light",
-                "colorfgbg": "15;0" if dark_theme else "0;15",
+                "mode": mode,
+                "colorfgbg": colorfgbg,
             },
-        }
-        render = chevron.render(**args)
+        )
 
-    script_file = f"scripts/{theme_name}.sh"
-    cleaned = render.rstrip("\n") + "\n"
-    with open(script_file, "w") as f:
-        f.write(cleaned)
+        output_path = os.path.join(output_dir, f"{theme_name}.sh")
+        with open(output_path, "w") as f:
+            f.write(rendered)
+        os.chmod(output_path, 0o755)
 
-    os.chmod(script_file, 0o755)
+
+if __name__ == "__main__":
+    gen_theme()

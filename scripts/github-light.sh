@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="E2/E2/E2" # Black
+color00="F0/F0/F0" # Black
 color01="97/0b/16" # Red
 color02="07/96/2a" # Green
-color03="AC/8D/15" # Yellow
+color03="df/b7/1c" # Yellow
 color04="00/3e/8a" # Blue
 color05="e9/46/91" # Magenta
-color06="5C/8D/A0" # Cyan
-color07="9E/9E/9E" # Grey
+color06="89/d1/ec" # Cyan
+color07="3e/3e/3e" # Grey
 
 # Bright
-color08="6E/6E/6E" # Dark Grey
-color09="97/0b/16" # Red
-color10="07/96/2a" # Green
-color11="AC/8D/15" # Yellow
-color12="00/3e/8a" # Blue
-color13="e9/46/91" # Magenta
-color14="5C/8D/A0" # Cyan
-color15="EB/EB/EB" # White
+color08="B0/B0/B0" # Dark Grey
+color09="73/00/0B" # Red
+color10="00/7B/1F" # Green
+color11="C3/9E/00" # Yellow
+color12="00/2A/63" # Blue
+color13="D4/00/79" # Magenta
+color14="63/B9/D7" # Cyan
+color15="25/25/25" # White
 
 # 256 color
-color208="BB/61/19" # Orange
+color208="BF/6B/1C" # Orange
 
 # Base
 color_background="ff/ff/ff" # Black
@@ -47,8 +47,8 @@ theme = "github-light"
 mode = "light"
 background = "#ffffff"
 foreground = "#3e3e3e"
-surface = "#E2E2E2"
-dim = "#6E6E6E"
+surface = "#F0F0F0"
+dim = "#B0B0B0"
 STATEEOF
 fi
 
@@ -115,8 +115,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 3e3e3e # foreground
   put_template_custom Ph ffffff # background
-  put_template_custom Pi EBEBEB # bold color
-  put_template_custom Pj AC8D15 # selection color
+  put_template_custom Pi 252525 # bold color
+  put_template_custom Pj dfb71c # selection color
   put_template_custom Pk ffffff # selected text color
   put_template_custom Pl 3e3e3e # cursor
   put_template_custom Pm ffffff # cursor text

@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="34/3C/47" # Black
+color00="10/1A/26" # Black
 color01="c9/4f/6d" # Red
 color02="81/b2/9a" # Green
 color03="db/c0/74" # Yellow
 color04="71/9c/d6" # Blue
 color05="9d/79/d6" # Magenta
 color06="63/cd/cf" # Cyan
-color07="D2/D2/D3" # Grey
+color07="cd/ce/cf" # Grey
 
 # Bright
-color08="85/89/8F" # Dark Grey
-color09="c9/4f/6d" # Red
-color10="81/b2/9a" # Green
-color11="db/c0/74" # Yellow
-color12="71/9c/d6" # Blue
-color13="9d/79/d6" # Magenta
-color14="63/cd/cf" # Cyan
-color15="F5/F5/F5" # White
+color08="58/5E/66" # Dark Grey
+color09="F6/71/90" # Red
+color10="A4/D9/BF" # Green
+color11="FF/E2/92" # Yellow
+color12="95/C2/FF" # Blue
+color13="C2/9E/FF" # Magenta
+color14="86/F6/F8" # Cyan
+color15="E7/E8/E9" # White
 
 # 256 color
-color208="D2/87/70" # Orange
+color208="D5/8A/72" # Orange
 
 # Base
 color_background="19/23/30" # Black
@@ -47,8 +47,8 @@ theme = "nightfox"
 mode = "dark"
 background = "#192330"
 foreground = "#cdcecf"
-surface = "#343C47"
-dim = "#85898F"
+surface = "#101A26"
+dim = "#585E66"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg cdcecf # foreground
   put_template_custom Ph 192330 # background
-  put_template_custom Pi F5F5F5 # bold color
+  put_template_custom Pi E7E8E9 # bold color
   put_template_custom Pj dbc074 # selection color
   put_template_custom Pk 192330 # selected text color
   put_template_custom Pl cdcecf # cursor

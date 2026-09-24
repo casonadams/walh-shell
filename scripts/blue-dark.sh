@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="1D/21/31" # Black
+color00="08/08/11" # Black
 color01="30/4f/fe" # Red
 color02="82/b1/ff" # Green
 color03="bb/de/fb" # Yellow
 color04="25/40/b0" # Blue
 color05="28/35/93" # Magenta
 color06="44/8a/ff" # Cyan
-color07="78/92/BF" # Grey
+color07="6a/86/b8" # Grey
 
 # Bright
-color08="46/56/78" # Dark Grey
-color09="30/4f/fe" # Red
-color10="82/b1/ff" # Green
-color11="bb/de/fb" # Yellow
-color12="25/40/b0" # Blue
-color13="28/35/93" # Magenta
-color14="44/8a/ff" # Cyan
-color15="E1/E6/F0" # White
+color08="2D/39/54" # Dark Grey
+color09="5F/86/FF" # Red
+color10="C1/D8/FF" # Green
+color11="CE/E9/FF" # Yellow
+color12="41/64/DE" # Blue
+color13="44/58/BE" # Magenta
+color14="87/B4/FF" # Cyan
+color15="82/9F/D2" # White
 
 # 256 color
-color208="75/96/FC" # Orange
+color208="6F/9E/FF" # Orange
 
 # Base
 color_background="10/10/1a" # Black
@@ -47,8 +47,8 @@ theme = "blue-dark"
 mode = "dark"
 background = "#10101a"
 foreground = "#6a86b8"
-surface = "#1D2131"
-dim = "#465678"
+surface = "#080811"
+dim = "#2D3954"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 6a86b8 # foreground
   put_template_custom Ph 10101a # background
-  put_template_custom Pi E1E6F0 # bold color
+  put_template_custom Pi 829FD2 # bold color
   put_template_custom Pj bbdefb # selection color
   put_template_custom Pk 10101a # selected text color
   put_template_custom Pl 6a86b8 # cursor

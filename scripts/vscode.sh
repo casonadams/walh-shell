@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="38/38/38" # Black
+color00="15/15/15" # Black
 color01="CD/31/31" # Red
 color02="0D/BC/79" # Green
 color03="E5/E5/10" # Yellow
 color04="24/72/C8" # Blue
 color05="BC/3F/BC" # Magenta
 color06="11/A8/CD" # Cyan
-color07="D1/D1/D1" # Grey
+color07="CC/CC/CC" # Grey
 
 # Bright
-color08="86/86/86" # Dark Grey
-color09="CD/31/31" # Red
-color10="0D/BC/79" # Green
-color11="E5/E5/10" # Yellow
-color12="24/72/C8" # Blue
-color13="BC/3F/BC" # Magenta
-color14="11/A8/CD" # Cyan
-color15="F4/F4/F4" # White
+color08="5A/5A/5A" # Dark Grey
+color09="FC/57/51" # Red
+color10="45/E5/9C" # Green
+color11="EF/EE/00" # Yellow
+color12="47/97/F5" # Blue
+color13="E8/63/E7" # Magenta
+color14="44/CF/F8" # Cyan
+color15="E6/E6/E6" # White
 
 # 256 color
-color208="D9/8B/20" # Orange
+color208="E1/93/2E" # Orange
 
 # Base
 color_background="1E/1E/1E" # Black
@@ -47,8 +47,8 @@ theme = "vscode"
 mode = "dark"
 background = "#1E1E1E"
 foreground = "#CCCCCC"
-surface = "#383838"
-dim = "#868686"
+surface = "#151515"
+dim = "#5A5A5A"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg CCCCCC # foreground
   put_template_custom Ph 1E1E1E # background
-  put_template_custom Pi F4F4F4 # bold color
+  put_template_custom Pi E6E6E6 # bold color
   put_template_custom Pj E5E510 # selection color
   put_template_custom Pk 1E1E1E # selected text color
   put_template_custom Pl CCCCCC # cursor

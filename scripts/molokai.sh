@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="2B/2B/2B" # Black
+color00="09/09/09" # Black
 color01="FA/25/73" # Red
 color02="98/E1/23" # Green
 color03="DF/D4/60" # Yellow
 color04="10/80/D0" # Blue
 color05="87/00/FF" # Magenta
 color06="43/A8/D0" # Cyan
-color07="C1/C1/C1" # Grey
+color07="BB/BB/BB" # Grey
 
 # Bright
-color08="77/77/77" # Dark Grey
-color09="FA/25/73" # Red
-color10="98/E1/23" # Green
-color11="DF/D4/60" # Yellow
-color12="10/80/D0" # Blue
-color13="87/00/FF" # Magenta
-color14="43/A8/D0" # Cyan
-color15="F1/F1/F1" # White
+color08="4B/4B/4B" # Dark Grey
+color09="FF/87/A2" # Red
+color10="B5/FF/54" # Green
+color11="F5/E9/6E" # Yellow
+color12="3D/A6/FD" # Blue
+color13="A0/6E/FF" # Magenta
+color14="66/CF/FB" # Cyan
+color15="D5/D5/D5" # White
 
 # 256 color
-color208="EC/7C/69" # Orange
+color208="F4/8F/6E" # Orange
 
 # Base
 color_background="12/12/12" # Black
@@ -47,8 +47,8 @@ theme = "molokai"
 mode = "dark"
 background = "#121212"
 foreground = "#BBBBBB"
-surface = "#2B2B2B"
-dim = "#777777"
+surface = "#090909"
+dim = "#4B4B4B"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg BBBBBB # foreground
   put_template_custom Ph 121212 # background
-  put_template_custom Pi F1F1F1 # bold color
+  put_template_custom Pi D5D5D5 # bold color
   put_template_custom Pj DFD460 # selection color
   put_template_custom Pk 121212 # selected text color
   put_template_custom Pl BBBBBB # cursor

@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="38/3B/44" # Black
+color00="16/1B/26" # Black
 color01="ff/33/33" # Red
 color02="b8/cc/52" # Green
 color03="e7/c5/47" # Yellow
 color04="36/a3/d9" # Blue
 color05="f0/70/78" # Magenta
 color06="95/e6/cb" # Cyan
-color07="D0/C9/C0" # Grey
+color07="cb/c3/b9" # Grey
 
 # Bright
-color08="86/83/82" # Dark Grey
-color09="ff/33/33" # Red
-color10="b8/cc/52" # Green
-color11="e7/c5/47" # Yellow
-color12="36/a3/d9" # Blue
-color13="f0/70/78" # Magenta
-color14="95/e6/cb" # Cyan
-color15="F4/F3/F1" # White
+color08="5C/5B/5E" # Dark Grey
+color09="FF/90/84" # Red
+color10="DC/F2/72" # Green
+color11="FF/E3/84" # Yellow
+color12="67/C9/FF" # Blue
+color13="FF/A9/AB" # Magenta
+color14="A3/F9/DC" # Cyan
+color15="E5/DD/D3" # White
 
 # 256 color
-color208="F3/7C/3D" # Orange
+color208="F9/89/3D" # Orange
 
 # Base
 color_background="1f/24/30" # Black
@@ -47,8 +47,8 @@ theme = "ayu-mirage"
 mode = "dark"
 background = "#1f2430"
 foreground = "#cbc3b9"
-surface = "#383B44"
-dim = "#868382"
+surface = "#161B26"
+dim = "#5C5B5E"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg cbc3b9 # foreground
   put_template_custom Ph 1f2430 # background
-  put_template_custom Pi F4F3F1 # bold color
+  put_template_custom Pi E5DDD3 # bold color
   put_template_custom Pj e7c547 # selection color
   put_template_custom Pk 1f2430 # selected text color
   put_template_custom Pl cbc3b9 # cursor

@@ -5,37 +5,37 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="44/45/52" # Black
-color01="ea/51/b2" # Red
-color02="eb/ff/87" # Green
-color03="00/f7/69" # Yellow
-color04="62/d6/e8" # Blue
-color05="b4/5b/cf" # Magenta
-color06="a1/ef/e4" # Cyan
-color07="EB/EB/F5" # Grey
+color00="21/22/2c" # Black
+color01="ff/55/55" # Red
+color02="50/fa/7b" # Green
+color03="f1/fa/8c" # Yellow
+color04="bd/93/f9" # Blue
+color05="ff/79/c6" # Magenta
+color06="8b/e9/fd" # Cyan
+color07="f8/f8/f2" # Grey
 
 # Bright
-color08="9B/9C/A8" # Dark Grey
-color09="ea/51/b2" # Red
-color10="eb/ff/87" # Green
-color11="00/f7/69" # Yellow
-color12="62/d6/e8" # Blue
-color13="b4/5b/cf" # Magenta
-color14="a1/ef/e4" # Cyan
-color15="FA/FA/FC" # White
+color08="62/72/a4" # Dark Grey
+color09="ff/6e/6e" # Red
+color10="69/ff/94" # Green
+color11="ff/ff/a5" # Yellow
+color12="d6/ac/ff" # Blue
+color13="ff/92/df" # Magenta
+color14="a4/ff/ff" # Cyan
+color15="ff/ff/ff" # White
 
 # 256 color
-color208="75/A4/8D" # Orange
+color208="FF/AF/73" # Orange
 
 # Base
-color_background="28/29/36" # Black
-color_foreground="e9/e9/f4" # Grey
+color_background="28/2a/36" # Black
+color_foreground="f8/f8/f2" # Grey
 
 # Announce the active palette to programs launched from this shell
 export WALH_THEME="dracula"
 export WALH_MODE="dark"
-export WALH_BG="#282936"
-export WALH_FG="#e9e9f4"
+export WALH_BG="#282a36"
+export WALH_FG="#f8f8f2"
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
 export COLORFGBG="15;0"
@@ -45,10 +45,10 @@ if [ -z "$WALH_RESTORE" ]; then
   cat > "$state_dir/state.toml" <<STATEEOF
 theme = "dracula"
 mode = "dark"
-background = "#282936"
-foreground = "#e9e9f4"
-surface = "#444552"
-dim = "#9B9CA8"
+background = "#282a36"
+foreground = "#f8f8f2"
+surface = "#21222c"
+dim = "#6272a4"
 STATEEOF
 fi
 
@@ -113,13 +113,13 @@ put_template 208 "$color208"
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg e9e9f4 # foreground
-  put_template_custom Ph 282936 # background
-  put_template_custom Pi FAFAFC # bold color
-  put_template_custom Pj 00f769 # selection color
-  put_template_custom Pk 282936 # selected text color
-  put_template_custom Pl e9e9f4 # cursor
-  put_template_custom Pm 282936 # cursor text
+  put_template_custom Pg f8f8f2 # foreground
+  put_template_custom Ph 282a36 # background
+  put_template_custom Pi ffffff # bold color
+  put_template_custom Pj f1fa8c # selection color
+  put_template_custom Pk 282a36 # selected text color
+  put_template_custom Pl f8f8f2 # cursor
+  put_template_custom Pm 282a36 # cursor text
 else
   put_template_var 10 "$color_foreground"
   if [ "$WALH_SHELL_SET_BACKGROUND" != false ]; then

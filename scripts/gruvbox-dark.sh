@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="41/3F/3A" # Black
-color01="FB/49/34" # Red
-color02="B8/BB/26" # Green
-color03="FA/BD/2F" # Yellow
-color04="83/A5/98" # Blue
-color05="D3/86/9B" # Magenta
-color06="8E/C0/7C" # Cyan
-color07="D9/C9/AA" # Grey
+color00="28/28/28" # Black
+color01="cc/24/1d" # Red
+color02="98/97/1a" # Green
+color03="d7/99/21" # Yellow
+color04="45/85/88" # Blue
+color05="b1/62/86" # Magenta
+color06="68/9d/6a" # Cyan
+color07="a8/99/84" # Grey
 
 # Bright
-color08="8F/85/70" # Dark Grey
-color09="FB/49/34" # Red
-color10="B8/BB/26" # Green
-color11="FA/BD/2F" # Yellow
-color12="83/A5/98" # Blue
-color13="D3/86/9B" # Magenta
-color14="8E/C0/7C" # Cyan
-color15="F6/F3/EC" # White
+color08="92/83/74" # Dark Grey
+color09="fb/49/34" # Red
+color10="b8/bb/26" # Green
+color11="fa/bd/2f" # Yellow
+color12="83/a5/98" # Blue
+color13="d3/86/9b" # Magenta
+color14="8e/c0/7c" # Cyan
+color15="eb/db/b2" # White
 
 # 256 color
-color208="FA/83/31" # Orange
+color208="D4/68/20" # Orange
 
 # Base
 color_background="28/28/28" # Black
@@ -47,8 +47,8 @@ theme = "gruvbox-dark"
 mode = "dark"
 background = "#282828"
 foreground = "#D5C4A1"
-surface = "#413F3A"
-dim = "#8F8570"
+surface = "#282828"
+dim = "#928374"
 STATEEOF
 fi
 
@@ -115,8 +115,8 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg D5C4A1 # foreground
   put_template_custom Ph 282828 # background
-  put_template_custom Pi F6F3EC # bold color
-  put_template_custom Pj FABD2F # selection color
+  put_template_custom Pi ebdbb2 # bold color
+  put_template_custom Pj d79921 # selection color
   put_template_custom Pk 282828 # selected text color
   put_template_custom Pl D5C4A1 # cursor
   put_template_custom Pm 282828 # cursor text

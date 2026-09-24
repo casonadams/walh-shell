@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="DC/DD/DE" # Black
+color00="EB/EB/EB" # Black
 color01="CA/12/43" # Red
 color02="50/A1/4F" # Green
 color03="C1/84/01" # Yellow
 color04="40/78/F2" # Blue
 color05="A6/26/A4" # Magenta
 color06="01/84/BC" # Cyan
-color07="99/9A/9E" # Grey
+color07="38/3A/42" # Grey
 
 # Bright
-color08="68/6A/70" # Dark Grey
-color09="CA/12/43" # Red
-color10="50/A1/4F" # Green
-color11="C1/84/01" # Yellow
-color12="40/78/F2" # Blue
-color13="A6/26/A4" # Magenta
-color14="01/84/BC" # Cyan
-color15="E6/E6/E7" # White
+color08="AA/AC/B0" # Dark Grey
+color09="A5/00/33" # Red
+color10="25/8B/29" # Green
+color11="A2/6E/00" # Yellow
+color12="1D/59/E6" # Blue
+color13="8A/00/89" # Magenta
+color14="00/6B/9A" # Cyan
+color15="1F/21/28" # White
 
 # 256 color
-color208="C5/4B/22" # Orange
+color208="C8/5A/33" # Orange
 
 # Base
 color_background="FA/FA/FA" # Black
@@ -47,8 +47,8 @@ theme = "onelight"
 mode = "light"
 background = "#FAFAFA"
 foreground = "#383A42"
-surface = "#DCDDDE"
-dim = "#686A70"
+surface = "#EBEBEB"
+dim = "#AAACB0"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 383A42 # foreground
   put_template_custom Ph FAFAFA # background
-  put_template_custom Pi E6E6E7 # bold color
+  put_template_custom Pi 1F2128 # bold color
   put_template_custom Pj C18401 # selection color
   put_template_custom Pk FAFAFA # selected text color
   put_template_custom Pl 383A42 # cursor

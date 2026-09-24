@@ -5,27 +5,27 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="47/4D/59" # Black
+color00="3B/42/52" # Black
 color01="BF/61/6A" # Red
 color02="A3/BE/8C" # Green
 color03="EB/CB/8B" # Yellow
 color04="81/A1/C1" # Blue
 color05="B4/8E/AD" # Magenta
 color06="88/C0/D0" # Cyan
-color07="DB/E1/EB" # Grey
+color07="E5/E9/F0" # Grey
 
 # Bright
-color08="94/9A/A5" # Dark Grey
-color09="BF/61/6A" # Red
+color08="4C/56/6A" # Dark Grey
+color09="D0/87/70" # Red
 color10="A3/BE/8C" # Green
 color11="EB/CB/8B" # Yellow
-color12="81/A1/C1" # Blue
+color12="8F/BC/BB" # Blue
 color13="B4/8E/AD" # Magenta
 color14="88/C0/D0" # Cyan
-color15="F7/F8/FA" # White
+color15="EC/EF/F4" # White
 
 # 256 color
-color208="D5/96/7A" # Orange
+color208="D7/96/7B" # Orange
 
 # Base
 color_background="2E/34/40" # Black
@@ -47,8 +47,8 @@ theme = "nord"
 mode = "dark"
 background = "#2E3440"
 foreground = "#D8DEE9"
-surface = "#474D59"
-dim = "#949AA5"
+surface = "#3B4252"
+dim = "#4C566A"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg D8DEE9 # foreground
   put_template_custom Ph 2E3440 # background
-  put_template_custom Pi F7F8FA # bold color
+  put_template_custom Pi ECEFF4 # bold color
   put_template_custom Pj EBCB8B # selection color
   put_template_custom Pk 2E3440 # selected text color
   put_template_custom Pl D8DEE9 # cursor
