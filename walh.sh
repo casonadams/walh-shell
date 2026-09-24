@@ -65,19 +65,6 @@ _walh_apply() {
   fi
 }
 
-_walh_legacy_alias() {
-  # Backward-compatible wrapper for legacy aliases
-  local script="${1:-}"
-  local theme="${2:-}"
-  if [ -n "$theme" ]; then
-    _walh_apply "$theme"
-  elif [ -n "$script" ]; then
-    local name
-    name="$(basename "$script" .sh)"
-    _walh_apply "$name"
-  fi
-}
-
 _walh_current() {
   local theme_name="${WALH_THEME:-}"
   local mode="${WALH_MODE:-}"

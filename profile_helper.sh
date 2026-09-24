@@ -41,7 +41,7 @@ if [ -n "$WALH_LEGACY_ALIASES" ]; then
     script_name=${script_name%.sh}
     theme=${script_name}
     func_name="walh_${theme}"
-    echo "alias $func_name=\"_walh_legacy_alias \\\"$script\\\" $theme\""
+    echo "alias $func_name=\"walh $theme\""
   done
 fi
 
