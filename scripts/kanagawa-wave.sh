@@ -5,24 +5,24 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="16/16/1d" # Black
+color00="16/16/1E" # Black
 color01="c3/40/43" # Red
 color02="76/94/6a" # Green
 color03="c0/a3/6e" # Yellow
 color04="7e/9c/d8" # Blue
 color05="95/7f/b8" # Magenta
 color06="6a/95/89" # Cyan
-color07="c8/c0/93" # Grey
+color07="dc/d7/ba" # Grey
 
 # Bright
-color08="72/71/69" # Dark Grey
-color09="e8/24/24" # Red
-color10="98/bb/6c" # Green
-color11="e6/c3/84" # Yellow
-color12="7f/b4/ca" # Blue
-color13="93/8a/a9" # Magenta
-color14="7a/a8/9f" # Cyan
-color15="dc/d7/ba" # White
+color08="60/5F/58" # Dark Grey
+color09="F1/63/63" # Red
+color10="99/BA/8C" # Green
+color11="E8/C9/90" # Yellow
+color12="A3/C2/FF" # Blue
+color13="BB/A3/E1" # Magenta
+color14="8C/BB/AE" # Cyan
+color15="F6/F1/D4" # White
 
 # 256 color
 color208="C5/76/58" # Orange
@@ -47,8 +47,8 @@ theme = "kanagawa-wave"
 mode = "dark"
 background = "#1f1f28"
 foreground = "#dcd7ba"
-surface = "#16161d"
-dim = "#727169"
+surface = "#16161E"
+dim = "#605F58"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg dcd7ba # foreground
   put_template_custom Ph 1f1f28 # background
-  put_template_custom Pi dcd7ba # bold color
+  put_template_custom Pi F6F1D4 # bold color
   put_template_custom Pj c0a36e # selection color
   put_template_custom Pk 1f1f28 # selected text color
   put_template_custom Pl dcd7ba # cursor

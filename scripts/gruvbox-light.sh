@@ -5,36 +5,36 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="fb/f1/c7" # Black
-color01="9D/00/06" # Red
-color02="79/74/0E" # Green
-color03="B5/76/14" # Yellow
+color00="EC/E2/B9" # Black
+color01="9d/00/06" # Red
+color02="79/74/0e" # Green
+color03="b5/76/14" # Yellow
 color04="07/66/78" # Blue
-color05="8F/3F/71" # Magenta
-color06="42/7B/58" # Cyan
-color07="7c/6f/64" # Grey
+color05="8f/3f/71" # Magenta
+color06="42/7b/58" # Cyan
+color07="50/49/45" # Grey
 
 # Bright
-color08="92/83/74" # Dark Grey
-color09="cc/24/1d" # Red
-color10="98/97/1a" # Green
-color11="d7/99/21" # Yellow
-color12="45/85/88" # Blue
-color13="b1/62/86" # Magenta
-color14="68/9d/6a" # Cyan
-color15="3c/38/36" # White
+color08="B6/AD/97" # Dark Grey
+color09="77/00/03" # Red
+color10="61/5D/00" # Green
+color11="98/60/00" # Yellow
+color12="00/4E/5D" # Blue
+color13="7B/1E/5C" # Magenta
+color14="1F/65/3F" # Cyan
+color15="36/2F/2B" # White
 
 # 256 color
 color208="AB/4A/0D" # Orange
 
 # Base
-color_background="FB/F1/C7" # Black
+color_background="fb/f1/c7" # Black
 color_foreground="50/49/45" # Grey
 
 # Announce the active palette to programs launched from this shell
 export WALH_THEME="gruvbox-light"
 export WALH_MODE="light"
-export WALH_BG="#FBF1C7"
+export WALH_BG="#fbf1c7"
 export WALH_FG="#504945"
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
@@ -45,10 +45,10 @@ if [ -z "$WALH_RESTORE" ]; then
   cat > "$state_dir/state.toml" <<STATEEOF
 theme = "gruvbox-light"
 mode = "light"
-background = "#FBF1C7"
+background = "#fbf1c7"
 foreground = "#504945"
-surface = "#fbf1c7"
-dim = "#928374"
+surface = "#ECE2B9"
+dim = "#B6AD97"
 STATEEOF
 fi
 
@@ -114,12 +114,12 @@ put_template 208 "$color208"
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 504945 # foreground
-  put_template_custom Ph FBF1C7 # background
-  put_template_custom Pi 3c3836 # bold color
-  put_template_custom Pj B57614 # selection color
-  put_template_custom Pk FBF1C7 # selected text color
+  put_template_custom Ph fbf1c7 # background
+  put_template_custom Pi 362F2B # bold color
+  put_template_custom Pj b57614 # selection color
+  put_template_custom Pk fbf1c7 # selected text color
   put_template_custom Pl 504945 # cursor
-  put_template_custom Pm FBF1C7 # cursor text
+  put_template_custom Pm fbf1c7 # cursor text
 else
   put_template_var 10 "$color_foreground"
   if [ "$WALH_SHELL_SET_BACKGROUND" != false ]; then

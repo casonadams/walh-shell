@@ -6,13 +6,13 @@
 
 # Normal
 color00="1E/22/2A" # Black
-color01="E0/6C/75" # Red
-color02="98/C3/79" # Green
-color03="E5/C0/7B" # Yellow
-color04="61/AF/EF" # Blue
-color05="C6/78/DD" # Magenta
-color06="56/B6/C2" # Cyan
-color07="AB/B2/BF" # Grey
+color01="e0/6c/75" # Red
+color02="98/c3/79" # Green
+color03="e5/c0/7b" # Yellow
+color04="61/af/ef" # Blue
+color05="c6/78/dd" # Magenta
+color06="56/b6/c2" # Cyan
+color07="ab/b2/bf" # Grey
 
 # Bright
 color08="56/5B/65" # Dark Grey
@@ -28,14 +28,14 @@ color15="C4/CB/D9" # White
 color208="E5/97/79" # Orange
 
 # Base
-color_background="28/2C/34" # Black
-color_foreground="AB/B2/BF" # Grey
+color_background="28/2c/34" # Black
+color_foreground="ab/b2/bf" # Grey
 
 # Announce the active palette to programs launched from this shell
 export WALH_THEME="onedark"
 export WALH_MODE="dark"
-export WALH_BG="#282C34"
-export WALH_FG="#ABB2BF"
+export WALH_BG="#282c34"
+export WALH_FG="#abb2bf"
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
 export COLORFGBG="15;0"
@@ -45,8 +45,8 @@ if [ -z "$WALH_RESTORE" ]; then
   cat > "$state_dir/state.toml" <<STATEEOF
 theme = "onedark"
 mode = "dark"
-background = "#282C34"
-foreground = "#ABB2BF"
+background = "#282c34"
+foreground = "#abb2bf"
 surface = "#1E222A"
 dim = "#565B65"
 STATEEOF
@@ -113,13 +113,13 @@ put_template 208 "$color208"
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg ABB2BF # foreground
-  put_template_custom Ph 282C34 # background
+  put_template_custom Pg abb2bf # foreground
+  put_template_custom Ph 282c34 # background
   put_template_custom Pi C4CBD9 # bold color
-  put_template_custom Pj E5C07B # selection color
-  put_template_custom Pk 282C34 # selected text color
-  put_template_custom Pl ABB2BF # cursor
-  put_template_custom Pm 282C34 # cursor text
+  put_template_custom Pj e5c07b # selection color
+  put_template_custom Pk 282c34 # selected text color
+  put_template_custom Pl abb2bf # cursor
+  put_template_custom Pm 282c34 # cursor text
 else
   put_template_var 10 "$color_foreground"
   if [ "$WALH_SHELL_SET_BACKGROUND" != false ]; then

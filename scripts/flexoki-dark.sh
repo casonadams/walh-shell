@@ -5,7 +5,7 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="1c/1b/1a" # Black
+color00="08/07/07" # Black
 color01="af/30/29" # Red
 color02="66/80/0b" # Green
 color03="ad/83/01" # Yellow
@@ -15,14 +15,14 @@ color06="24/83/7b" # Cyan
 color07="ce/cd/c3" # Grey
 
 # Bright
-color08="57/56/53" # Dark Grey
-color09="d1/4d/41" # Red
-color10="87/9a/39" # Green
-color11="d0/a2/15" # Yellow
-color12="43/85/be" # Blue
-color13="ce/5d/97" # Magenta
-color14="3a/a9/9f" # Cyan
-color15="ff/fc/f0" # White
+color08="50/4F/4B" # Dark Grey
+color09="DC/54/49" # Red
+color10="88/A5/37" # Green
+color11="D5/A8/36" # Yellow
+color12="41/82/D1" # Blue
+color13="CC/52/93" # Magenta
+color14="4A/A9/A0" # Cyan
+color15="E8/E7/DD" # White
 
 # 256 color
 color208="B0/5E/1F" # Orange
@@ -47,8 +47,8 @@ theme = "flexoki-dark"
 mode = "dark"
 background = "#100f0f"
 foreground = "#cecdc3"
-surface = "#1c1b1a"
-dim = "#575653"
+surface = "#080707"
+dim = "#504F4B"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg cecdc3 # foreground
   put_template_custom Ph 100f0f # background
-  put_template_custom Pi fffcf0 # bold color
+  put_template_custom Pi E8E7DD # bold color
   put_template_custom Pj ad8301 # selection color
   put_template_custom Pk 100f0f # selected text color
   put_template_custom Pl cecdc3 # cursor

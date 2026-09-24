@@ -163,8 +163,8 @@ test_generate_themes() {
 
   local script_count
   script_count=$(find "$REPO_DIR/scripts" -name "*.sh" | wc -l | tr -d ' ')
-  if [ "$script_count" -lt 50 ]; then
-    echo "FAIL: expected at least 50 theme scripts, found $script_count"
+  if [ "$script_count" -lt 40 ]; then
+    echo "FAIL: expected at least 40 theme scripts, found $script_count"
     FAILED=1
   else
     echo "PASS: found $script_count generated theme scripts"
@@ -235,11 +235,11 @@ test_startup_alias_behavior() {
   alias_count=$(echo "$output" | grep -c "alias walh_" || true)
   assert_eq "1" "$alias_count" "default startup generates 0 theme aliases (only walh_list_themes)"
 
-  # With WALH_LEGACY_ALIASES=1: generates all 50+ aliases
+  # With WALH_LEGACY_ALIASES=1: generates all curated theme aliases
   output="$(HOME="$tmp_home" WALH_LEGACY_ALIASES=1 bash "$REPO_DIR/profile_helper.sh")"
   alias_count=$(echo "$output" | grep -c "alias walh_" || true)
-  if [ "$alias_count" -lt 50 ]; then
-    echo "FAIL: expected at least 50 aliases with WALH_LEGACY_ALIASES=1, got $alias_count"
+  if [ "$alias_count" -lt 40 ]; then
+    echo "FAIL: expected at least 40 aliases with WALH_LEGACY_ALIASES=1, got $alias_count"
     FAILED=1
   else
     echo "PASS: WALH_LEGACY_ALIASES=1 generated $alias_count aliases"

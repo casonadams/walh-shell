@@ -6,13 +6,13 @@
 
 # Normal
 color00="14/16/18" # Black
-color01="CC/66/66" # Red
-color02="B5/BD/68" # Green
-color03="F0/C6/74" # Yellow
-color04="81/A2/BE" # Blue
-color05="B2/94/BB" # Magenta
-color06="8A/BE/B7" # Cyan
-color07="C5/C8/C6" # Grey
+color01="cc/66/66" # Red
+color02="b5/bd/68" # Green
+color03="f0/c6/74" # Yellow
+color04="81/a2/be" # Blue
+color05="b2/94/bb" # Magenta
+color06="8a/be/b7" # Cyan
+color07="c5/c8/c6" # Grey
 
 # Bright
 color08="57/59/5A" # Dark Grey
@@ -28,14 +28,14 @@ color15="DF/E2/E0" # White
 color208="DF/97/6E" # Orange
 
 # Base
-color_background="1D/1F/21" # Black
-color_foreground="C5/C8/C6" # Grey
+color_background="1d/1f/21" # Black
+color_foreground="c5/c8/c6" # Grey
 
 # Announce the active palette to programs launched from this shell
 export WALH_THEME="tomorrow-dark"
 export WALH_MODE="dark"
-export WALH_BG="#1D1F21"
-export WALH_FG="#C5C8C6"
+export WALH_BG="#1d1f21"
+export WALH_FG="#c5c8c6"
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
 export COLORFGBG="15;0"
@@ -45,8 +45,8 @@ if [ -z "$WALH_RESTORE" ]; then
   cat > "$state_dir/state.toml" <<STATEEOF
 theme = "tomorrow-dark"
 mode = "dark"
-background = "#1D1F21"
-foreground = "#C5C8C6"
+background = "#1d1f21"
+foreground = "#c5c8c6"
 surface = "#141618"
 dim = "#57595A"
 STATEEOF
@@ -113,13 +113,13 @@ put_template 208 "$color208"
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg C5C8C6 # foreground
-  put_template_custom Ph 1D1F21 # background
+  put_template_custom Pg c5c8c6 # foreground
+  put_template_custom Ph 1d1f21 # background
   put_template_custom Pi DFE2E0 # bold color
-  put_template_custom Pj F0C674 # selection color
-  put_template_custom Pk 1D1F21 # selected text color
-  put_template_custom Pl C5C8C6 # cursor
-  put_template_custom Pm 1D1F21 # cursor text
+  put_template_custom Pj f0c674 # selection color
+  put_template_custom Pk 1d1f21 # selected text color
+  put_template_custom Pl c5c8c6 # cursor
+  put_template_custom Pm 1d1f21 # cursor text
 else
   put_template_var 10 "$color_foreground"
   if [ "$WALH_SHELL_SET_BACKGROUND" != false ]; then

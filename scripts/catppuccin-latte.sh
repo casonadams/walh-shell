@@ -5,24 +5,24 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="bc/c0/cc" # Black
+color00="E0/E2/E6" # Black
 color01="d2/0f/39" # Red
 color02="40/a0/2b" # Green
 color03="df/8e/1d" # Yellow
 color04="1e/66/f5" # Blue
 color05="88/39/ef" # Magenta
 color06="17/92/99" # Cyan
-color07="5c/5f/77" # Grey
+color07="4c/4f/69" # Grey
 
 # Bright
-color08="ac/b0/be" # Dark Grey
-color09="e6/45/53" # Red
-color10="40/a0/2b" # Green
-color11="fe/64/0b" # Yellow
-color12="04/a5/e5" # Blue
-color13="ea/76/cb" # Magenta
-color14="20/9f/b5" # Cyan
-color15="6c/6f/85" # White
+color08="AD/B0/C1" # Dark Grey
+color09="AC/00/2B" # Red
+color10="23/87/00" # Green
+color11="C1/77/00" # Yellow
+color12="00/4C/D8" # Blue
+color13="73/00/D6" # Magenta
+color14="00/78/7F" # Cyan
+color15="32/34/4D" # White
 
 # 256 color
 color208="DB/5E/31" # Orange
@@ -47,8 +47,8 @@ theme = "catppuccin-latte"
 mode = "light"
 background = "#eff1f5"
 foreground = "#4c4f69"
-surface = "#bcc0cc"
-dim = "#acb0be"
+surface = "#E0E2E6"
+dim = "#ADB0C1"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 4c4f69 # foreground
   put_template_custom Ph eff1f5 # background
-  put_template_custom Pi 6c6f85 # bold color
+  put_template_custom Pi 32344D # bold color
   put_template_custom Pj df8e1d # selection color
   put_template_custom Pk eff1f5 # selected text color
   put_template_custom Pl 4c4f69 # cursor

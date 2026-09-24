@@ -5,7 +5,7 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="21/22/2c" # Black
+color00="1E/20/2C" # Black
 color01="ff/55/55" # Red
 color02="50/fa/7b" # Green
 color03="f1/fa/8c" # Yellow
@@ -15,14 +15,14 @@ color06="8b/e9/fd" # Cyan
 color07="f8/f8/f2" # Grey
 
 # Bright
-color08="62/72/a4" # Dark Grey
-color09="ff/6e/6e" # Red
-color10="69/ff/94" # Green
-color11="ff/ff/a5" # Yellow
-color12="d6/ac/ff" # Blue
-color13="ff/92/df" # Magenta
-color14="a4/ff/ff" # Cyan
-color15="ff/ff/ff" # White
+color08="70/71/76" # Dark Grey
+color09="FF/A1/9A" # Red
+color10="9F/FF/AE" # Green
+color11="E6/EE/7A" # Yellow
+color12="DB/C6/FF" # Blue
+color13="FF/C0/E0" # Magenta
+color14="B1/F1/FF" # Cyan
+color15="FC/FC/F6" # White
 
 # 256 color
 color208="FF/AF/73" # Orange
@@ -47,8 +47,8 @@ theme = "dracula"
 mode = "dark"
 background = "#282a36"
 foreground = "#f8f8f2"
-surface = "#21222c"
-dim = "#6272a4"
+surface = "#1E202C"
+dim = "#707176"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg f8f8f2 # foreground
   put_template_custom Ph 282a36 # background
-  put_template_custom Pi ffffff # bold color
+  put_template_custom Pi FCFCF6 # bold color
   put_template_custom Pj f1fa8c # selection color
   put_template_custom Pk 282a36 # selected text color
   put_template_custom Pl f8f8f2 # cursor

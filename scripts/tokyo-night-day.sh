@@ -5,24 +5,24 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="d0/d5/e3" # Black
+color00="D2/D3/D8" # Black
 color01="f5/2a/65" # Red
 color02="58/75/39" # Green
 color03="8c/6c/3e" # Yellow
 color04="2e/7d/e9" # Blue
 color05="98/54/f1" # Magenta
 color06="00/71/97" # Cyan
-color07="61/72/b0" # Grey
+color07="37/60/bf" # Grey
 
 # Bright
-color08="a1/a6/c5" # Dark Grey
-color09="c6/43/43" # Red
-color10="49/70/22" # Green
-color11="b1/5c/00" # Yellow
-color12="18/80/e6" # Blue
-color13="8a/4a/db" # Magenta
-color14="00/82/a6" # Cyan
-color15="1d/20/2f" # White
+color08="98/B1/E6" # Dark Grey
+color09="D3/00/50" # Red
+color10="3F/5F/15" # Green
+color11="77/54/1A" # Yellow
+color12="00/63/D2" # Blue
+color13="85/23/E5" # Magenta
+color14="00/59/78" # Cyan
+color15="1D/42/9E" # White
 
 # 256 color
 color208="C2/59/52" # Orange
@@ -47,8 +47,8 @@ theme = "tokyo-night-day"
 mode = "light"
 background = "#e1e2e7"
 foreground = "#3760bf"
-surface = "#d0d5e3"
-dim = "#a1a6c5"
+surface = "#D2D3D8"
+dim = "#98B1E6"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 3760bf # foreground
   put_template_custom Ph e1e2e7 # background
-  put_template_custom Pi 1d202f # bold color
+  put_template_custom Pi 1D429E # bold color
   put_template_custom Pj 8c6c3e # selection color
   put_template_custom Pk e1e2e7 # selected text color
   put_template_custom Pl 3760bf # cursor

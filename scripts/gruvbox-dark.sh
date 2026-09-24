@@ -5,24 +5,24 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="28/28/28" # Black
+color00="1E/1E/1E" # Black
 color01="cc/24/1d" # Red
 color02="98/97/1a" # Green
 color03="d7/99/21" # Yellow
 color04="45/85/88" # Blue
 color05="b1/62/86" # Magenta
 color06="68/9d/6a" # Cyan
-color07="a8/99/84" # Grey
+color07="D5/C4/A1" # Grey
 
 # Bright
-color08="92/83/74" # Dark Grey
-color09="fb/49/34" # Red
-color10="b8/bb/26" # Green
-color11="fa/bd/2f" # Yellow
-color12="83/a5/98" # Blue
-color13="d3/86/9b" # Magenta
-color14="8e/c0/7c" # Cyan
-color15="eb/db/b2" # White
+color08="66/5E/4F" # Dark Grey
+color09="FC/4D/3F" # Red
+color10="BE/BD/43" # Green
+color11="FF/BF/54" # Yellow
+color12="66/AA/AE" # Blue
+color13="DB/84/AB" # Magenta
+color14="8A/C4/8C" # Cyan
+color15="EF/DE/BA" # White
 
 # 256 color
 color208="D4/68/20" # Orange
@@ -47,8 +47,8 @@ theme = "gruvbox-dark"
 mode = "dark"
 background = "#282828"
 foreground = "#D5C4A1"
-surface = "#282828"
-dim = "#928374"
+surface = "#1E1E1E"
+dim = "#665E4F"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg D5C4A1 # foreground
   put_template_custom Ph 282828 # background
-  put_template_custom Pi ebdbb2 # bold color
+  put_template_custom Pi EFDEBA # bold color
   put_template_custom Pj d79921 # selection color
   put_template_custom Pk 282828 # selected text color
   put_template_custom Pl D5C4A1 # cursor

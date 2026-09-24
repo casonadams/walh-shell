@@ -1,21 +1,9 @@
 background = "#181825"
 foreground = "#cdd6f4"
 
-color00 = "#45475a"
 color01 = "#f38ba8"
 color02 = "#a6e3a1"
 color03 = "#f9e2af"
 color04 = "#89b4fa"
 color05 = "#cba6f7"
 color06 = "#94e2d5"
-color07 = "#bac2de"
-
-color08 = "#585b70"
-color09 = "#eba0ac"
-color10 = "#a6e3a1"
-color11 = "#fab387"
-color12 = "#74c7ec"
-color13 = "#f5c2e7"
-color14 = "#89dceb"
-color15 = "#a6adc8"
-

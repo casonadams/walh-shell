@@ -1,10 +1,9 @@
-background = "#282C34"
-foreground = "#ABB2BF"
+background = "#282c34"
+foreground = "#abb2bf"
 
-color01 = "#E06C75"
-color02 = "#98C379"
-color03 = "#E5C07B"
-color04 = "#61AFEF"
-color05 = "#C678DD"
-color06 = "#56B6C2"
-
+color01 = "#e06c75"
+color02 = "#98c379"
+color03 = "#e5c07b"
+color04 = "#61afef"
+color05 = "#c678dd"
+color06 = "#56b6c2"

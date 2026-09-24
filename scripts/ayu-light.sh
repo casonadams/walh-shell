@@ -5,7 +5,7 @@
 # Usage: source this script in your shell to apply the theme.
 
 # Normal
-color00="f3/f4/f5" # Black
+color00="EB/EB/EB" # Black
 color01="f0/71/71" # Red
 color02="6c/ba/78" # Green
 color03="fa/8d/3e" # Yellow
@@ -15,14 +15,14 @@ color06="4c/bf/99" # Cyan
 color07="57/5f/66" # Grey
 
 # Bright
-color08="ab/b0/b6" # Dark Grey
-color09="f0/71/78" # Red
-color10="86/b3/00" # Green
-color11="f2/ae/49" # Yellow
-color12="39/9e/e6" # Blue
-color13="a3/7a/cc" # Magenta
-color14="4c/bf/99" # Cyan
-color15="1a/1f/29" # White
+color08="B8/BC/C0" # Dark Grey
+color09="DE/4D/52" # Red
+color10="46/A3/58" # Green
+color11="E2/71/00" # Yellow
+color12="00/8A/C0" # Blue
+color13="8D/5E/BA" # Magenta
+color14="00/A8/7F" # Cyan
+color15="3C/44/4A" # White
 
 # 256 color
 color208="F5/7F/5C" # Orange
@@ -47,8 +47,8 @@ theme = "ayu-light"
 mode = "light"
 background = "#fafafa"
 foreground = "#575f66"
-surface = "#f3f4f5"
-dim = "#abb0b6"
+surface = "#EBEBEB"
+dim = "#B8BCC0"
 STATEEOF
 fi
 
@@ -115,7 +115,7 @@ if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
   put_template_custom Pg 575f66 # foreground
   put_template_custom Ph fafafa # background
-  put_template_custom Pi 1a1f29 # bold color
+  put_template_custom Pi 3C444A # bold color
   put_template_custom Pj fa8d3e # selection color
   put_template_custom Pk fafafa # selected text color
   put_template_custom Pl 575f66 # cursor

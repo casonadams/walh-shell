@@ -6,13 +6,13 @@
 
 # Normal
 color00="08/09/0D" # Black
-color01="F7/81/66" # Red
-color02="56/D3/64" # Green
-color03="E3/B3/41" # Yellow
-color04="6C/A4/F8" # Blue
-color05="DB/61/A2" # Magenta
-color06="2B/74/89" # Cyan
-color07="8B/94/9E" # Grey
+color01="f7/81/66" # Red
+color02="56/d3/64" # Green
+color03="e3/b3/41" # Yellow
+color04="6c/a4/f8" # Blue
+color05="db/61/a2" # Magenta
+color06="2b/74/89" # Cyan
+color07="8b/94/9e" # Grey
 
 # Bright
 color08="3A/3F/45" # Dark Grey
@@ -29,13 +29,13 @@ color208="EE/9B/57" # Orange
 
 # Base
 color_background="10/12/16" # Black
-color_foreground="8B/94/9E" # Grey
+color_foreground="8b/94/9e" # Grey
 
 # Announce the active palette to programs launched from this shell
 export WALH_THEME="github-dark"
 export WALH_MODE="dark"
 export WALH_BG="#101216"
-export WALH_FG="#8B949E"
+export WALH_FG="#8b949e"
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
 export COLORFGBG="15;0"
@@ -46,7 +46,7 @@ if [ -z "$WALH_RESTORE" ]; then
 theme = "github-dark"
 mode = "dark"
 background = "#101216"
-foreground = "#8B949E"
+foreground = "#8b949e"
 surface = "#08090D"
 dim = "#3A3F45"
 STATEEOF
@@ -113,12 +113,12 @@ put_template 208 "$color208"
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg 8B949E # foreground
+  put_template_custom Pg 8b949e # foreground
   put_template_custom Ph 101216 # background
   put_template_custom Pi A3ADB7 # bold color
-  put_template_custom Pj E3B341 # selection color
+  put_template_custom Pj e3b341 # selection color
   put_template_custom Pk 101216 # selected text color
-  put_template_custom Pl 8B949E # cursor
+  put_template_custom Pl 8b949e # cursor
   put_template_custom Pm 101216 # cursor text
 else
   put_template_var 10 "$color_foreground"
