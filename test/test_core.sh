@@ -177,6 +177,12 @@ test_shellcheck() {
   shellcheck "$REPO_DIR/profile_helper.sh"
   echo "PASS: shellcheck passed for profile_helper.sh"
 
+  shellcheck "$REPO_DIR/walh.sh"
+  echo "PASS: shellcheck passed for walh.sh"
+
+  shellcheck "$REPO_DIR/list-themes.sh"
+  echo "PASS: shellcheck passed for list-themes.sh"
+
   shellcheck "$REPO_DIR/scripts/gruvbox-dark.sh"
   echo "PASS: shellcheck passed for scripts/gruvbox-dark.sh"
 
@@ -215,10 +221,10 @@ test_startup_alias_behavior() {
   local tmp_home
   tmp_home="$(mktemp -d)"
 
-  # By default: zero theme aliases, walh function defined
+  # By default: zero theme aliases, walh function loaded via walh.sh
   local output
   output="$(HOME="$tmp_home" bash "$REPO_DIR/profile_helper.sh")"
-  assert_contains "$output" "walh()" "profile_helper defines walh() function"
+  assert_contains "$output" "walh.sh" "profile_helper sources walh.sh"
   assert_contains "$output" "alias walh_list_themes" "profile_helper defines walh_list_themes"
 
   local alias_count
@@ -296,6 +302,7 @@ test_shellcheck
 test_xdg_base_directory_and_legacy_fallback
 test_startup_alias_behavior
 test_interactive_walh_dispatcher
+"$REPO_DIR/test/test_walh_cli.sh"
 test_shellspec
 
 if [ "$FAILED" -ne 0 ]; then

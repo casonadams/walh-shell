@@ -61,13 +61,13 @@ Describe 'Core Theme Infrastructure'
   End
 
   Describe 'Startup alias behavior'
-    It 'defines walh() function and omits theme aliases by default'
+    It 'sources walh.sh and omits theme aliases by default'
       export HOME="$SHELLSPEC_TMPBASE/no_alias_home"
       unset WALH_LEGACY_ALIASES || true
 
       When run script profile_helper.sh
       The status should be success
-      The output should include "walh()"
+      The output should include 'walh.sh'
       The output should not include "alias walh_gruvbox-dark"
       The output should not include "alias walh_onedark"
       The output should include "alias walh_list_themes"

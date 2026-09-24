@@ -23,56 +23,8 @@ if [ -n "$walh_theme_file" ] && [ -e "$walh_theme_file" ]; then
   echo "export WALH_THEME=${script_name}"
   echo "WALH_RESTORE=1 . \"$walh_theme_file\"; unset WALH_RESTORE"
 fi
-cat <<'FUNC'
-_walh_theme_file() {
-  if [ -e "$HOME/.walh_theme" ] || [ -L "$HOME/.walh_theme" ]; then
-    printf '%s\n' "$HOME/.walh_theme"
-  else
-    local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/walh"
-    printf '%s/current_theme\n' "$state_dir"
-  fi
-}
-
-_walh()
-{
-  local script=$1
-  local theme=$2
-  if [ -f "$script" ]; then
-    . "$script"
-    local theme_file
-    theme_file="$(_walh_theme_file)"
-    mkdir -p "$(dirname "$theme_file")"
-    ln -fs "$script" "$theme_file"
-    export WALH_THEME=${theme}
-    if [ -n "${WALH_SHELL_HOOKS:-}" ] && [ -d "${WALH_SHELL_HOOKS}" ]; then
-      for hook in "$WALH_SHELL_HOOKS"/*; do
-        [ -f "$hook" ] && [ -x "$hook" ] && "$hook"
-      done
-    fi
-  else
-    echo "walh: theme script not found: $script" >&2
-    return 1
-  fi
-}
-
-walh()
-{
-  if [ $# -eq 0 ]; then
-    echo "walh: no theme specified" >&2
-    return 1
-  fi
-  local theme=$1
-  local script="${WALH_SHELL}/scripts/${theme}.sh"
-  if [ -f "$script" ]; then
-    _walh "$script" "$theme"
-  else
-    echo "walh: theme '${theme}' not found" >&2
-    return 1
-  fi
-}
-FUNC
-
 echo "export WALH_SHELL=\"$script_dir\""
+echo ". \"\$WALH_SHELL/walh.sh\""
 
 if [ -n "$WALH_LEGACY_ALIASES" ]; then
   for script in "$script_dir"/scripts/*.sh; do
