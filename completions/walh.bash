@@ -20,8 +20,12 @@ _walh_bash_completion() {
 
   if [ "$COMP_CWORD" -eq 1 ]; then
     local themes=""
-    if [ -n "${WALH_SHELL:-}" ] && [ -d "${WALH_SHELL}/scripts" ]; then
-      themes="$(for f in "${WALH_SHELL}/scripts/"*.sh; do [ -f "$f" ] && basename "$f" .sh; done)"
+    local walh_dir="${WALH_SHELL:-}"
+    if [ -z "$walh_dir" ] && [ -n "${BASH_SOURCE[0]:-}" ]; then
+      walh_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    fi
+    if [ -n "$walh_dir" ] && [ -d "${walh_dir}/scripts" ]; then
+      themes="$(for f in "${walh_dir}/scripts/"*.sh; do [ -f "$f" ] && basename "$f" .sh; done)"
     elif command -v walh >/dev/null 2>&1; then
       themes="$(walh list 2>/dev/null)"
     fi

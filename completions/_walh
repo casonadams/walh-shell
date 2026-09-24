@@ -20,8 +20,14 @@ _walh() {
   case "$state" in
     command)
       local -a themes
-      if [ -n "$WALH_SHELL" ] && [ -d "$WALH_SHELL/scripts" ]; then
-        themes=("$WALH_SHELL"/scripts/*.sh(N:t:r))
+      local walh_dir="${WALH_SHELL:-}"
+      if [ -z "$walh_dir" ]; then
+        walh_dir="${${(%):-%x}:A:h:h}"
+      fi
+      if [ -n "$walh_dir" ] && [ -d "$walh_dir/scripts" ]; then
+        themes=("$walh_dir"/scripts/*.sh(N:t:r))
+      elif (( $+functions[walh] )); then
+        themes=($(walh list 2>/dev/null))
       elif command -v walh >/dev/null 2>&1; then
         themes=($(walh list 2>/dev/null))
       fi

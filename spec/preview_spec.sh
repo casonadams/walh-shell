@@ -39,6 +39,17 @@ Describe 'Native Completions and Hooks'
       The status should be success
       The output should include "toggle"
     End
+
+    It 'does not define _walh function in walh.sh'
+      check_unshadowed() {
+        if command -v type >/dev/null 2>&1 && type _walh >/dev/null 2>&1; then
+          return 1
+        fi
+        return 0
+      }
+      When call check_unshadowed
+      The status should be success
+    End
   End
 
   Describe 'Rich hook execution'

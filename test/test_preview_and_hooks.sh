@@ -89,6 +89,66 @@ EOF
   local output
   output="$(zsh -c "$test_script")"
   assert_contains "$output" "REGISTERED:_walh" "zsh registers _walh completion function for walh"
+
+  local no_shadow_test
+  no_shadow_test="$(
+    cat <<EOF
+. "$REPO_DIR/walh.sh"
+type _walh >/dev/null 2>&1 && echo "SHADOWED" || echo "UNSHADOWED"
+EOF
+  )"
+  local shadow_out
+  shadow_out="$(zsh -c "$no_shadow_test")"
+  assert_contains "$shadow_out" "UNSHADOWED" "walh.sh does not define function _walh shadowing completion"
+
+  if command -v python3 >/dev/null 2>&1; then
+    local pty_output
+    # shellcheck disable=SC2016
+    pty_output="$(
+      python3 -c '
+import os, pty, select, time, sys
+
+repo_dir = sys.argv[1]
+master, slave = pty.openpty()
+pid = os.fork()
+if pid == 0:
+    os.close(master)
+    os.setsid()
+    for fd in (0, 1, 2):
+        os.dup2(slave, fd)
+    if slave > 2:
+        os.close(slave)
+    os.execv("/bin/zsh", ["zsh", "-f"])
+else:
+    os.close(slave)
+    def drain():
+        data = b""
+        while select.select([master], [], [], 0.05)[0]:
+            chunk = os.read(master, 2048)
+            if not chunk:
+                break
+            data += chunk
+        return data
+
+    def send_line(line):
+        os.write(master, line.encode() + b"\n")
+        time.sleep(0.08)
+        drain()
+
+    send_line("autoload -Uz compinit && compinit -D")
+    eval_cmd = "eval \"$(" + repo_dir + "/profile_helper.sh)\""
+    send_line(eval_cmd)
+    os.write(master, b"walh \t")
+    time.sleep(0.2)
+    res = drain().decode(errors="replace")
+    os.close(master)
+    os.waitpid(pid, 0)
+    print("PTY_RESULT:" + res)
+' "$REPO_DIR"
+    )"
+    assert_contains "$pty_output" "toggle" "zsh tab complete on 'walh <tab>' suggests subcommands"
+    assert_contains "$pty_output" "gruvbox-dark" "zsh tab complete on 'walh <tab>' suggests themes"
+  fi
 }
 
 # ---------------------------------------------------------------------------

@@ -78,10 +78,6 @@ _walh_legacy_alias() {
   fi
 }
 
-_walh() {
-  _walh_legacy_alias "$@"
-}
-
 _walh_current() {
   local theme_name="${WALH_THEME:-}"
   local mode="${WALH_MODE:-}"

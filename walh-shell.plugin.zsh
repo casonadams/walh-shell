@@ -5,14 +5,17 @@ if [[ -n "$VIMRUNTIME" || -n "$VIM" || -n "$NVIM" ]]; then
   return
 fi
 
-WALH_SHELL=$(dirname "${(%):-%x}")
+WALH_SHELL="$(cd "$(dirname "${(%):-%x}")" && pwd)"
+export WALH_SHELL
 
 if [[ -d "${WALH_SHELL}/completions" ]]; then
   fpath=("${WALH_SHELL}/completions" $fpath)
 fi
 
-[ -n "$PS1" ] \
-    && [ -s "${WALH_SHELL}/profile_helper.sh" ] \
-    && eval "$(${WALH_SHELL}/profile_helper.sh)"
+if [[ -o interactive ]] || [ -n "$PS1" ]; then
+  if [ -s "${WALH_SHELL}/profile_helper.sh" ]; then
+    eval "$("${WALH_SHELL}/profile_helper.sh")"
+  fi
+fi
 
 alias walh_list_themes="${WALH_SHELL}/list-themes.sh"
