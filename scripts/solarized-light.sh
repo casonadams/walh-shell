@@ -39,9 +39,6 @@ export WALH_FG="#586E75"
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
 export COLORFGBG="0;15"
-if [ "${WALH_SYNC_FZF:-}" = "1" ]; then
-  export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:+${FZF_DEFAULT_OPTS} }--color=bg:#FDF6E3,bg+:#DC322F,fg:#586E75,fg+:#248D85,hl:#268BD2,hl+:#268BD2,info:#758600,prompt:#758600,pointer:#248D85,marker:#248D85,spinner:#248D85,header:#268BD2"
-fi
 if [ -z "$WALH_RESTORE" ]; then
   state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
   mkdir -p "$state_dir"

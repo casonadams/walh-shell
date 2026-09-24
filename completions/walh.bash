@@ -16,7 +16,7 @@ _walh_bash_completion() {
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD - 1]}"
 
-  local subcommands="current toggle list random preview help"
+  local subcommands="current toggle list random help"
 
   if [ "$COMP_CWORD" -eq 1 ]; then
     local themes=""

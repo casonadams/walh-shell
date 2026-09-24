@@ -1,20 +1,20 @@
 # shellcheck shell=sh
 
-Describe 'Interactive Preview, Completions, and Hooks'
+Describe 'Native Completions and Hooks'
   setup() {
-    export HOME="$SHELLSPEC_TMPBASE/prev_home"
+    export HOME="$SHELLSPEC_TMPBASE/comp_home"
     mkdir -p "$HOME"
     export WALH_SHELL="$PWD"
     . "$PWD/walh.sh"
   }
   BeforeEach 'setup'
 
-  Describe 'walh preview'
-    It 'falls back gracefully in non-interactive environment'
-      When call walh preview
-      The status should be failure
-      The stderr should include "walh: interactive terminal required for preview"
-      The stdout should include "onedark"
+  Describe 'walh no-argument invocation'
+    It 'prints usage instructions'
+      When call walh
+      The status should be success
+      The output should include "Usage: walh"
+      The output should include "toggle"
     End
   End
 
@@ -64,34 +64,6 @@ EOF
       The output should include "HOOK_M:dark"
       The output should include "HOOK_B:#282828"
       The output should include "HOOK_F:#D5C4A1"
-    End
-  End
-
-  Describe 'FZF_DEFAULT_OPTS synchronization'
-    test_fzf_sync_on() {
-      export WALH_SYNC_FZF=1
-      walh gruvbox-dark >/dev/null 2>&1
-      printf '%s\n' "$FZF_DEFAULT_OPTS"
-    }
-
-    It 'updates FZF_DEFAULT_OPTS when WALH_SYNC_FZF=1'
-      When call test_fzf_sync_on
-      The status should be success
-      The output should include "--color=bg:#282828"
-      The output should include "fg:#D5C4A1"
-    End
-
-    test_fzf_sync_off() {
-      unset WALH_SYNC_FZF || true
-      export FZF_DEFAULT_OPTS="--height 40%"
-      walh gruvbox-dark >/dev/null 2>&1
-      printf '%s\n' "$FZF_DEFAULT_OPTS"
-    }
-
-    It 'leaves FZF_DEFAULT_OPTS unchanged when WALH_SYNC_FZF is unset'
-      When call test_fzf_sync_off
-      The status should be success
-      The output should equal "--height 40%"
     End
   End
 End

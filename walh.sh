@@ -65,7 +65,7 @@ _walh_apply() {
   fi
 }
 
-_walh() {
+_walh_legacy_alias() {
   # Backward-compatible wrapper for legacy aliases
   local script="${1:-}"
   local theme="${2:-}"
@@ -76,6 +76,10 @@ _walh() {
     name="$(basename "$script" .sh)"
     _walh_apply "$name"
   fi
+}
+
+_walh() {
+  _walh_legacy_alias "$@"
 }
 
 _walh_current() {
@@ -262,49 +266,6 @@ _walh_toggle() {
   fi
 }
 
-_walh_preview() {
-  if ! command -v fzf >/dev/null 2>&1; then
-    echo "walh: fzf is required for interactive preview. Available themes:" >&2
-    _walh_list
-    return 1
-  fi
-
-  if [ ! -t 0 ] || [ ! -t 1 ]; then
-    echo "walh: interactive terminal required for preview. Available themes:" >&2
-    _walh_list
-    return 1
-  fi
-
-  local initial_theme="${WALH_THEME:-}"
-  local initial_script=""
-  if [ -n "$initial_theme" ] && [ -f "$WALH_SHELL/scripts/$initial_theme.sh" ]; then
-    initial_script="$WALH_SHELL/scripts/$initial_theme.sh"
-  fi
-
-  local preview_cmd
-  preview_cmd="[ -f '$WALH_SHELL/scripts/{}.sh' ] && { eval \"\$('$WALH_SHELL/scripts/{}.sh' > /dev/tty 2>/dev/null || true)\"; printf 'Theme:  %s\nMode:   %s\n' '{}' \"\$(grep -m1 '^export WALH_MODE=' '$WALH_SHELL/scripts/{}.sh' 2>/dev/null | cut -d= -f2 | tr -d '\"')\"; }"
-
-  local chosen
-  chosen=$(_walh_list | fzf \
-    --preview="$preview_cmd" \
-    --preview-window="right:40%:wrap" \
-    --prompt="walh> " \
-    --header="ENTER: apply | ESC: cancel" \
-    --height="60%" \
-    --reverse)
-
-  if [ -n "$chosen" ]; then
-    _walh_apply "$chosen"
-  else
-    if [ -n "$initial_script" ]; then
-      # shellcheck disable=SC1090
-      WALH_RESTORE=1 . "$initial_script"
-      unset WALH_RESTORE
-      export WALH_THEME="$initial_theme"
-    fi
-  fi
-}
-
 _walh_help() {
   cat <<'EOF'
 Usage: walh [command|theme] [options]
@@ -315,7 +276,6 @@ Commands:
   toggle                Toggle between active dark and light themes
   list [--dark|--light] List available themes
   random [dark|light]   Apply a random theme
-  preview               Interactive theme selector (requires fzf)
   help, -h, --help      Show this help message
 EOF
 }
@@ -323,8 +283,8 @@ EOF
 walh() {
   local cmd="${1:-}"
   case "$cmd" in
-    "")
-      _walh_preview
+    "" | -h | --help | help)
+      _walh_help
       ;;
     current)
       _walh_current
@@ -339,13 +299,6 @@ walh() {
     random)
       shift
       _walh_random "$@"
-      ;;
-    preview)
-      shift
-      _walh_preview "$@"
-      ;;
-    -h | --help | help)
-      _walh_help
       ;;
     *)
       _walh_apply "$cmd"

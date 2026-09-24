@@ -107,10 +107,6 @@ walh onedark
 walh gruvbox-dark
 walh solarized-light
 
-# Interactive fuzzy search & live preview (requires fzf)
-walh
-walh preview
-
 # Show active theme name, mode, and colors
 walh current
 
@@ -152,10 +148,6 @@ Each hook receives the active palette metadata via environment variables:
 - `WALH_MODE`: Palette luminance mode (`dark` or `light`)
 - `WALH_BG`: Background hex color (e.g. `#282828`)
 - `WALH_FG`: Foreground hex color (e.g. `#D5C4A1`)
-
-### FZF Color Synchronization
-
-Set `WALH_SYNC_FZF=1` in your shell profile to automatically update `FZF_DEFAULT_OPTS` colors to match the active palette when switching themes.
 
 ---
 

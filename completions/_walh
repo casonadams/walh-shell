@@ -1,6 +1,6 @@
 #compdef walh
 
-_walh_zsh_completion() {
+_walh() {
   local curcontext="$curcontext" state line
   typeset -A opt_args
 
@@ -10,7 +10,6 @@ _walh_zsh_completion() {
     'toggle:Toggle between active dark and light themes'
     'list:List available themes'
     'random:Apply a random theme'
-    'preview:Interactive theme selector'
     'help:Show help message'
   )
 
@@ -46,4 +45,4 @@ _walh_zsh_completion() {
   esac
 }
 
-_walh_zsh_completion "$@"
+_walh "$@"

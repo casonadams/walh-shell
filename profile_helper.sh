@@ -32,7 +32,7 @@ if [ -f "$script_dir/completions/walh.bash" ]; then
 fi
 if [ -d "$script_dir/completions" ]; then
   # shellcheck disable=SC2016
-  echo '[ -n "${ZSH_VERSION:-}" ] && fpath=("'"$script_dir"'/completions" $fpath)'
+  echo '[ -n "${ZSH_VERSION:-}" ] && fpath=("'"$script_dir"'/completions" $fpath) && autoload -Uz _walh && compdef _walh walh 2>/dev/null || true'
 fi
 
 if [ -n "$WALH_LEGACY_ALIASES" ]; then
@@ -41,7 +41,7 @@ if [ -n "$WALH_LEGACY_ALIASES" ]; then
     script_name=${script_name%.sh}
     theme=${script_name}
     func_name="walh_${theme}"
-    echo "alias $func_name=\"_walh \\\"$script\\\" $theme\""
+    echo "alias $func_name=\"_walh_legacy_alias \\\"$script\\\" $theme\""
   done
 fi
 
