@@ -3,15 +3,17 @@
 if [ -s "$BASH" ]; then
     file_name=${BASH_SOURCE[0]}
 elif [ -s "$ZSH_NAME" ]; then
+    # shellcheck disable=SC2296
     file_name=${(%):-%x}
 fi
 script_dir=$(cd "$(dirname "$file_name")" && pwd)
 
+# shellcheck disable=SC1091
 . "$script_dir/realpath/realpath.sh"
 
 if [ -f ~/.walh_theme ]; then
   script_name=$(basename "$(realpath ~/.walh_theme)" .sh)
-  echo "export WALH_THEME=${script_name#*-}"
+  echo "export WALH_THEME=${script_name}"
   echo ". ~/.walh_theme"
 fi
 cat <<'FUNC'

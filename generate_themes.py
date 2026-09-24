@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-import chevron
 import os
 import shutil
-import subprocess
+
+import chevron
 import toml
+
 
 def hex_to_rgb(hex_color):
     hex_color = hex_color.lstrip('#')
@@ -197,8 +198,8 @@ for dir in os.listdir("themes"):
         render = chevron.render(**args)
 
     script_file = f"scripts/{theme_name}.sh"
+    cleaned = render.rstrip("\n") + "\n"
     with open(script_file, "w") as f:
-        for r in iter(render.splitlines()):
-            f.write(f"{r}\n")
+        f.write(cleaned)
 
-    subprocess.run(["chmod", "+x", script_file])
+    os.chmod(script_file, 0o755)

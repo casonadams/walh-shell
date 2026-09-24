@@ -11,11 +11,10 @@ resolve_symlinks() {
 _resolve_symlinks() {
   _assert_no_path_cycles "$@" || return
 
-  local dir_context path
-  path=$(readlink -- "$1")
-  if [ $? -eq 0 ]; then
+  local dir_context link_target
+  if link_target=$(readlink -- "$1"); then
     dir_context=$(dirname -- "$1")
-    _resolve_symlinks "$(_prepend_dir_context_if_necessary "$dir_context" "$path")" "$@"
+    _resolve_symlinks "$(_prepend_dir_context_if_necessary "$dir_context" "$link_target")" "$@"
   else
     printf '%s\n' "$1"
   fi
@@ -37,13 +36,13 @@ _prepend_path_if_relative() {
 }
 
 _assert_no_path_cycles() {
-  local target path
+  local target item
 
   target=$1
   shift
 
-  for path in "$@"; do
-    if [ "$path" = "$target" ]; then
+  for item in "$@"; do
+    if [ "$item" = "$target" ]; then
       return 1
     fi
   done

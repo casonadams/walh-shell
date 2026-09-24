@@ -116,7 +116,7 @@ walh_list_themes
 ## Creating & Customizing Themes
 
 - Themes are defined in simple TOML files in the `themes/` directory.
-- To add your own, copy an existing `.toml` file, edit the colors, and re-run `generate_themes.py` to generate the shell script.
+- To add your own, copy an existing `.toml` file, edit the colors, and re-run `uv run generate_themes.py` to generate the shell script.
 - PRs for new themes are welcome!
 
 ---

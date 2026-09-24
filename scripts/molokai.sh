@@ -36,35 +36,53 @@ export WALH_MODE=dark
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
 export COLORFGBG="15;0"
-state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
-mkdir -p "$state_dir"
-cat > "$state_dir/state.toml" <<STATEEOF
+if [ -z "$WALH_RESTORE" ]; then
+  state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
+  mkdir -p "$state_dir"
+  cat > "$state_dir/state.toml" <<STATEEOF
 mode = "dark"
 background = "#121212"
 foreground = "#BBBBBB"
 surface = "#2B2B2B"
 dim = "#777777"
 STATEEOF
+fi
 
+walh_buffer=""
+if [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ]; then
+  walh_append() {
+    local _c
+    # shellcheck disable=SC2059
+    printf -v _c "$@"
+    walh_buffer="${walh_buffer}${_c}"
+  }
+else
+  walh_append() {
+    # shellcheck disable=SC2059
+    walh_buffer="${walh_buffer}$(printf "$@")"
+  }
+fi
+
+# shellcheck disable=SC1003
 if [ -n "$TMUX" ]; then
   # Tell tmux to pass the escape sequences through
   # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
-  put_template() { printf '\033Ptmux;\033\033]4;%d;rgb:%s\033\033\\\033\\' "$@"; }
-  put_template_var() { printf '\033Ptmux;\033\033]%d;rgb:%s\033\033\\\033\\' "$@"; }
-  put_template_custom() { printf '\033Ptmux;\033\033]%s%s\033\033\\\033\\' "$@"; }
+  put_template() { walh_append '\033Ptmux;\033\033]4;%d;rgb:%s\033\033\\\033\\' "$@"; }
+  put_template_var() { walh_append '\033Ptmux;\033\033]%d;rgb:%s\033\033\\\033\\' "$@"; }
+  put_template_custom() { walh_append '\033Ptmux;\033\033]%s%s\033\033\\\033\\' "$@"; }
 elif [ "${TERM%%[-.]*}" = "screen" ]; then
   # GNU screen (screen, screen-256color, screen-256color-bce)
-  put_template() { printf '\033P\033]4;%d;rgb:%s\007\033\\' "$@"; }
-  put_template_var() { printf '\033P\033]%d;rgb:%s\007\033\\' "$@"; }
-  put_template_custom() { printf '\033P\033]%s%s\007\033\\' "$@"; }
+  put_template() { walh_append '\033P\033]4;%d;rgb:%s\007\033\\' "$@"; }
+  put_template_var() { walh_append '\033P\033]%d;rgb:%s\007\033\\' "$@"; }
+  put_template_custom() { walh_append '\033P\033]%s%s\007\033\\' "$@"; }
 elif [ "${TERM%%-*}" = "linux" ]; then
-  put_template() { [ "$1" -lt 16 ] && printf "\e]P%x%s" "$1" "$(echo "$2" | sed 's/\///g')"; }
+  put_template() { [ "$1" -lt 16 ] && walh_append '\033]P%x%s' "$1" "$(echo "$2" | sed 's/\///g')"; }
   put_template_var() { true; }
   put_template_custom() { true; }
 else
-  put_template() { printf '\033]4;%d;rgb:%s\033\\' "$@"; }
-  put_template_var() { printf '\033]%d;rgb:%s\033\\' "$@"; }
-  put_template_custom() { printf '\033]%s%s\033\\' "$@"; }
+  put_template() { walh_append '\033]4;%d;rgb:%s\033\\' "$@"; }
+  put_template_var() { walh_append '\033]%d;rgb:%s\033\\' "$@"; }
+  put_template_custom() { walh_append '\033]%s%s\033\\' "$@"; }
 fi
 
 # 16 color space
@@ -109,11 +127,14 @@ else
   put_template_custom 12 ";7" # cursor (reverse video)
 fi
 
+[ -n "$walh_buffer" ] && printf '%s' "$walh_buffer"
+
 # clean up
-for fn in put_template put_template_var put_template_custom; do
+for fn in walh_append put_template put_template_var put_template_custom; do
   unset -f "$fn" 2>/dev/null || true
 done
 for var in \
+  walh_buffer \
   color00 color01 color02 color03 color04 color05 color06 color07 \
   color08 color09 color10 color11 color12 color13 color14 color15 \
   color208 color_foreground color_background state_dir; do

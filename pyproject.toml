@@ -1,0 +1,15 @@
+[project]
+name = "walh-shell"
+version = "0.1.0"
+description = "A fast, modern, and extensible Zsh (and Bash) plugin for instant terminal color theme switching"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "chevron>=0.14.0",
+    "toml>=0.10.2",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.8",
+]
