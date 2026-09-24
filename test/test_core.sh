@@ -183,6 +183,9 @@ test_shellcheck() {
   shellcheck "$REPO_DIR/list-themes.sh"
   echo "PASS: shellcheck passed for list-themes.sh"
 
+  shellcheck "$REPO_DIR/completions/walh.bash"
+  echo "PASS: shellcheck passed for completions/walh.bash"
+
   shellcheck "$REPO_DIR/scripts/gruvbox-dark.sh"
   echo "PASS: shellcheck passed for scripts/gruvbox-dark.sh"
 
@@ -303,6 +306,7 @@ test_xdg_base_directory_and_legacy_fallback
 test_startup_alias_behavior
 test_interactive_walh_dispatcher
 "$REPO_DIR/test/test_walh_cli.sh"
+"$REPO_DIR/test/test_preview_and_hooks.sh"
 test_shellspec
 
 if [ "$FAILED" -ne 0 ]; then

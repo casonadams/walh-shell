@@ -97,19 +97,65 @@ You can use walh-shell in Bash as well!
 
 ## Usage
 
-After installation, use the `walh_<theme>` alias to instantly switch themes:
+### Unified CLI
+
+Switch themes and manage palettes using the unified `walh` command:
 
 ```sh
-walh_onedark
-walh_dracula
-walh_solarized-dark
+# Apply a theme
+walh onedark
+walh gruvbox-dark
+walh solarized-light
+
+# Interactive fuzzy search & live preview (requires fzf)
+walh
+walh preview
+
+# Show active theme name, mode, and colors
+walh current
+
+# Toggle between your active dark and light themes
+walh toggle
+
+# List available themes
+walh list
+walh list --dark
+walh list --light
+
+# Apply a random theme
+walh random
+walh random dark
+walh random light
 ```
 
-To see all available themes, use the built-in helper:
+### Tab Completions
+
+Automatic tab completions are provided for both Zsh and Bash:
+- `walh <TAB>` suggests subcommands and available themes.
+- `walh list --<TAB>` suggests `--dark` and `--light`.
+- `walh random <TAB>` suggests `dark` and `light`.
+
+### Legacy Aliases
+
+For backward compatibility with older configurations, setting `WALH_LEGACY_ALIASES=1` in your shell profile restores individual `walh_<theme>` aliases (e.g. `walh_onedark`).
+
+### User Hooks
+
+You can define hooks that run every time a theme is applied by setting `$WALH_SHELL_HOOKS` to a directory containing executable scripts:
 
 ```sh
-walh_list_themes
+export WALH_SHELL_HOOKS="$HOME/.config/walh/hooks"
 ```
+
+Each hook receives the active palette metadata via environment variables:
+- `WALH_THEME`: Active theme slug (e.g. `gruvbox-dark`)
+- `WALH_MODE`: Palette luminance mode (`dark` or `light`)
+- `WALH_BG`: Background hex color (e.g. `#282828`)
+- `WALH_FG`: Foreground hex color (e.g. `#D5C4A1`)
+
+### FZF Color Synchronization
+
+Set `WALH_SYNC_FZF=1` in your shell profile to automatically update `FZF_DEFAULT_OPTS` colors to match the active palette when switching themes.
 
 ---
 

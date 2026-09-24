@@ -33,10 +33,15 @@ color_foreground="e0/de/f4" # Grey
 
 # Announce the active palette to programs launched from this shell
 export WALH_THEME="rose-pine-moon"
-export WALH_MODE=dark
+export WALH_MODE="dark"
+export WALH_BG="#232136"
+export WALH_FG="#e0def4"
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
 export COLORFGBG="15;0"
+if [ "${WALH_SYNC_FZF:-}" = "1" ]; then
+  export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:+${FZF_DEFAULT_OPTS} }--color=bg:#232136,bg+:#eb6f92,fg:#e0def4,fg+:#ea9a97,hl:#9ccfd8,hl+:#9ccfd8,info:#3e8fb0,prompt:#3e8fb0,pointer:#ea9a97,marker:#ea9a97,spinner:#ea9a97,header:#9ccfd8"
+fi
 if [ -z "$WALH_RESTORE" ]; then
   state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
   mkdir -p "$state_dir"

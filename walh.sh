@@ -147,11 +147,11 @@ _walh_list() {
 
   case "$filter" in
     dark)
-      grep -l '^export WALH_MODE=dark' "$scripts_dir"/*.sh 2>/dev/null | while read -r f; do
+      grep -l '^export WALH_MODE=.*dark' "$scripts_dir"/*.sh 2>/dev/null | while read -r f; do
         basename "$f" .sh
       done | sort ;;
     light)
-      grep -l '^export WALH_MODE=light' "$scripts_dir"/*.sh 2>/dev/null | while read -r f; do
+      grep -l '^export WALH_MODE=.*light' "$scripts_dir"/*.sh 2>/dev/null | while read -r f; do
         basename "$f" .sh
       done | sort ;;
     *)
@@ -259,10 +259,40 @@ _walh_preview() {
     _walh_list
     return 1
   fi
+
+  if [ ! -t 0 ] || [ ! -t 1 ]; then
+    echo "walh: interactive terminal required for preview. Available themes:" >&2
+    _walh_list
+    return 1
+  fi
+
+  local initial_theme="${WALH_THEME:-}"
+  local initial_script=""
+  if [ -n "$initial_theme" ] && [ -f "$WALH_SHELL/scripts/$initial_theme.sh" ]; then
+    initial_script="$WALH_SHELL/scripts/$initial_theme.sh"
+  fi
+
+  local preview_cmd
+  preview_cmd="[ -f '$WALH_SHELL/scripts/{}.sh' ] && { eval \"\$('$WALH_SHELL/scripts/{}.sh' > /dev/tty 2>/dev/null || true)\"; printf 'Theme:  %s\nMode:   %s\n' '{}' \"\$(grep -m1 '^export WALH_MODE=' '$WALH_SHELL/scripts/{}.sh' 2>/dev/null | cut -d= -f2 | tr -d '\"')\"; }"
+
   local chosen
-  chosen=$(_walh_list | fzf --prompt="Select theme: ")
+  chosen=$(_walh_list | fzf \
+    --preview="$preview_cmd" \
+    --preview-window="right:40%:wrap" \
+    --prompt="walh> " \
+    --header="ENTER: apply | ESC: cancel" \
+    --height="60%" \
+    --reverse)
+
   if [ -n "$chosen" ]; then
     _walh_apply "$chosen"
+  else
+    if [ -n "$initial_script" ]; then
+      # shellcheck disable=SC1090
+      WALH_RESTORE=1 . "$initial_script"
+      unset WALH_RESTORE
+      export WALH_THEME="$initial_theme"
+    fi
   fi
 }
 

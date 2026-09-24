@@ -1,0 +1,49 @@
+#compdef walh
+
+_walh_zsh_completion() {
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
+
+  local -a subcommands
+  subcommands=(
+    'current:Show active theme name, mode, and colors'
+    'toggle:Toggle between active dark and light themes'
+    'list:List available themes'
+    'random:Apply a random theme'
+    'preview:Interactive theme selector'
+    'help:Show help message'
+  )
+
+  _arguments -C \
+    '1: :->command' \
+    '*:: :->args' && return 0
+
+  case "$state" in
+    command)
+      local -a themes
+      if [ -n "$WALH_SHELL" ] && [ -d "$WALH_SHELL/scripts" ]; then
+        themes=("$WALH_SHELL"/scripts/*.sh(N:t:r))
+      elif command -v walh >/dev/null 2>&1; then
+        themes=($(walh list 2>/dev/null))
+      fi
+      _describe -t subcommands 'walh subcommands' subcommands
+      _describe -t themes 'available themes' themes
+      ;;
+    args)
+      case "$line[1]" in
+        list)
+          _arguments \
+            '(-d --dark)'{-d,--dark}'[Filter by dark mode]' \
+            '(-l --light)'{-l,--light}'[Filter by light mode]'
+          ;;
+        random)
+          local -a modes
+          modes=('dark:Pick a dark theme' 'light:Pick a light theme')
+          _describe -t modes 'modes' modes
+          ;;
+      esac
+      ;;
+  esac
+}
+
+_walh_zsh_completion "$@"

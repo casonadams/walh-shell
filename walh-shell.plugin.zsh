@@ -7,6 +7,10 @@ fi
 
 WALH_SHELL=$(dirname "${(%):-%x}")
 
+if [[ -d "${WALH_SHELL}/completions" ]]; then
+  fpath=("${WALH_SHELL}/completions" $fpath)
+fi
+
 [ -n "$PS1" ] \
     && [ -s "${WALH_SHELL}/profile_helper.sh" ] \
     && eval "$(${WALH_SHELL}/profile_helper.sh)"

@@ -26,6 +26,15 @@ fi
 echo "export WALH_SHELL=\"$script_dir\""
 echo ". \"\$WALH_SHELL/walh.sh\""
 
+if [ -f "$script_dir/completions/walh.bash" ]; then
+  # shellcheck disable=SC2016
+  echo '[ -n "${BASH_VERSION:-}" ] && . "'"$script_dir"'/completions/walh.bash"'
+fi
+if [ -d "$script_dir/completions" ]; then
+  # shellcheck disable=SC2016
+  echo '[ -n "${ZSH_VERSION:-}" ] && fpath=("'"$script_dir"'/completions" $fpath)'
+fi
+
 if [ -n "$WALH_LEGACY_ALIASES" ]; then
   for script in "$script_dir"/scripts/*.sh; do
     script_name=${script##*/}
