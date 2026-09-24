@@ -32,6 +32,7 @@ color_background="23/20/1f" # Black
 color_foreground="f8/f8/f2" # Grey
 
 # Announce the active palette to programs launched from this shell
+export WALH_THEME="monokai-machine"
 export WALH_MODE=dark
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
@@ -40,6 +41,7 @@ if [ -z "$WALH_RESTORE" ]; then
   state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
   mkdir -p "$state_dir"
   cat > "$state_dir/state.toml" <<STATEEOF
+theme = "monokai-machine"
 mode = "dark"
 background = "#23201f"
 foreground = "#f8f8f2"

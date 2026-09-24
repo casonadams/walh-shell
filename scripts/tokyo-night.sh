@@ -32,6 +32,7 @@ color_background="1A/1B/26" # Black
 color_foreground="A9/B1/D6" # Grey
 
 # Announce the active palette to programs launched from this shell
+export WALH_THEME="tokyo-night"
 export WALH_MODE=dark
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
@@ -40,6 +41,7 @@ if [ -z "$WALH_RESTORE" ]; then
   state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
   mkdir -p "$state_dir"
   cat > "$state_dir/state.toml" <<STATEEOF
+theme = "tokyo-night"
 mode = "dark"
 background = "#1A1B26"
 foreground = "#A9B1D6"

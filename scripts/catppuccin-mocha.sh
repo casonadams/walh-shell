@@ -32,6 +32,7 @@ color_background="18/18/25" # Black
 color_foreground="cd/d6/f4" # Grey
 
 # Announce the active palette to programs launched from this shell
+export WALH_THEME="catppuccin-mocha"
 export WALH_MODE=dark
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
@@ -40,6 +41,7 @@ if [ -z "$WALH_RESTORE" ]; then
   state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
   mkdir -p "$state_dir"
   cat > "$state_dir/state.toml" <<STATEEOF
+theme = "catppuccin-mocha"
 mode = "dark"
 background = "#181825"
 foreground = "#cdd6f4"

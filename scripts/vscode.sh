@@ -32,6 +32,7 @@ color_background="1E/1E/1E" # Black
 color_foreground="CC/CC/CC" # Grey
 
 # Announce the active palette to programs launched from this shell
+export WALH_THEME="vscode"
 export WALH_MODE=dark
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
@@ -40,6 +41,7 @@ if [ -z "$WALH_RESTORE" ]; then
   state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
   mkdir -p "$state_dir"
   cat > "$state_dir/state.toml" <<STATEEOF
+theme = "vscode"
 mode = "dark"
 background = "#1E1E1E"
 foreground = "#CCCCCC"

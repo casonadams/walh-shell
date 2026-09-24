@@ -32,6 +32,7 @@ color_background="FB/F1/C7" # Black
 color_foreground="50/49/45" # Grey
 
 # Announce the active palette to programs launched from this shell
+export WALH_THEME="gruvbox-light"
 export WALH_MODE=light
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
@@ -40,6 +41,7 @@ if [ -z "$WALH_RESTORE" ]; then
   state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
   mkdir -p "$state_dir"
   cat > "$state_dir/state.toml" <<STATEEOF
+theme = "gruvbox-light"
 mode = "light"
 background = "#FBF1C7"
 foreground = "#504945"

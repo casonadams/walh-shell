@@ -32,6 +32,7 @@ color_background="ff/ff/ff" # Black
 color_foreground="3e/3e/3e" # Grey
 
 # Announce the active palette to programs launched from this shell
+export WALH_THEME="github-light"
 export WALH_MODE=light
 # ncurses/rxvt convention: programs like mutt and rho read this to adopt
 # the palette's mode without querying the terminal
@@ -40,6 +41,7 @@ if [ -z "$WALH_RESTORE" ]; then
   state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
   mkdir -p "$state_dir"
   cat > "$state_dir/state.toml" <<STATEEOF
+theme = "github-light"
 mode = "light"
 background = "#ffffff"
 foreground = "#3e3e3e"

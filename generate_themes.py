@@ -191,6 +191,7 @@ for dir in os.listdir("themes"):
                 "base208-hex-r": color208[1:3],
                 "base208-hex-g": color208[3:5],
                 "base208-hex-b": color208[5:7],
+                "theme": theme_name,
                 "mode": "dark" if dark_theme else "light",
                 "colorfgbg": "15;0" if dark_theme else "0;15",
             },
