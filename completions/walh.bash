@@ -2,8 +2,14 @@
 
 # shellcheck disable=SC1090
 if [ -n "${ZSH_VERSION:-}" ]; then
-  autoload -U +X compinit 2>/dev/null && compinit -D 2>/dev/null || true
-  autoload -U +X bashcompinit 2>/dev/null && bashcompinit 2>/dev/null || return 0
+  if autoload -U +X compinit 2>/dev/null; then
+    compinit -D 2>/dev/null || true
+  fi
+  if autoload -U +X bashcompinit 2>/dev/null; then
+    bashcompinit 2>/dev/null || return 0
+  else
+    return 0
+  fi
 fi
 
 if ! command -v complete >/dev/null 2>&1; then
