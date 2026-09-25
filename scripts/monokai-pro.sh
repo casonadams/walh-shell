@@ -38,23 +38,28 @@ _walh_dim_hex="747374"
 _walh_b03_hex="ffd866"
 _walh_b15_hex="FCFCFA"
 
-if [ -n "${ZSH_VERSION:-}" ]; then
+if [ -n "${WALH_SHELL:-}" ] && [ -f "${WALH_SHELL}/engine.sh" ]; then
+  _walh_engine="${WALH_SHELL}/engine.sh"
+elif [ -n "${ZSH_VERSION:-}" ]; then
   # shellcheck disable=SC2296
-  _walh_src="${(%):-%x}"
+  eval '_walh_engine="${${(%):-%x}:A:h:h}/engine.sh"'
 else
   _walh_src="${BASH_SOURCE[0]:-$0}"
+  _walh_dir=""
+  _walh_i=0
+  while [ -L "$_walh_src" ] && [ "$_walh_i" -lt 10 ]; do
+    _walh_i=$((_walh_i + 1))
+    _walh_dir="$(cd -P "$(dirname "$_walh_src")" 2>/dev/null && pwd)"
+    _walh_src="$(readlink "$_walh_src" 2>/dev/null)" || break
+    case "$_walh_src" in
+      /*) ;;
+      *) _walh_src="$_walh_dir/$_walh_src" ;;
+    esac
+  done
+  [ -z "$_walh_dir" ] && _walh_dir="$(cd -P "$(dirname "$_walh_src")/.." 2>/dev/null && pwd)"
+  _walh_engine="${_walh_dir}/engine.sh"
 fi
-while [ -L "$_walh_src" ]; do
-  _walh_dir="$(cd "$(dirname "$_walh_src")" && pwd)"
-  _walh_src="$(readlink "$_walh_src")"
-  [ "${_walh_src#/}" = "$_walh_src" ] && _walh_src="$_walh_dir/$_walh_src"
-done
-_walh_dir="$(cd "$(dirname "$_walh_src")/.." && pwd)"
-if [ -f "$_walh_dir/engine.sh" ]; then
-  _walh_engine="$_walh_dir/engine.sh"
-elif [ -n "${WALH_SHELL:-}" ] && [ -f "$WALH_SHELL/engine.sh" ]; then
-  _walh_engine="$WALH_SHELL/engine.sh"
-fi
+
 if [ -n "${_walh_engine:-}" ] && [ -f "$_walh_engine" ]; then
   # shellcheck disable=SC1090
   . "$_walh_engine"

@@ -95,7 +95,9 @@ else
   put_template_custom 12 ";7" # cursor (reverse video)
 fi
 
-[ -n "$walh_buffer" ] && printf '%s' "$walh_buffer"
+if [ -n "$walh_buffer" ]; then
+  printf '%s' "$walh_buffer" 2>/dev/null || true
+fi
 
 # clean up
 for fn in walh_append put_template put_template_var put_template_custom; do

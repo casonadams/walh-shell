@@ -85,17 +85,23 @@ _walh_current() {
     local tf
     tf="$(_walh_theme_file)"
     if [ -e "$tf" ] || [ -L "$tf" ]; then
-      local target="$tf"
-      while [ -L "$target" ]; do
-        local link dir
-        link="$(readlink "$target")"
-        dir="$(cd "$(dirname "$target")" && pwd)"
-        case "$link" in
-          /*) target="$link" ;;
-          *) target="$dir/$link" ;;
-        esac
-      done
-      theme_name="$(basename "$target" .sh)"
+      if [ -n "${ZSH_VERSION:-}" ]; then
+        # shellcheck disable=SC2296
+        eval 'theme_name="$(basename "${tf:A}" .sh)"'
+      else
+        local target="$tf" _walh_i=0
+        while [ -L "$target" ] && [ "$_walh_i" -lt 10 ]; do
+          _walh_i=$((_walh_i + 1))
+          local link dir
+          link="$(readlink "$target" 2>/dev/null)" || break
+          dir="$(cd -P "$(dirname "$target")" 2>/dev/null && pwd)"
+          case "$link" in
+            /*) target="$link" ;;
+            *) target="$dir/$link" ;;
+          esac
+        done
+        theme_name="$(basename "$target" .sh)"
+      fi
     fi
   fi
 

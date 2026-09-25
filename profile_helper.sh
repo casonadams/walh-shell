@@ -7,13 +7,17 @@ elif [ -s "$ZSH_NAME" ]; then
   eval 'file_name=${(%):-%x}'
 fi
 script_dir=$(cd "$(dirname "$file_name")" && pwd)
+echo "export WALH_SHELL=\"$script_dir\""
+echo ". \"\$WALH_SHELL/walh.sh\""
 
 walh_theme_file="${XDG_STATE_HOME:-$HOME/.local/state}/walh/current_theme"
 if [ -e "$walh_theme_file" ] || [ -L "$walh_theme_file" ]; then
   target="$walh_theme_file"
-  while [ -L "$target" ]; do
-    link="$(readlink "$target")"
-    dir="$(cd "$(dirname "$target")" && pwd)"
+  _walh_i=0
+  while [ -L "$target" ] && [ "$_walh_i" -lt 10 ]; do
+    _walh_i=$((_walh_i + 1))
+    link="$(readlink "$target" 2>/dev/null)" || break
+    dir="$(cd -P "$(dirname "$target")" 2>/dev/null && pwd)"
     case "$link" in
       /*) target="$link" ;;
       *) target="$dir/$link" ;;
@@ -23,8 +27,6 @@ if [ -e "$walh_theme_file" ] || [ -L "$walh_theme_file" ]; then
   echo "export WALH_THEME=${script_name}"
   echo "WALH_RESTORE=1 . \"$walh_theme_file\"; unset WALH_RESTORE"
 fi
-echo "export WALH_SHELL=\"$script_dir\""
-echo ". \"\$WALH_SHELL/walh.sh\""
 
 if [ -f "$script_dir/completions/walh.bash" ]; then
   # shellcheck disable=SC2016
