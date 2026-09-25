@@ -1,0 +1,23 @@
+name = "material"
+
+[dark]
+slug = "material-dark"
+background = "#263238"
+foreground = "#eeffff"
+color01 = "#f07178"
+color02 = "#c3e88d"
+color03 = "#ffcb6b"
+color04 = "#82aaff"
+color05 = "#c792ea"
+color06 = "#89ddff"
+
+[light]
+slug = "material-light"
+background = "#fafafa"
+foreground = "#546e7a"
+color01 = "#e53935"
+color02 = "#91b859"
+color03 = "#f6a434"
+color04 = "#6182b8"
+color05 = "#7c4dff"
+color06 = "#39adb5"

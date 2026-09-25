@@ -1,9 +1,23 @@
+name = "vscode"
+
+[dark]
+slug = "vscode"
 background = "#1e1e1e"
 foreground = "#cccccc"
-
 color01 = "#cd3131"
 color02 = "#0dbc79"
 color03 = "#e5e510"
 color04 = "#2472c8"
 color05 = "#bc3fbc"
 color06 = "#11a8cd"
+
+[light]
+slug = "vscode-light"
+background = "#ffffff"
+foreground = "#1e1e1e"
+color01 = "#cd3131"
+color02 = "#008000"
+color03 = "#795e26"
+color04 = "#0451a5"
+color05 = "#bc3fbc"
+color06 = "#098658"

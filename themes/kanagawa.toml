@@ -1,0 +1,23 @@
+name = "kanagawa"
+
+[dark]
+slug = "kanagawa-wave"
+background = "#1f1f28"
+foreground = "#dcd7ba"
+color01 = "#c34043"
+color02 = "#76946a"
+color03 = "#c0a36e"
+color04 = "#7e9cd8"
+color05 = "#957fb8"
+color06 = "#6a9589"
+
+[light]
+slug = "kanagawa-lotus"
+background = "#f2ecbc"
+foreground = "#545464"
+color01 = "#c84053"
+color02 = "#6f894e"
+color03 = "#77713f"
+color04 = "#4d699b"
+color05 = "#b35b79"
+color06 = "#597b75"

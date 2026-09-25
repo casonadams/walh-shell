@@ -1,9 +1,23 @@
+name = "rose-pine"
+
+[dark]
+slug = "rose-pine"
 background = "#191724"
 foreground = "#e0def4"
-
 color01 = "#eb6f92"
 color02 = "#31748f"
 color03 = "#f6c177"
 color04 = "#9ccfd8"
 color05 = "#c4a7e7"
 color06 = "#ebbcba"
+
+[light]
+slug = "rose-pine-dawn"
+background = "#faf4ed"
+foreground = "#575279"
+color01 = "#b4637a"
+color02 = "#286983"
+color03 = "#ea9d34"
+color04 = "#56949f"
+color05 = "#907aa9"
+color06 = "#d7827e"

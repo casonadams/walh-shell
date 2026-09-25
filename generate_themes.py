@@ -148,22 +148,31 @@ def gen_theme():
     with open("template/default.mustache", "r") as f:
         template = f.read()
 
-    for theme_file in os.listdir("themes"):
+    theme_entries = []
+    for theme_file in sorted(os.listdir("themes")):
         if not theme_file.endswith(".toml"):
             continue
 
-        theme_name = os.path.splitext(theme_file)[0]
         theme_path = os.path.join("themes", theme_file)
-
         with open(theme_path, "r") as f:
-            theme = toml.load(f)
+            data = toml.load(f)
 
+        if "dark" in data or "light" in data:
+            family_name = data.get("name", os.path.splitext(theme_file)[0])
+            for mode_key in ("dark", "light"):
+                if mode_key in data:
+                    t = dict(data[mode_key])
+                    slug = t.get("slug") or f"{family_name}-{mode_key}"
+                    theme_entries.append((slug, t))
+        elif data.get("foreground") and data.get("background"):
+            slug = os.path.splitext(theme_file)[0]
+            theme_entries.append((slug, data))
+
+    for theme_name, theme in theme_entries:
         foreground = theme.get("foreground")
         background = theme.get("background")
-
         if not foreground or not background:
             continue
-
         dark_theme = is_dark_theme(background, foreground)
 
         color01 = theme.get("color01") or "#CC6666"

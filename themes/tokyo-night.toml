@@ -1,9 +1,23 @@
+name = "tokyo-night"
+
+[dark]
+slug = "tokyo-night"
 background = "#1a1b26"
 foreground = "#a9b1d6"
-
 color01 = "#f7768e"
 color02 = "#9ece6a"
 color03 = "#e0af68"
 color04 = "#7aa2f7"
 color05 = "#ad8ee6"
 color06 = "#449dab"
+
+[light]
+slug = "tokyo-night-day"
+background = "#e1e2e7"
+foreground = "#3760bf"
+color01 = "#f52a65"
+color02 = "#587539"
+color03 = "#8c6c3e"
+color04 = "#2e7de9"
+color05 = "#9854f1"
+color06 = "#007197"

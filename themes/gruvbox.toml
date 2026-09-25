@@ -1,0 +1,23 @@
+name = "gruvbox"
+
+[dark]
+slug = "gruvbox-dark"
+background = "#282828"
+foreground = "#D5C4A1"
+color01 = "#cc241d"
+color02 = "#98971a"
+color03 = "#d79921"
+color04 = "#458588"
+color05 = "#b16286"
+color06 = "#689d6a"
+
+[light]
+slug = "gruvbox-light"
+background = "#fbf1c7"
+foreground = "#504945"
+color01 = "#9d0006"
+color02 = "#79740e"
+color03 = "#b57614"
+color04 = "#076678"
+color05 = "#8f3f71"
+color06 = "#427b58"

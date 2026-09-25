@@ -1,0 +1,23 @@
+name = "catppuccin"
+
+[dark]
+slug = "catppuccin-mocha"
+background = "#181825"
+foreground = "#cdd6f4"
+color01 = "#f38ba8"
+color02 = "#a6e3a1"
+color03 = "#f9e2af"
+color04 = "#89b4fa"
+color05 = "#cba6f7"
+color06 = "#94e2d5"
+
+[light]
+slug = "catppuccin-latte"
+background = "#eff1f5"
+foreground = "#4c4f69"
+color01 = "#d20f39"
+color02 = "#40a02b"
+color03 = "#df8e1d"
+color04 = "#1e66f5"
+color05 = "#8839ef"
+color06 = "#179299"

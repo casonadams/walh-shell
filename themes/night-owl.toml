@@ -1,9 +1,23 @@
+name = "night-owl"
+
+[dark]
+slug = "night-owl"
 background = "#011627"
 foreground = "#bec5d4"
-
 color01 = "#f78c6c"
 color02 = "#addb67"
 color03 = "#ffcb8b"
 color04 = "#82aaff"
 color05 = "#c792ea"
 color06 = "#7fdbca"
+
+[light]
+slug = "light-owl"
+background = "#fbfbfb"
+foreground = "#403f53"
+color01 = "#de3d3b"
+color02 = "#08916a"
+color03 = "#daaa01"
+color04 = "#288ed7"
+color05 = "#d6438a"
+color06 = "#2aa298"

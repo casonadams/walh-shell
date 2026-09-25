@@ -1,0 +1,23 @@
+name = "one"
+
+[dark]
+slug = "onedark"
+background = "#282c34"
+foreground = "#abb2bf"
+color01 = "#e06c75"
+color02 = "#98c379"
+color03 = "#e5c07b"
+color04 = "#61afef"
+color05 = "#c678dd"
+color06 = "#56b6c2"
+
+[light]
+slug = "onelight"
+background = "#fafafa"
+foreground = "#383a42"
+color01 = "#ca1243"
+color02 = "#50a14f"
+color03 = "#c18401"
+color04 = "#4078f2"
+color05 = "#a626a4"
+color06 = "#0184bc"

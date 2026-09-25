@@ -1,6 +1,20 @@
+name = "dracula"
+
+[dark]
+slug = "dracula"
 background = "#282a36"
 foreground = "#f8f8f2"
+color01 = "#ff5555"
+color02 = "#50fa7b"
+color03 = "#f1fa8c"
+color04 = "#bd93f9"
+color05 = "#ff79c6"
+color06 = "#8be9fd"
 
+[light]
+slug = "dracula-light"
+background = "#f8f8f2"
+foreground = "#282a36"
 color01 = "#ff5555"
 color02 = "#50fa7b"
 color03 = "#f1fa8c"

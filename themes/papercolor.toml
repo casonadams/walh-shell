@@ -1,0 +1,23 @@
+name = "papercolor"
+
+[dark]
+slug = "papercolor-dark"
+background = "#1c1c1c"
+foreground = "#d0d0d0"
+color01 = "#af005f"
+color02 = "#5faf00"
+color03 = "#d7af5f"
+color04 = "#5fafd7"
+color05 = "#808080"
+color06 = "#d7875f"
+
+[light]
+slug = "papercolor-light"
+background = "#eeeeee"
+foreground = "#444444"
+color01 = "#af0000"
+color02 = "#008700"
+color03 = "#5f8700"
+color04 = "#0087af"
+color05 = "#8787af"
+color06 = "#005f87"

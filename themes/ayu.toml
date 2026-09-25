@@ -1,0 +1,23 @@
+name = "ayu"
+
+[dark]
+slug = "ayu-dark"
+background = "#0b0e14"
+foreground = "#b3b1ad"
+color01 = "#ea6c73"
+color02 = "#91b362"
+color03 = "#f9af4f"
+color04 = "#53bdfa"
+color05 = "#fae994"
+color06 = "#90e1c6"
+
+[light]
+slug = "ayu-light"
+background = "#fafafa"
+foreground = "#575f66"
+color01 = "#f07171"
+color02 = "#6cba78"
+color03 = "#fa8d3e"
+color04 = "#36a3d9"
+color05 = "#a37acc"
+color06 = "#4cbf99"
