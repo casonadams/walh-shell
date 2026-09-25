@@ -135,12 +135,11 @@ test_walh_restore_skips_state_write() {
   # Modify mtime to an earlier timestamp, then source with WALH_RESTORE=1
   touch -t 202001010000 "$tmp_cache/walh/state.toml"
   local initial_mtime
-  initial_mtime="$(stat -f "%m" "$tmp_cache/walh/state.toml")"
+  initial_mtime="$(stat -f "%m" "$tmp_cache/walh/state.toml" 2>/dev/null || stat -c "%Y" "$tmp_cache/walh/state.toml" 2>/dev/null)"
 
   XDG_CACHE_HOME="$tmp_cache" WALH_RESTORE=1 bash -c ". \"$script\"" >/dev/null
   local after_mtime
-  after_mtime="$(stat -f "%m" "$tmp_cache/walh/state.toml")"
-
+  after_mtime="$(stat -f "%m" "$tmp_cache/walh/state.toml" 2>/dev/null || stat -c "%Y" "$tmp_cache/walh/state.toml" 2>/dev/null)"
   assert_eq "$initial_mtime" "$after_mtime" "WALH_RESTORE=1 did not touch state.toml mtime"
 
   rm -rf "$tmp_cache"
