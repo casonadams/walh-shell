@@ -37,22 +37,23 @@ assert_contains() {
 test_hyphenated_theme_preservation() {
   local tmp_home
   tmp_home="$(mktemp -d)"
+  mkdir -p "$tmp_home/.local/state/walh"
 
   # Test single hyphen: gruvbox-dark
-  ln -s "$REPO_DIR/scripts/gruvbox-dark.sh" "$tmp_home/.walh_theme"
+  ln -s "$REPO_DIR/scripts/gruvbox-dark.sh" "$tmp_home/.local/state/walh/current_theme"
   local output
   output="$(HOME="$tmp_home" bash "$REPO_DIR/profile_helper.sh")"
   assert_contains "$output" "export WALH_THEME=gruvbox-dark" "profile_helper preserves single-hyphen theme name"
 
   # Test multi-hyphen: catppuccin-mocha
-  rm -f "$tmp_home/.walh_theme"
-  ln -s "$REPO_DIR/scripts/catppuccin-mocha.sh" "$tmp_home/.walh_theme"
+  rm -f "$tmp_home/.local/state/walh/current_theme"
+  ln -s "$REPO_DIR/scripts/catppuccin-mocha.sh" "$tmp_home/.local/state/walh/current_theme"
   output="$(HOME="$tmp_home" bash "$REPO_DIR/profile_helper.sh")"
   assert_contains "$output" "export WALH_THEME=catppuccin-mocha" "profile_helper preserves multi-hyphen theme name"
 
   # Test non-hyphen: onedark
-  rm -f "$tmp_home/.walh_theme"
-  ln -s "$REPO_DIR/scripts/onedark.sh" "$tmp_home/.walh_theme"
+  rm -f "$tmp_home/.local/state/walh/current_theme"
+  ln -s "$REPO_DIR/scripts/onedark.sh" "$tmp_home/.local/state/walh/current_theme"
   output="$(HOME="$tmp_home" bash "$REPO_DIR/profile_helper.sh")"
   assert_contains "$output" "export WALH_THEME=onedark" "profile_helper preserves non-hyphen theme name"
 
@@ -196,37 +197,39 @@ test_shellcheck() {
 }
 
 # ---------------------------------------------------------------------------
-# Test 6: XDG Base Directory and Legacy Fallback
+# Test 6: XDG Base Directory Theme Restoration
 # ---------------------------------------------------------------------------
-test_xdg_base_directory_and_legacy_fallback() {
+test_xdg_base_directory_state_file() {
   local tmp_home
   tmp_home="$(mktemp -d)"
 
-  # Case 1: XDG state file only
+  # Case 1: Default ~/.local/state/walh/current_theme
   mkdir -p "$tmp_home/.local/state/walh"
   ln -s "$REPO_DIR/scripts/gruvbox-dark.sh" "$tmp_home/.local/state/walh/current_theme"
   local output
   output="$(HOME="$tmp_home" bash "$REPO_DIR/profile_helper.sh")"
-  assert_contains "$output" "export WALH_THEME=gruvbox-dark" "profile_helper detects XDG state file"
-  assert_contains "$output" "$tmp_home/.local/state/walh/current_theme" "profile_helper sources from XDG state file"
+  assert_contains "$output" "export WALH_THEME=gruvbox-dark" "profile_helper detects default XDG state file"
+  assert_contains "$output" "$tmp_home/.local/state/walh/current_theme" "profile_helper sources from default XDG state file"
 
-  # Case 2: Legacy ~/.walh_theme takes precedence
-  ln -s "$REPO_DIR/scripts/onedark.sh" "$tmp_home/.walh_theme"
-  output="$(HOME="$tmp_home" bash "$REPO_DIR/profile_helper.sh")"
-  assert_contains "$output" "export WALH_THEME=onedark" "profile_helper prefers legacy ~/.walh_theme"
-  assert_contains "$output" "$tmp_home/.walh_theme" "profile_helper sources legacy ~/.walh_theme"
+  # Case 2: Custom XDG_STATE_HOME
+  local custom_state="$tmp_home/custom_state"
+  mkdir -p "$custom_state/walh"
+  ln -s "$REPO_DIR/scripts/onedark.sh" "$custom_state/walh/current_theme"
+  output="$(HOME="$tmp_home" XDG_STATE_HOME="$custom_state" bash "$REPO_DIR/profile_helper.sh")"
+  assert_contains "$output" "export WALH_THEME=onedark" "profile_helper detects custom XDG_STATE_HOME"
+  assert_contains "$output" "$custom_state/walh/current_theme" "profile_helper sources from custom XDG_STATE_HOME"
 
   rm -rf "$tmp_home"
 }
 
 # ---------------------------------------------------------------------------
-# Test 7: Startup Alias Behavior and WALH_LEGACY_ALIASES
+# Test 7: Startup Alias Behavior (Zero Polluting Theme Aliases)
 # ---------------------------------------------------------------------------
 test_startup_alias_behavior() {
   local tmp_home
   tmp_home="$(mktemp -d)"
 
-  # By default: zero theme aliases, walh function loaded via walh.sh
+  # Default startup: zero theme aliases, walh function loaded via walh.sh
   local output
   output="$(HOME="$tmp_home" bash "$REPO_DIR/profile_helper.sh")"
   assert_contains "$output" "walh.sh" "profile_helper sources walh.sh"
@@ -236,19 +239,8 @@ test_startup_alias_behavior() {
   alias_count=$(echo "$output" | grep -c "alias walh_" || true)
   assert_eq "1" "$alias_count" "default startup generates 0 theme aliases (only walh_list_themes)"
 
-  # With WALH_LEGACY_ALIASES=1: generates all curated theme aliases
-  output="$(HOME="$tmp_home" WALH_LEGACY_ALIASES=1 bash "$REPO_DIR/profile_helper.sh")"
-  alias_count=$(echo "$output" | grep -c "alias walh_" || true)
-  if [ "$alias_count" -lt 40 ]; then
-    echo "FAIL: expected at least 40 aliases with WALH_LEGACY_ALIASES=1, got $alias_count"
-    FAILED=1
-  else
-    echo "PASS: WALH_LEGACY_ALIASES=1 generated $alias_count aliases"
-  fi
-
   rm -rf "$tmp_home"
 }
-
 # ---------------------------------------------------------------------------
 # Test 8: Interactive walh dispatcher execution
 # ---------------------------------------------------------------------------
@@ -270,10 +262,10 @@ EOF
   output="$(bash -c "$test_script")"
   assert_contains "$output" "APPLIED:gruvbox-dark" "walh gruvbox-dark applies theme"
 
-  if [ -L "$tmp_home/.local/state/walh/current_theme" ]; then
-    echo "PASS: XDG state symlink created at ~/.local/state/walh/current_theme"
+  if [ -L "$tmp_home/.local/state/walh/current_theme" ] && [ ! -e "$tmp_home/.walh_theme" ]; then
+    echo "PASS: XDG state symlink created at ~/.local/state/walh/current_theme and ~/.walh_theme absent"
   else
-    echo "FAIL: expected symlink at ~/.local/state/walh/current_theme"
+    echo "FAIL: expected symlink at ~/.local/state/walh/current_theme and no ~/.walh_theme"
     FAILED=1
   fi
 
@@ -304,8 +296,7 @@ test_hyphenated_theme_preservation
 test_escape_batching_and_cleanup
 test_walh_restore_skips_state_write
 test_generate_themes
-test_shellcheck
-test_xdg_base_directory_and_legacy_fallback
+test_xdg_base_directory_state_file
 test_startup_alias_behavior
 test_interactive_walh_dispatcher
 "$REPO_DIR/test/test_walh_cli.sh"

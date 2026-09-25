@@ -11,12 +11,8 @@ if [ -z "${WALH_SHELL:-}" ]; then
 fi
 
 _walh_theme_file() {
-  if [ -e "$HOME/.walh_theme" ] || [ -L "$HOME/.walh_theme" ]; then
-    printf '%s\n' "$HOME/.walh_theme"
-  else
-    local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/walh"
-    printf '%s/current_theme\n' "$state_dir"
-  fi
+  local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/walh"
+  printf '%s/current_theme\n' "$state_dir"
 }
 
 _walh_apply() {
@@ -89,9 +85,17 @@ _walh_current() {
     local tf
     tf="$(_walh_theme_file)"
     if [ -e "$tf" ] || [ -L "$tf" ]; then
-      # shellcheck disable=SC1091
-      . "$WALH_SHELL/realpath/realpath.sh"
-      theme_name="$(basename "$(realpath "$tf")" .sh)"
+      local target="$tf"
+      while [ -L "$target" ]; do
+        local link dir
+        link="$(readlink "$target")"
+        dir="$(cd "$(dirname "$target")" && pwd)"
+        case "$link" in
+          /*) target="$link" ;;
+          *) target="$dir/$link" ;;
+        esac
+      done
+      theme_name="$(basename "$target" .sh)"
     fi
   fi
 

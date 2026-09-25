@@ -3,7 +3,8 @@
 Describe 'Core Theme Infrastructure'
   Describe 'profile_helper.sh theme restoration'
     setup_theme() {
-      theme_file="$SHELLSPEC_TMPBASE/.walh_theme"
+      mkdir -p "$SHELLSPEC_TMPBASE/.local/state/walh"
+      theme_file="$SHELLSPEC_TMPBASE/.local/state/walh/current_theme"
       ln -sf "$PWD/scripts/$1.sh" "$theme_file"
       HOME="$SHELLSPEC_TMPBASE"
       export HOME
@@ -34,8 +35,8 @@ Describe 'Core Theme Infrastructure'
     End
   End
 
-  Describe 'XDG Base Directory and legacy fallback'
-    It 'restores theme from XDG_STATE_HOME when legacy ~/.walh_theme is absent'
+  Describe 'XDG Base Directory theme restoration'
+    It 'restores theme from XDG_STATE_HOME'
       export HOME="$SHELLSPEC_TMPBASE/xdg_home"
       export XDG_STATE_HOME="$SHELLSPEC_TMPBASE/custom_state"
       mkdir -p "$XDG_STATE_HOME/walh"
@@ -47,23 +48,22 @@ Describe 'Core Theme Infrastructure'
       The output should include "$XDG_STATE_HOME/walh/current_theme"
     End
 
-    It 'prefers legacy ~/.walh_theme when both legacy and XDG files exist'
-      export HOME="$SHELLSPEC_TMPBASE/dual_home"
+    It 'restores theme from default ~/.local/state/walh'
+      export HOME="$SHELLSPEC_TMPBASE/default_home"
+      unset XDG_STATE_HOME || true
       mkdir -p "$HOME/.local/state/walh"
-      ln -sf "$PWD/scripts/solarized-light.sh" "$HOME/.local/state/walh/current_theme"
-      ln -sf "$PWD/scripts/gruvbox-dark.sh" "$HOME/.walh_theme"
+      ln -sf "$PWD/scripts/gruvbox-dark.sh" "$HOME/.local/state/walh/current_theme"
 
       When run script profile_helper.sh
       The status should be success
       The output should include "export WALH_THEME=gruvbox-dark"
-      The output should include "$HOME/.walh_theme"
+      The output should include "$HOME/.local/state/walh/current_theme"
     End
   End
 
   Describe 'Startup alias behavior'
-    It 'sources walh.sh and omits theme aliases by default'
+    It 'sources walh.sh and omits individual theme aliases by default'
       export HOME="$SHELLSPEC_TMPBASE/no_alias_home"
-      unset WALH_LEGACY_ALIASES || true
 
       When run script profile_helper.sh
       The status should be success
@@ -72,51 +72,23 @@ Describe 'Core Theme Infrastructure'
       The output should not include "alias walh_onedark"
       The output should include "alias walh_list_themes"
     End
-
-    It 'emits individual theme aliases when WALH_LEGACY_ALIASES=1'
-      export HOME="$SHELLSPEC_TMPBASE/alias_home"
-      export WALH_LEGACY_ALIASES=1
-
-      When run script profile_helper.sh
-      The status should be success
-      The output should include "alias walh_gruvbox-dark"
-      The output should include "alias walh_onedark"
-    End
   End
 
   Describe 'Interactive walh dispatcher execution'
     run_dispatcher_xdg() {
       export HOME="$SHELLSPEC_TMPBASE/disp_xdg_home"
-      unset WALH_LEGACY_ALIASES || true
+      mkdir -p "$HOME"
       eval "$("$PWD/profile_helper.sh")"
       walh gruvbox-dark
       echo "ACTIVE_THEME:$WALH_THEME"
     }
 
-    It 'switches theme and writes to XDG state file when ~/.walh_theme is absent'
+    It 'switches theme and writes to XDG state file'
       When call run_dispatcher_xdg
       The status should be success
       The output should include "ACTIVE_THEME:gruvbox-dark"
       The path "$SHELLSPEC_TMPBASE/disp_xdg_home/.local/state/walh/current_theme" should be symlink
       The path "$SHELLSPEC_TMPBASE/disp_xdg_home/.walh_theme" should not be exist
-    End
-
-    run_dispatcher_legacy() {
-      export HOME="$SHELLSPEC_TMPBASE/disp_leg_home"
-      mkdir -p "$HOME"
-      touch "$HOME/.walh_theme"
-      unset WALH_LEGACY_ALIASES || true
-      eval "$("$PWD/profile_helper.sh")"
-      walh onedark
-      echo "ACTIVE_THEME:$WALH_THEME"
-    }
-
-    It 'switches theme and updates ~/.walh_theme when legacy file exists'
-      When call run_dispatcher_legacy
-      The status should be success
-      The output should include "ACTIVE_THEME:onedark"
-      The path "$SHELLSPEC_TMPBASE/disp_leg_home/.walh_theme" should be symlink
-      The path "$SHELLSPEC_TMPBASE/disp_leg_home/.local/state/walh/current_theme" should not be exist
     End
   End
 

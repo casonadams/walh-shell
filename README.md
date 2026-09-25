@@ -84,14 +84,12 @@ You can use walh-shell in Bash as well!
    ```sh
    source ~/.bashrc
    ```
-4. **Switch themes with the same aliases:**
+4. **Switch themes with the unified CLI:**
    ```sh
-   walh_onedark
-   walh_dracula
+   walh onedark
+   walh dracula
    # ...and so on!
    ```
-
-> **Note:** All theme aliases (`walh_<theme>`) work in Bash just like in Zsh.
 
 ---
 
@@ -130,10 +128,6 @@ Automatic tab completions are provided for both Zsh and Bash:
 - `walh <TAB>` suggests subcommands and available themes.
 - `walh list --<TAB>` suggests `--dark` and `--light`.
 - `walh random <TAB>` suggests `dark` and `light`.
-
-### Legacy Aliases
-
-For backward compatibility with older configurations, setting `WALH_LEGACY_ALIASES=1` in your shell profile restores individual `walh_<theme>` aliases (e.g. `walh_onedark`).
 
 ### User Hooks
 
