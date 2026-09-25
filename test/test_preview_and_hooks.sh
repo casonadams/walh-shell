@@ -199,12 +199,53 @@ EOF
 }
 
 # ---------------------------------------------------------------------------
+# Test 4: Default hook directory fallback ($HOME/.config/walh/hooks)
+# ---------------------------------------------------------------------------
+test_default_hook_directory() {
+  local tmp_home
+  tmp_home="$(mktemp -d)"
+  local hooks_dir="$tmp_home/.config/walh/hooks"
+  mkdir -p "$hooks_dir"
+
+  local hook_log="$tmp_home/default_hook.log"
+  cat >"$hooks_dir/01-default.sh" <<EOF
+#!/bin/sh
+echo "DEFAULT_HOOK_FIRED=1" >> "$hook_log"
+EOF
+  chmod +x "$hooks_dir/01-default.sh"
+
+  local test_script
+  test_script="$(
+    cat <<EOF
+HOME="$tmp_home"
+unset WALH_SHELL_HOOKS
+eval "\$("$REPO_DIR/profile_helper.sh")"
+walh onedark >/dev/null 2>&1
+EOF
+  )"
+
+  bash -c "$test_script"
+
+  if [ -f "$hook_log" ]; then
+    local hook_out
+    hook_out="$(cat "$hook_log")"
+    assert_contains "$hook_out" "DEFAULT_HOOK_FIRED=1" "default hook executed from ~/.config/walh/hooks"
+  else
+    echo "FAIL: default hook log was not created"
+    FAILED=1
+  fi
+
+  rm -rf "$tmp_home"
+}
+
+# ---------------------------------------------------------------------------
 # Runner
 # ---------------------------------------------------------------------------
 echo "Running Native Completions and Hooks tests..."
 test_bash_completions
 test_zsh_completions
 test_rich_hook_variables
+test_default_hook_directory
 
 if [ "$FAILED" -ne 0 ]; then
   echo "Some tests failed!"

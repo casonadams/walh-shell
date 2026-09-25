@@ -131,9 +131,10 @@ Automatic tab completions are provided for both Zsh and Bash:
 
 ### User Hooks
 
-You can define hooks that run every time a theme is applied by setting `$WALH_SHELL_HOOKS` to a directory containing executable scripts:
+You can define hooks that run every time a theme is applied. Place executable scripts in `$HOME/.config/walh/hooks` (or customize the path via `$WALH_SHELL_HOOKS`):
 
 ```sh
+# Optional: custom hook directory (defaults to $HOME/.config/walh/hooks)
 export WALH_SHELL_HOOKS="$HOME/.config/walh/hooks"
 ```
 

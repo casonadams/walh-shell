@@ -54,8 +54,9 @@ _walh_apply() {
   fi
 
   # Execute user hooks
-  if [ -n "${WALH_SHELL_HOOKS:-}" ] && [ -d "${WALH_SHELL_HOOKS}" ]; then
-    for hook in "$WALH_SHELL_HOOKS"/*; do
+  local hooks_dir="${WALH_SHELL_HOOKS:-${XDG_CONFIG_HOME:-$HOME/.config}/walh/hooks}"
+  if [ -d "$hooks_dir" ]; then
+    for hook in "$hooks_dir"/*; do
       [ -f "$hook" ] && [ -x "$hook" ] && "$hook"
     done
   fi
