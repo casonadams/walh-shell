@@ -181,6 +181,8 @@ test_shellcheck() {
   shellcheck "$REPO_DIR/walh.sh"
   echo "PASS: shellcheck passed for walh.sh"
 
+  shellcheck "$REPO_DIR/engine.sh"
+  echo "PASS: shellcheck passed for engine.sh"
   shellcheck "$REPO_DIR/list-themes.sh"
   echo "PASS: shellcheck passed for list-themes.sh"
 

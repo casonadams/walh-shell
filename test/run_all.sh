@@ -15,6 +15,7 @@ echo "=== 1. ShellCheck Verification ==="
 shellcheck \
   "$REPO_DIR/profile_helper.sh" \
   "$REPO_DIR/walh.sh" \
+  "$REPO_DIR/engine.sh" \
   "$REPO_DIR/list-themes.sh" \
   "$REPO_DIR/completions/walh.bash" \
   "$REPO_DIR/test/test_core.sh" \
@@ -29,6 +30,7 @@ if command -v shfmt >/dev/null 2>&1; then
   shfmt -d -i 2 -ci \
     "$REPO_DIR/profile_helper.sh" \
     "$REPO_DIR/walh.sh" \
+    "$REPO_DIR/engine.sh" \
     "$REPO_DIR/list-themes.sh" \
     "$REPO_DIR/completions/walh.bash" \
     "$REPO_DIR/test/test_core.sh" \
