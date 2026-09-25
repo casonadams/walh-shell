@@ -80,7 +80,7 @@ test_zsh_completions() {
   local test_script
   test_script="$(
     cat <<EOF
-autoload -Uz compinit && compinit -D
+autoload -Uz compinit && compinit -D -u
 eval "\$("$REPO_DIR/profile_helper.sh")"
 echo "REGISTERED:\$_comps[walh]"
 EOF
@@ -106,7 +106,7 @@ EOF
     # shellcheck disable=SC2016
     pty_output="$(
       python3 -c '
-import os, pty, select, time, sys
+import os, pty, select, time, sys, shutil
 
 repo_dir = sys.argv[1]
 master, slave = pty.openpty()
@@ -118,7 +118,8 @@ if pid == 0:
         os.dup2(slave, fd)
     if slave > 2:
         os.close(slave)
-    os.execv("/bin/zsh", ["zsh", "-f"])
+    zsh_bin = shutil.which("zsh") or "/bin/zsh"
+    os.execv(zsh_bin, [zsh_bin, "-f"])
 else:
     os.close(slave)
     def drain():
@@ -135,7 +136,7 @@ else:
         time.sleep(0.08)
         drain()
 
-    send_line("autoload -Uz compinit && compinit -D")
+    send_line("autoload -Uz compinit && compinit -D -u")
     eval_cmd = "eval \"$(" + repo_dir + "/profile_helper.sh)\""
     send_line(eval_cmd)
     os.write(master, b"walh \t")
