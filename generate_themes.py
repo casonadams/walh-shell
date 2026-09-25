@@ -159,16 +159,18 @@ def gen_theme():
 
         if "dark" in data or "light" in data:
             family_name = data.get("name", os.path.splitext(theme_file)[0])
-            for mode_key in ("dark", "light"):
-                if mode_key in data:
-                    t = dict(data[mode_key])
-                    slug = t.get("slug") or f"{family_name}-{mode_key}"
-                    theme_entries.append((slug, t))
+            d_slug = data.get("dark", {}).get("slug", f"{family_name}-dark") if "dark" in data else None
+            l_slug = data.get("light", {}).get("slug", f"{family_name}-light") if "light" in data else None
+            if "dark" in data:
+                theme_entries.append((d_slug, dict(data["dark"]), l_slug))
+            if "light" in data:
+                theme_entries.append((l_slug, dict(data["light"]), d_slug))
         elif data.get("foreground") and data.get("background"):
             slug = os.path.splitext(theme_file)[0]
-            theme_entries.append((slug, data))
+            theme_entries.append((slug, data, None))
 
-    for theme_name, theme in theme_entries:
+    manifest_lines = []
+    for theme_name, theme, pair_slug in theme_entries:
         foreground = theme.get("foreground")
         background = theme.get("background")
         if not foreground or not background:
@@ -247,6 +249,12 @@ def gen_theme():
         with open(output_path, "w") as f:
             f.write(rendered)
         os.chmod(output_path, 0o755)
+        manifest_lines.append(f"{theme_name}\t{mode}\t{pair_slug or ''}\n")
+
+    manifest_lines.sort()
+    manifest_path = os.path.join(output_dir, ".manifest")
+    with open(manifest_path, "w") as f:
+        f.writelines(manifest_lines)
 
 
 if __name__ == "__main__":

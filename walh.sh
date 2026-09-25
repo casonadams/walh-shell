@@ -135,6 +135,22 @@ _walh_list() {
     return 1
   fi
 
+  local manifest="${scripts_dir}/.manifest"
+  if [ -f "$manifest" ]; then
+    case "$filter" in
+      dark)
+        awk -F '\t' '$2 == "dark" {print $1}' "$manifest"
+        ;;
+      light)
+        awk -F '\t' '$2 == "light" {print $1}' "$manifest"
+        ;;
+      *)
+        cut -f1 "$manifest"
+        ;;
+    esac
+    return 0
+  fi
+
   case "$filter" in
     dark)
       grep -l '^export WALH_MODE=.*dark' "$scripts_dir"/*.sh 2>/dev/null | while read -r f; do
