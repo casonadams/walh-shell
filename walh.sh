@@ -215,14 +215,24 @@ _walh_random() {
   fi
 }
 
+_walh_pair_of() {
+  local theme="${1:-}"
+  local manifest="${WALH_SHELL}/scripts/.manifest"
+  if [ -n "$theme" ] && [ -f "$manifest" ]; then
+    awk -F '\t' -v t="$theme" '$1 == t {print $3}' "$manifest"
+  fi
+}
+
 _walh_toggle() {
   local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/walh"
   local current_mode="${WALH_MODE:-}"
+  local current_theme="${WALH_THEME:-}"
 
-  if [ -z "$current_mode" ]; then
+  if [ -z "$current_mode" ] || [ -z "$current_theme" ]; then
     local state_file="${XDG_CACHE_HOME:-$HOME/.cache}/walh/state.toml"
     if [ -f "$state_file" ]; then
-      current_mode="$(grep -m1 '^mode[[:space:]]*=' "$state_file" | sed 's/mode[[:space:]]*=[[:space:]]*["'\'']\(.*\)["'\'']/\1/')"
+      [ -z "$current_mode" ] && current_mode="$(grep -m1 '^mode[[:space:]]*=' "$state_file" | sed 's/mode[[:space:]]*=[[:space:]]*["'\'']\(.*\)["'\'']/\1/')"
+      [ -z "$current_theme" ] && current_theme="$(grep -m1 '^theme[[:space:]]*=' "$state_file" | sed 's/theme[[:space:]]*=[[:space:]]*["'\'']\(.*\)["'\'']/\1/')"
     fi
   fi
 
@@ -234,7 +244,11 @@ _walh_toggle() {
       target_theme="$(cat "$state_dir/last_light" 2>/dev/null)"
     fi
     if [ -z "$target_theme" ] || [ ! -f "$WALH_SHELL/scripts/$target_theme.sh" ]; then
-      if [ -f "$WALH_SHELL/scripts/solarized-light.sh" ]; then
+      local pair
+      pair="$(_walh_pair_of "$current_theme")"
+      if [ -n "$pair" ] && [ -f "$WALH_SHELL/scripts/$pair.sh" ]; then
+        target_theme="$pair"
+      elif [ -f "$WALH_SHELL/scripts/solarized-light.sh" ]; then
         target_theme="solarized-light"
       elif [ -f "$WALH_SHELL/scripts/github-light.sh" ]; then
         target_theme="github-light"
@@ -247,7 +261,11 @@ _walh_toggle() {
       target_theme="$(cat "$state_dir/last_dark" 2>/dev/null)"
     fi
     if [ -z "$target_theme" ] || [ ! -f "$WALH_SHELL/scripts/$target_theme.sh" ]; then
-      if [ -f "$WALH_SHELL/scripts/gruvbox-dark.sh" ]; then
+      local pair
+      pair="$(_walh_pair_of "$current_theme")"
+      if [ -n "$pair" ] && [ -f "$WALH_SHELL/scripts/$pair.sh" ]; then
+        target_theme="$pair"
+      elif [ -f "$WALH_SHELL/scripts/gruvbox-dark.sh" ]; then
         target_theme="gruvbox-dark"
       elif [ -f "$WALH_SHELL/scripts/onedark.sh" ]; then
         target_theme="onedark"
@@ -256,7 +274,6 @@ _walh_toggle() {
       fi
     fi
   fi
-
   if [ -n "$target_theme" ]; then
     _walh_apply "$target_theme"
   else

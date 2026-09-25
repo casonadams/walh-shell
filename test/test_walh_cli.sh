@@ -111,7 +111,7 @@ eval "\$("$REPO_DIR/profile_helper.sh")"
 walh onedark
 echo "START:\$WALH_THEME:\$WALH_MODE"
 
-# Toggle to light (should pick solarized-light or default light)
+# Toggle to light (should pick paired onelight)
 walh toggle
 echo "TOGGLE1:\$WALH_THEME:\$WALH_MODE"
 
@@ -132,7 +132,7 @@ EOF
   local output
   output="$(bash -c "$test_script")"
   assert_contains "$output" "START:onedark:dark" "initial theme is onedark:dark"
-  assert_contains "$output" "TOGGLE1:solarized-light:light" "first toggle switches to light theme"
+  assert_contains "$output" "TOGGLE1:onelight:light" "first toggle switches to paired light theme"
   assert_contains "$output" "CUSTOM_LIGHT:github-light:light" "custom light theme applied"
   assert_contains "$output" "TOGGLE2:onedark:dark" "toggle back returns to onedark"
   assert_contains "$output" "TOGGLE3:github-light:light" "toggle returns to github-light"
