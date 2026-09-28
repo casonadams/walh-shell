@@ -43,7 +43,7 @@ fi
 echo "=== 3. Python Quality Gates & Artifact Tests ==="
 uv run ruff check "$REPO_DIR/generate_themes.py" "$REPO_DIR/test/test_web_artifacts.py"
 python3 -m py_compile "$REPO_DIR/generate_themes.py" "$REPO_DIR/test/test_web_artifacts.py"
-python3 -m unittest "$REPO_DIR/test/test_web_artifacts.py"
+python3 "$REPO_DIR/test/test_web_artifacts.py"
 echo "Python checks and web artifact tests passed."
 
 echo "=== 4. Core & Dispatcher Test Suites ==="

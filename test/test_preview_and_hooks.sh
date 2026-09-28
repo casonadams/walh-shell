@@ -219,6 +219,7 @@ EOF
     cat <<EOF
 HOME="$tmp_home"
 unset WALH_SHELL_HOOKS
+unset XDG_CONFIG_HOME
 eval "\$("$REPO_DIR/profile_helper.sh")"
 walh onedark >/dev/null 2>&1
 EOF
