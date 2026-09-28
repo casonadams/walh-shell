@@ -4,6 +4,8 @@
 
 walh-shell lets you instantly change your terminal’s color scheme with a single command. Choose from dozens of beautiful, curated themes, or create your own using simple TOML files. Themes are applied live—no need to restart your shell!
 
+👉 **[Live Theme Preview & Interactive Playground](https://casonadams.github.io/walh-shell/)**
+
 ---
 
 ## Features
@@ -26,6 +28,12 @@ walh-shell lets you instantly change your terminal’s color scheme with a singl
 ---
 
 ## Installation
+
+### With [zload](https://github.com/casonadams/zload) (Recommended)
+
+```zsh
+zload casonadams/walh-shell
+```
 
 ### With [zinit](https://github.com/zdharma-continuum/zinit)
 
