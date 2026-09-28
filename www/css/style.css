@@ -177,33 +177,6 @@ code, kbd, pre {
   background: var(--bg-surface-raised);
 }
 
-.nav-badge-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.78rem;
-  padding: 0.32rem 0.75rem;
-  border-radius: var(--radius-full);
-  background: var(--accent-green-dim);
-  color: var(--accent-green);
-  border: 1px solid rgba(82, 224, 150, 0.25);
-  font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
-  word-break: keep-all;
-  flex-shrink: 0;
-  transition: all 0.15s ease;
-}
-
-.nav-badge-link:hover {
-  background: rgba(82, 224, 150, 0.2);
-  border-color: var(--accent-green);
-}
-
-.nav-badge-link span {
-  white-space: nowrap;
-}
-
 .nav-actions {
   display: flex;
   align-items: center;
@@ -1022,7 +995,7 @@ code, kbd, pre {
    Responsive
    ========================================================================= */
 @media (max-width: 991px) {
-  .nav-links, .nav-badge-link {
+  .nav-links {
     display: none;
   }
 
