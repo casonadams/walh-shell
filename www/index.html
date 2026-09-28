@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>walh-shell · Instant Terminal Color Theme Switching</title>
+  <meta name="description" content="A fast, modern, and extensible Zsh and Bash plugin for instant terminal color theme switching. 48+ curated themes, perceptual Oklab/Oklch neutrals, and zero runtime dependencies.">
+
+  <meta property="og:title" content="walh-shell · Instant Terminal Color Theme Switching">
+  <meta property="og:description" content="Instant shell palette switching without restarting your terminal. Curated themes, perceptual science, and first-class zload integration.">
+  <meta property="og:url" content="https://casonadams.github.io/walh-shell/">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    (function() {
+      const saved = localStorage.getItem("walh:site-theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+    })();
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="#hero" class="brand">
+        <svg class="brand-icon" viewBox="0 0 100 100" fill="none">
+          <rect width="100" height="100" rx="20" fill="#0d1117"/>
+          <path d="M22 34L40 48L22 62" stroke="#52e096" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="48" y1="62" x2="74" y2="62" stroke="#60a5fa" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="76" cy="34" r="6" fill="#f43f5e"/>
+          <circle cx="60" cy="34" r="6" fill="#fbbf24"/>
+        </svg>
+        <span>walh-shell</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link">Home</a></li>
+        <li><a href="#playground" class="nav-link">Playground</a></li>
+        <li><a href="#themes" class="nav-link">Themes</a></li>
+        <li><a href="#features" class="nav-link">Color Science</a></li>
+        <li><a href="#docs" class="nav-link">Docs</a></li>
+        <li>
+          <a href="https://github.com/casonadams/zload" target="_blank" rel="noopener" class="nav-badge-link" title="Check out zload plugin manager">
+            <span>⚡ Powered by zload</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="https://github.com/casonadams/walh-shell" target="_blank" rel="noopener" class="btn-sm" aria-label="GitHub Repository">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <span>GitHub</span>
+        </a>
+
+        <button id="themeToggle" class="btn-icon" aria-label="Toggle dark/light theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+
+        <button id="mobileNavBtn" class="btn-icon mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileNavDrawer" class="mobile-nav-drawer">
+      <div class="container">
+        <ul class="mobile-nav-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#playground">Playground</a></li>
+          <li><a href="#themes">Themes</a></li>
+          <li><a href="#features">Color Science</a></li>
+          <li><a href="#docs">Documentation</a></li>
+          <li><a href="https://github.com/casonadams/zload" target="_blank" rel="noopener">⚡ zload Plugin Manager ↗</a></li>
+          <li><a href="https://github.com/casonadams/walh-shell" target="_blank" rel="noopener">GitHub Repository ↗</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="hero" class="hero-section">
+    <div class="container">
+      <div class="hero-pill">
+        <span>⚡ Instant Shell Palette Switching · Zero Runtime Dependencies</span>
+      </div>
+
+      <h1 class="hero-title">
+        Instant terminal colors.<br>
+        <span class="hero-title-gradient">Zero shell restart.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Switch your terminal color scheme on the fly with a single command. 48+ curated themes, perceptual Oklab/Oklch neutrals, mode announcements, and first-class <code>zload</code> support.
+      </p>
+
+      <!-- Multi-tab Install Switcher -->
+      <div class="install-box">
+        <div class="install-tabs" role="tablist">
+          <button class="install-tab active" data-install-tab="zload">
+            <span>zload</span>
+            <span class="install-tab-badge">Recommended</span>
+          </button>
+          <button class="install-tab" data-install-tab="zinit">zinit</button>
+          <button class="install-tab" data-install-tab="omz">Oh My Zsh</button>
+          <button class="install-tab" data-install-tab="manual">Manual (Zsh)</button>
+          <button class="install-tab" data-install-tab="bash">Bash</button>
+        </div>
+        <div class="install-command-bar">
+          <div class="install-code">
+            <span class="install-prompt-symbol">$</span>
+            <span id="installCode">zload casonadams/walh-shell</span>
+          </div>
+          <button id="installCopyBtn" class="copy-btn" data-copy="zload casonadams/walh-shell" aria-label="Copy install command">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Terminal Playground -->
+  <section id="playground" class="playground-section">
+    <div class="container">
+      <div class="playground-header">
+        <span class="section-badge">Live Interactive Simulator</span>
+        <h2 class="section-title">Test palettes directly in your browser</h2>
+        <p class="section-description">
+          Click any theme pill below to see how code syntax, prompts, directories, and ANSI swatches render in real time.
+        </p>
+      </div>
+
+      <!-- Quick Theme Pills -->
+      <div class="quick-pills-bar">
+        <button class="theme-pill-btn active" data-theme-slug="catppuccin-mocha">
+          <span class="theme-pill-dot" style="background: #181825; border-color: #89b4fa;"></span>
+          <span>Catppuccin Mocha</span>
+        </button>
+        <button class="theme-pill-btn" data-theme-slug="tokyo-night">
+          <span class="theme-pill-dot" style="background: #1a1b26; border-color: #7aa2f7;"></span>
+          <span>Tokyo Night</span>
+        </button>
+        <button class="theme-pill-btn" data-theme-slug="gruvbox-dark">
+          <span class="theme-pill-dot" style="background: #282828; border-color: #fb4934;"></span>
+          <span>Gruvbox Dark</span>
+        </button>
+        <button class="theme-pill-btn" data-theme-slug="solarized-light">
+          <span class="theme-pill-dot" style="background: #fdf6e3; border-color: #268bd2;"></span>
+          <span>Solarized Light</span>
+        </button>
+        <button class="theme-pill-btn" data-theme-slug="dracula">
+          <span class="theme-pill-dot" style="background: #282a36; border-color: #bd93f9;"></span>
+          <span>Dracula</span>
+        </button>
+        <button class="theme-pill-btn" data-theme-slug="nord">
+          <span class="theme-pill-dot" style="background: #2e3440; border-color: #88c0d0;"></span>
+          <span>Nord</span>
+        </button>
+        <button class="theme-pill-btn" data-theme-slug="rose-pine">
+          <span class="theme-pill-dot" style="background: #191724; border-color: #ebbcba;"></span>
+          <span>Rosé Pine</span>
+        </button>
+        <button class="theme-pill-btn" data-theme-slug="kanagawa-wave">
+          <span class="theme-pill-dot" style="background: #1f1f28; border-color: #7e9cd8;"></span>
+          <span>Kanagawa Wave</span>
+        </button>
+        <button class="theme-pill-btn" data-theme-slug="flexoki-light">
+          <span class="theme-pill-dot" style="background: #FFFCF0; border-color: #205EA6;"></span>
+          <span>Flexoki Light</span>
+        </button>
+      </div>
+
+      <!-- Terminal Window Mockup -->
+      <div id="terminalContainer" class="terminal-container">
+        <div class="terminal-titlebar">
+          <div class="terminal-controls">
+            <span class="control-dot control-close"></span>
+            <span class="control-dot control-min"></span>
+            <span class="control-dot control-max"></span>
+          </div>
+          <div class="terminal-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            <span>walh-shell ~ interactive preview</span>
+          </div>
+          <span id="termMetaBadge" class="terminal-meta-badge">catppuccin-mocha (dark)</span>
+        </div>
+
+        <div id="terminalScreen" class="terminal-screen">
+          <!-- Command Prompt -->
+          <div class="term-line">
+            <span class="term-prompt-user">cason</span><span class="term-prompt-at">@</span><span class="term-prompt-host">rho-box</span>:<span class="term-prompt-dir">~/walh-shell</span> <span class="term-prompt-git">(master ⚡)</span> <span class="term-prompt-sym">$</span> <span id="termExecutedCmd" class="term-cmd">walh catppuccin-mocha</span>
+          </div>
+          <div id="termOutputStatus" class="term-output-msg">
+            [walh] Applied catppuccin-mocha (dark) · COLORFGBG="15;0" · color00=#11111b color08=#585b70
+          </div>
+
+          <!-- Code Snippet -->
+          <div class="term-line"><span class="term-comment"># Dynamic perceptual palette preview</span></div>
+          <div class="term-line"><span class="term-kw">def</span> <span class="term-fn">apply_theme</span>(name: <span class="term-type">str</span>, mode: <span class="term-type">str</span> = <span class="term-str">"dark"</span>) -&gt; <span class="term-type">bool</span>:</div>
+          <div class="term-line">    surface = <span class="term-fn">derive_neutral</span>(mode, mix_ratio=<span class="term-num">0.15</span>)</div>
+          <div class="term-line">    <span class="term-kw">if</span> surface.<span class="term-fn">contrast_ratio</span>() &gt;= <span class="term-num">4.5</span>:</div>
+          <div class="term-line">        <span class="term-fn">print</span>(<span class="term-str">f"✨ Theme '{name}' active with high-fidelity contrast!"</span>)</div>
+          <div class="term-line">        <span class="term-kw">return</span> <span class="term-kw">True</span></div>
+          <div class="term-line">    <span class="term-kw">return</span> <span class="term-kw">False</span></div>
+
+          <!-- Directory Listing Sample -->
+          <div class="term-line" style="margin-top: 0.8rem;">
+            <span class="term-prompt-user">cason</span><span class="term-prompt-at">@</span><span class="term-prompt-host">rho-box</span>:<span class="term-prompt-dir">~/walh-shell</span> <span class="term-prompt-sym">$</span> <span class="term-cmd">ls -la --color=auto</span>
+          </div>
+          <div class="term-line">
+            <span class="term-type">drwxr-xr-x</span>  <span class="term-fn">12</span> user staff  <span class="term-num">384</span> Sep 27 <span class="term-fn">.</span>
+            <span class="term-type">drwxr-xr-x</span>  <span class="term-fn">32</span> user staff <span class="term-num">1024</span> Sep 27 <span class="term-fn">..</span>
+            <span class="term-type">drwxr-xr-x</span>   <span class="term-fn">8</span> user staff  <span class="term-num">256</span> Sep 27 <span class="term-str">scripts</span>/
+            <span class="term-type">drwxr-xr-x</span>  <span class="term-fn">24</span> user staff  <span class="term-num">768</span> Sep 27 <span class="term-str">themes</span>/
+            <span class="term-type">-rwxr-xr-x</span>   <span class="term-fn">1</span> user staff <span class="term-num">4219</span> Sep 27 <span class="term-op">walh.sh</span>
+            <span class="term-type">-rw-r--r--</span>   <span class="term-fn">1</span> user staff <span class="term-num">2301</span> Sep 27 <span class="term-comment">README.md</span>
+          </div>
+
+          <!-- ANSI 16-color swatch strip -->
+          <div class="term-swatch-box">
+            <div class="term-swatch-title">ANSI Base 16 Color Test Pattern</div>
+            <div class="term-swatch-rows">
+              <div class="term-swatch-row">
+                <div class="term-chip" style="background-color: var(--term-c00); color: var(--term-c07);">00</div>
+                <div class="term-chip" style="background-color: var(--term-c01); color: var(--term-c00);">01</div>
+                <div class="term-chip" style="background-color: var(--term-c02); color: var(--term-c00);">02</div>
+                <div class="term-chip" style="background-color: var(--term-c03); color: var(--term-c00);">03</div>
+                <div class="term-chip" style="background-color: var(--term-c04); color: var(--term-c00);">04</div>
+                <div class="term-chip" style="background-color: var(--term-c05); color: var(--term-c00);">05</div>
+                <div class="term-chip" style="background-color: var(--term-c06); color: var(--term-c00);">06</div>
+                <div class="term-chip" style="background-color: var(--term-c07); color: var(--term-c00);">07</div>
+              </div>
+              <div class="term-swatch-row">
+                <div class="term-chip" style="background-color: var(--term-c08); color: var(--term-c15);">08</div>
+                <div class="term-chip" style="background-color: var(--term-c09); color: var(--term-c00);">09</div>
+                <div class="term-chip" style="background-color: var(--term-c10); color: var(--term-c00);">10</div>
+                <div class="term-chip" style="background-color: var(--term-c11); color: var(--term-c00);">11</div>
+                <div class="term-chip" style="background-color: var(--term-c12); color: var(--term-c00);">12</div>
+                <div class="term-chip" style="background-color: var(--term-c13); color: var(--term-c00);">13</div>
+                <div class="term-chip" style="background-color: var(--term-c14); color: var(--term-c00);">14</div>
+                <div class="term-chip" style="background-color: var(--term-c15); color: var(--term-c00);">15</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Footer Bar -->
+        <div class="terminal-footer-bar">
+          <div class="terminal-active-info">
+            <span id="termFooterMode" class="terminal-mode-badge mode-dark">dark</span>
+            <strong id="termFooterSlug">catppuccin-mocha</strong>
+            <button id="terminalTogglePairBtn" class="btn-sm" style="font-size: 0.78rem; padding: 0.2rem 0.6rem;">Switch to pair</button>
+          </div>
+          <button id="termCopyBtn" class="copy-btn" data-copy="walh catppuccin-mocha">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copy: walh catppuccin-mocha</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Theme Explorer / Catalog Section -->
+  <section id="themes" class="catalog-section">
+    <div class="container">
+      <div class="playground-header">
+        <span class="section-badge">Palette Catalog</span>
+        <h2 class="section-title">Explore 48+ curated themes</h2>
+        <p class="section-description">
+          Search by theme family or filter by light and dark mode. Click any card to preview it live in the terminal simulator above.
+        </p>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="catalog-toolbar">
+        <div class="catalog-search-wrap">
+          <svg class="catalog-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="catalogSearch" class="catalog-search-input" placeholder="Search themes (e.g. nord, gruvbox, catppuccin)..." aria-label="Search themes">
+        </div>
+
+        <div class="catalog-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="dark">Dark</button>
+          <button class="filter-btn" data-filter="light">Light</button>
+        </div>
+
+        <div id="catalogCount" class="catalog-counter">Loading themes...</div>
+      </div>
+
+      <!-- Grid -->
+      <div id="themeGrid" class="theme-grid"></div>
+    </div>
+  </section>
+
+  <!-- Features & Color Science -->
+  <section id="features" class="features-section">
+    <div class="container">
+      <div class="playground-header">
+        <span class="section-badge">Perceptual Science</span>
+        <h2 class="section-title">Built with mathematical color precision</h2>
+        <p class="section-description">
+          Unlike static theme switchers, walh-shell calculates balanced neutrals and announces palette metadata to child applications.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
+          </div>
+          <h3 class="feature-title">Oklab Derived Neutrals</h3>
+          <p class="feature-text">
+            <code>color00</code> (surface) and <code>color08</code> (dim) are dynamically derived in Oklab color space from each theme's true background and foreground, guaranteeing balanced panels and secondary text across any palette.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3 class="feature-title">Instant Mode Announcement</h3>
+          <p class="feature-text">
+            Every theme exports <code>WALH_MODE=dark|light</code> and rxvt/ncurses standard <code>COLORFGBG</code> directly into the environment. CLI utilities and tools detect terminal mode instantly without slow escape query sequences.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="feature-title">Sub-Millisecond Execution</h3>
+          <p class="feature-text">
+            Zero Python, Node.js, or external binaries required at runtime. Themes are pre-compiled into lightweight POSIX/Zsh shell scripts emitting native OSC 4 / 10 / 11 sequences with truecolor precision.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+          </div>
+          <h3 class="feature-title">Ecosystem Lifecycle Hooks</h3>
+          <p class="feature-text">
+            Define executable scripts in <code>$WALH_SHELL_HOOKS</code> to broadcast color changes to Neovim, tmux, Kitty, WezTerm, or Ghostty whenever a theme is switched.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Docs & Ecosystem -->
+  <section id="docs" class="docs-section">
+    <div class="container">
+      <div class="playground-header">
+        <span class="section-badge">Guides &amp; Configuration</span>
+        <h2 class="section-title">Extending walh-shell</h2>
+        <p class="section-description">
+          Streamlined commands, plugin management with <code>zload</code>, hooks, and tmux compatibility.
+        </p>
+      </div>
+
+      <div class="docs-grid">
+        <!-- Panel: zload Integration -->
+        <div class="doc-panel">
+          <h3 class="doc-panel-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span>Ultra-Fast Loading with zload</span>
+          </h3>
+          <p class="doc-panel-text">
+            Pair with <strong>zload</strong>, the zero-friction Zsh plugin manager, for instant asynchronous startup and deferred completion compilation:
+          </p>
+          <div class="doc-code-block">
+# In your ~/.zshrc
+zload casonadams/walh-shell
+
+# Or defer loading until first prompt:
+zload --defer casonadams/walh-shell
+          </div>
+        </div>
+
+        <!-- Panel: CLI Commands -->
+        <div class="doc-panel">
+          <h3 class="doc-panel-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            <span>Unified Command Reference</span>
+          </h3>
+          <p class="doc-panel-text">
+            Manage your terminal color schemes with intuitive, tab-completed subcommands:
+          </p>
+          <div class="doc-code-block">
+walh tokyo-night      # Apply a specific theme
+walh current          # Inspect active theme and mode
+walh toggle           # Switch between paired light/dark
+walh list --dark      # List available dark themes
+walh random light     # Apply a random light theme
+          </div>
+        </div>
+
+        <!-- Panel: Lifecycle Hooks -->
+        <div class="doc-panel">
+          <h3 class="doc-panel-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+            <span>Lifecycle Hooks</span>
+          </h3>
+          <p class="doc-panel-text">
+            Configure <code>$WALH_SHELL_HOOKS</code> to broadcast colors to editors and terminal multiplexers:
+          </p>
+          <div class="doc-code-block">
+export WALH_SHELL_HOOKS="$HOME/.config/walh/hooks"
+
+# Hook scripts receive:
+# $WALH_THEME  (e.g. "tokyo-night")
+# $WALH_MODE   (e.g. "dark")
+# $WALH_BG     (e.g. "#1a1b26")
+# $WALH_FG     (e.g. "#c0caf5")
+          </div>
+        </div>
+
+        <!-- Panel: tmux Passthrough -->
+        <div class="doc-panel">
+          <h3 class="doc-panel-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            <span>tmux Truecolor &amp; Passthrough</span>
+          </h3>
+          <p class="doc-panel-text">
+            To allow dynamic OSC color sequences inside tmux, add these options to <code>~/.tmux.conf</code>:
+          </p>
+          <div class="doc-code-block">
+set -g allow-passthrough on
+set-option -g default-terminal "xterm-256color"
+set-option -sa terminal-overrides ",${TERM}:RGB"
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <span>walh-shell · MIT License</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/casonadams/walh-shell" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://github.com/casonadams/zload" target="_blank" rel="noopener">⚡ zload</a></li>
+        <li><a href="#playground">Playground</a></li>
+        <li><a href="#themes">Themes</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/themes-data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
