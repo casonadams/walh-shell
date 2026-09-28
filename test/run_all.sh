@@ -40,15 +40,16 @@ if command -v shfmt >/dev/null 2>&1; then
   echo "shfmt passed."
 fi
 
-echo "=== 3. Python Quality Gates ==="
-uv run ruff check "$REPO_DIR/generate_themes.py"
-python3 -m py_compile "$REPO_DIR/generate_themes.py"
-echo "Python checks passed."
+echo "=== 3. Python Quality Gates & Artifact Tests ==="
+uv run ruff check "$REPO_DIR/generate_themes.py" "$REPO_DIR/test/test_web_artifacts.py"
+python3 -m py_compile "$REPO_DIR/generate_themes.py" "$REPO_DIR/test/test_web_artifacts.py"
+python3 -m unittest "$REPO_DIR/test/test_web_artifacts.py"
+echo "Python checks and web artifact tests passed."
 
-echo "=== 3. Core & Dispatcher Test Suites ==="
+echo "=== 4. Core & Dispatcher Test Suites ==="
 "$REPO_DIR/test/test_core.sh"
 
-echo "=== 4. Multi-Shell BDD Matrix (ShellSpec) ==="
+echo "=== 5. Multi-Shell BDD Matrix (ShellSpec) ==="
 if command -v shellspec >/dev/null 2>&1; then
   echo "Running shellspec with bash..."
   shellspec -s bash
