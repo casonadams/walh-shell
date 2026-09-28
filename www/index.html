@@ -435,6 +435,35 @@ set-option -g default-terminal "xterm-256color"
 set-option -sa terminal-overrides ",${TERM}:RGB"
           </div>
         </div>
+
+        <!-- Panel: Authoring Custom Themes -->
+        <div class="doc-panel">
+          <h3 class="doc-panel-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span>Authoring Custom Themes</span>
+          </h3>
+          <p class="doc-panel-text">
+            Add a simple TOML file in <code>themes/</code> with paired <code>[dark]</code> and <code>[light]</code> palettes, then recompile:
+          </p>
+          <div class="doc-code-block">
+# themes/my-theme.toml
+name = "my-theme"
+
+[dark]
+slug = "my-theme-dark"
+background = "#181825"
+foreground = "#cdd6f4"
+color01 = "#f38ba8" # red
+color02 = "#a6e3a1" # green
+color03 = "#f9e2af" # yellow
+color04 = "#89b4fa" # blue
+color05 = "#cba6f7" # magenta
+color06 = "#94e2d5" # cyan
+
+# Compile shell scripts &amp; web previews:
+uv run generate_themes.py
+          </div>
+        </div>
       </div>
     </div>
   </section>

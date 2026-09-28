@@ -309,11 +309,18 @@ function renderCatalog() {
         theme.colors[8]
       ];
 
+      const pairBadge = theme.pairSlug
+        ? `<button class="pair-badge-btn" data-pair-slug="${escapeHtml(theme.pairSlug)}" title="Switch to pair: ${escapeHtml(theme.pairSlug)}" aria-label="Switch to pair ${escapeHtml(theme.pairSlug)}">⇌ ${escapeHtml(theme.pairSlug)}</button>`
+        : "";
+
       return `
       <div class="theme-card ${isActive ? "active-preview" : ""}" data-theme-slug="${escapeHtml(theme.slug)}">
         <div class="theme-card-header">
           <span class="theme-card-title">${escapeHtml(theme.slug)}</span>
-          <span class="terminal-mode-badge mode-${escapeHtml(theme.mode)}">${escapeHtml(theme.mode)}</span>
+          <div style="display: flex; align-items: center; gap: 0.35rem;">
+            ${pairBadge}
+            <span class="terminal-mode-badge mode-${escapeHtml(theme.mode)}">${escapeHtml(theme.mode)}</span>
+          </div>
         </div>
 
         <div class="theme-card-palette">
@@ -344,6 +351,14 @@ function renderCatalog() {
   container.querySelectorAll(".theme-card").forEach((card) => {
     card.addEventListener("click", (e) => {
       if (e.target.closest(".copy-btn")) return;
+      const pairBtn = e.target.closest(".pair-badge-btn");
+      if (pairBtn) {
+        e.stopPropagation();
+        const pairSlug = pairBtn.dataset.pairSlug;
+        if (pairSlug) applyTerminalTheme(pairSlug);
+        return;
+      }
+
       const slug = card.dataset.themeSlug;
       if (slug) {
         applyTerminalTheme(slug);
