@@ -293,7 +293,7 @@ test_shellspec() {
 # ---------------------------------------------------------------------------
 test_256_color_palette() {
   local script="$REPO_DIR/scripts/nord.sh"
-  local shell_cmd out_bash out_zsh out_off
+  local out_bash out_zsh out_off
   local tmp_cache
   tmp_cache="$(mktemp -d)"
 
