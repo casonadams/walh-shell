@@ -159,86 +159,6 @@ def palette256_osc(entries):
         parts.append(f"{16 + i};rgb:{h[0:2]}/{h[2:4]}/{h[4:6]}")
     return ",".join(parts)
 
-ANSI_NAMES = ("black", "red", "green", "yellow", "blue", "magenta", "cyan", "white")
-
-def terminal_exports(slug, theme):
-    """Return {relative_path: text} native theme files for supported terminals.
-    theme: background, foreground, cursor, cursor_text, selection_bg,
-    selection_fg, ansi (16 hex), indexed (colors 16-255 as hex)."""
-    ansi, indexed = theme["ansi"], theme["indexed"]
-    palette = ansi + indexed
-
-    kitty = [
-        f"# walh: {slug}",
-        f"foreground {theme['foreground']}",
-        f"background {theme['background']}",
-        f"cursor {theme['cursor']}",
-        f"cursor_text_color {theme['cursor_text']}",
-        f"selection_foreground {theme['selection_fg']}",
-        f"selection_background {theme['selection_bg']}",
-    ] + [f"color{i} {c}" for i, c in enumerate(palette)]
-
-    alacritty = [
-        f"# walh: {slug}",
-        "[colors.primary]",
-        f'background = "{theme["background"]}"',
-        f'foreground = "{theme["foreground"]}"',
-        "",
-        "[colors.cursor]",
-        f'text = "{theme["cursor_text"]}"',
-        f'cursor = "{theme["cursor"]}"',
-        "",
-        "[colors.selection]",
-        f'text = "{theme["selection_fg"]}"',
-        f'background = "{theme["selection_bg"]}"',
-        "",
-    ]
-    for section, offset in (("normal", 0), ("bright", 8)):
-        alacritty.append(f"[colors.{section}]")
-        alacritty += [f'{name} = "{ansi[offset + i]}"' for i, name in enumerate(ANSI_NAMES)]
-        alacritty.append("")
-    for i, c in enumerate(indexed):
-        alacritty += ["[[colors.indexed]]", f"index = {16 + i}", f'color = "{c}"', ""]
-
-    ghostty = [
-        f"# walh: {slug}",
-        f"background = {theme['background']}",
-        f"foreground = {theme['foreground']}",
-        f"cursor-color = {theme['cursor']}",
-        f"cursor-text = {theme['cursor_text']}",
-        f"selection-background = {theme['selection_bg']}",
-        f"selection-foreground = {theme['selection_fg']}",
-    ] + [f"palette = {i}={c}" for i, c in enumerate(palette)]
-
-    def toml_list(colors):
-        return "[" + ", ".join(f'"{c}"' for c in colors) + "]"
-
-    wezterm = [
-        "[colors]",
-        f'foreground = "{theme["foreground"]}"',
-        f'background = "{theme["background"]}"',
-        f'cursor_bg = "{theme["cursor"]}"',
-        f'cursor_fg = "{theme["cursor_text"]}"',
-        f'cursor_border = "{theme["cursor"]}"',
-        f'selection_fg = "{theme["selection_fg"]}"',
-        f'selection_bg = "{theme["selection_bg"]}"',
-        f"ansi = {toml_list(ansi[:8])}",
-        f"brights = {toml_list(ansi[8:])}",
-        "",
-        "[colors.indexed]",
-    ] + [f'{16 + i} = "{c}"' for i, c in enumerate(indexed)] + [
-        "",
-        "[metadata]",
-        f'name = "{slug}"',
-    ]
-
-    return {
-        f"kitty/{slug}.conf": "\n".join(kitty) + "\n",
-        f"alacritty/{slug}.toml": "\n".join(alacritty),
-        f"ghostty/{slug}": "\n".join(ghostty) + "\n",
-        f"wezterm/{slug}.toml": "\n".join(wezterm) + "\n",
-    }
-
 
 def derive_selection(background, foreground, amount=0.22):
     bg = rgb_to_oklab(hex_to_rgb(background))
@@ -294,10 +214,6 @@ def gen_theme():
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
     os.makedirs(output_dir, exist_ok=True)
-
-    exports_dir = os.path.join(REPO_DIR, "exports")
-    if os.path.exists(exports_dir):
-        shutil.rmtree(exports_dir)
 
     with open(os.path.join(REPO_DIR, "template", "default.mustache"), "r") as f:
         template = f.read()
@@ -430,27 +346,6 @@ def gen_theme():
             f.write(rendered)
         os.chmod(output_path, 0o755)
 
-        ansi = [color_map[f"base{i:02d}"] for i in range(16)]
-        indexed = palette256[:]
-        indexed[208 - 16] = color208
-        exports = terminal_exports(
-            theme_name,
-            {
-                "background": background,
-                "foreground": foreground,
-                "cursor": color15,
-                "cursor_text": background,
-                "selection_bg": color_map["select"],
-                "selection_fg": foreground,
-                "ansi": ansi,
-                "indexed": indexed,
-            },
-        )
-        for rel_path, text in exports.items():
-            export_path = os.path.join(exports_dir, rel_path)
-            os.makedirs(os.path.dirname(export_path), exist_ok=True)
-            with open(export_path, "w") as f:
-                f.write(text)
         manifest_lines.append(f"{theme_name}\t{mode}\t{pair_slug or ''}\n")
         theme_records.append(
             {

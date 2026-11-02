@@ -85,28 +85,6 @@ class TestWebArtifacts(unittest.TestCase):
                 self.assertGreaterEqual(contrast(item["colors"][slot], bg), 3.0, f"{item['slug']} color{slot:02d}")
             self.assertGreaterEqual(contrast(item["color208"], bg), 3.0, f"{item['slug']} color208")
 
-    def test_terminal_exports_exist_and_parse(self):
-        manifest_path = os.path.join(REPO_DIR, "scripts", ".manifest")
-        with open(manifest_path, "r", encoding="utf-8") as f:
-            slugs = [line.split("\t")[0] for line in f if line.strip()]
-
-        try:
-            import tomllib
-        except ImportError:  # Python < 3.11
-            tomllib = None
-
-        for slug in slugs:
-            for rel in (f"kitty/{slug}.conf", f"alacritty/{slug}.toml", f"ghostty/{slug}", f"wezterm/{slug}.toml"):
-                path = os.path.join(REPO_DIR, "exports", rel)
-                self.assertTrue(os.path.isfile(path), f"Missing export {rel}")
-            if tomllib:
-                with open(os.path.join(REPO_DIR, "exports", f"alacritty/{slug}.toml"), "rb") as f:
-                    self.assertEqual(len(tomllib.load(f)["colors"]["indexed"]), 240, slug)
-                with open(os.path.join(REPO_DIR, "exports", f"wezterm/{slug}.toml"), "rb") as f:
-                    self.assertEqual(len(tomllib.load(f)["colors"]["indexed"]), 240, slug)
-            with open(os.path.join(REPO_DIR, "exports", f"kitty/{slug}.conf"), "r", encoding="utf-8") as f:
-                self.assertEqual(sum(1 for line in f if line.startswith("color")), 256, slug)
-
     def test_web_static_assets(self):
         assets = [
             ("www", "index.html"),
