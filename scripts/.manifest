@@ -30,6 +30,10 @@ papercolor-dark	dark	papercolor-light
 papercolor-light	light	papercolor-dark
 rose-pine	dark	rose-pine-dawn
 rose-pine-dawn	light	rose-pine
+selenized-black	dark	selenized-white
+selenized-dark	dark	selenized-light
+selenized-light	light	selenized-dark
+selenized-white	light	selenized-black
 solarized-dark	dark	solarized-light
 solarized-light	light	solarized-dark
 tokyo-night	dark	tokyo-night-day

@@ -323,7 +323,7 @@ def gen_theme():
         elif data.get("foreground") and data.get("background"):
             slug = os.path.splitext(theme_file)[0]
             family_name = data.get("name", slug)
-            theme_entries.append((slug, data, None, family_name))
+            theme_entries.append((slug, data, data.get("pair"), family_name))
 
     theme_records = []
     manifest_lines = []
