@@ -10,6 +10,7 @@ _walh() {
     'toggle:Toggle between active dark and light themes'
     'list:List available themes'
     'random:Apply a random theme'
+    'reset:Restore terminal default colors'
     'help:Show help message'
   )
 

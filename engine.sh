@@ -106,13 +106,13 @@ put_template 208 "$color208"
 # foreground / background / cursor color
 if [ -n "${ITERM_SESSION_ID:-}" ]; then
   # iTerm2 proprietary escape codes
-  put_template_custom Pg "${_walh_fg_hex:-}"  # foreground
-  put_template_custom Ph "${_walh_bg_hex:-}"  # background
-  put_template_custom Pi "${_walh_b15_hex:-}" # bold color
-  put_template_custom Pj "${_walh_b03_hex:-}" # selection color
-  put_template_custom Pk "${_walh_bg_hex:-}"  # selected text color
-  put_template_custom Pl "${_walh_fg_hex:-}"  # cursor
-  put_template_custom Pm "${_walh_bg_hex:-}"  # cursor text
+  put_template_custom Pg "${_walh_fg_hex:-}"     # foreground
+  put_template_custom Ph "${_walh_bg_hex:-}"     # background
+  put_template_custom Pi "${_walh_b15_hex:-}"    # bold color
+  put_template_custom Pj "${_walh_select_hex:-}" # selection color
+  put_template_custom Pk "${_walh_fg_hex:-}"     # selected text color
+  put_template_custom Pl "${_walh_fg_hex:-}"     # cursor
+  put_template_custom Pm "${_walh_bg_hex:-}"     # cursor text
 else
   put_template_var 10 "$color_foreground"
   if [ "${WALH_SHELL_SET_BACKGROUND:-}" != false ]; then
@@ -121,7 +121,9 @@ else
       put_template_var 708 "$color_background" # internal border (rxvt)
     fi
   fi
-  put_template_custom 12 ";7" # cursor (reverse video)
+  put_template_var 12 "$color15"          # cursor
+  put_template_var 17 "$color_select"     # selection background
+  put_template_var 19 "$color_foreground" # selection foreground
 fi
 
 if [ -n "$walh_buffer" ]; then
@@ -136,8 +138,8 @@ for var in \
   walh_buffer walh_palette256 _walh_entries _walh_seq _walh_osc4_pre _walh_osc4_suf \
   color00 color01 color02 color03 color04 color05 color06 color07 \
   color08 color09 color10 color11 color12 color13 color14 color15 \
-  color208 color_foreground color_background state_dir \
+  color208 color_foreground color_background color_select state_dir \
   _walh_src _walh_dir _walh_engine _walh_bg_hex _walh_fg_hex \
-  _walh_surface_hex _walh_dim_hex _walh_b03_hex _walh_b15_hex; do
+  _walh_surface_hex _walh_dim_hex _walh_b03_hex _walh_b15_hex _walh_select_hex; do
   unset "$var" 2>/dev/null || true
 done

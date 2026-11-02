@@ -133,6 +133,9 @@ walh list --light
 walh random
 walh random dark
 walh random light
+
+# Restore the terminal's own colors and forget the active theme
+walh reset
 ```
 
 ### Tab Completions

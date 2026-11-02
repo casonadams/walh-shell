@@ -298,6 +298,36 @@ _walh_toggle() {
   fi
 }
 
+# Restore the terminal's own colors and forget the active theme.
+_walh_reset() {
+  local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/walh"
+  local pre suf code
+  # shellcheck disable=SC1003
+  if [ -n "${TMUX:-}" ]; then
+    pre='\033Ptmux;\033\033]'
+    suf='\033\033\\\033\\'
+  elif [ "${TERM%%[-.]*}" = "screen" ]; then
+    pre='\033P\033]'
+    suf='\007\033\\'
+  else
+    pre='\033]'
+    suf='\033\\'
+  fi
+
+  if [ "${TERM%%-*}" = "linux" ]; then
+    printf '\033]R'
+  else
+    # palette, foreground, background, cursor, selection background/foreground
+    for code in 104 110 111 112 117 119; do
+      # shellcheck disable=SC2059
+      printf "${pre}%s${suf}" "$code"
+    done
+  fi
+
+  rm -f "$state_dir/current_theme" "$state_dir/state.toml"
+  unset WALH_THEME WALH_MODE WALH_BG WALH_FG COLORFGBG
+}
+
 _walh_help() {
   cat <<'EOF'
 Usage: walh [command|theme] [options]
@@ -308,6 +338,7 @@ Commands:
   toggle                Toggle between active dark and light themes
   list [--dark|--light] List available themes
   random [dark|light]   Apply a random theme
+  reset                 Restore terminal default colors and forget the active theme
   help, -h, --help      Show this help message
 EOF
 }
@@ -323,6 +354,9 @@ walh() {
       ;;
     toggle)
       _walh_toggle
+      ;;
+    reset)
+      _walh_reset
       ;;
     list)
       shift

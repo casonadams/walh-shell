@@ -248,6 +248,38 @@ EOF
 }
 
 # ---------------------------------------------------------------------------
+# Test 7: walh reset restores terminal defaults and forgets the theme
+# ---------------------------------------------------------------------------
+test_reset() {
+  local tmp_home
+  tmp_home="$(mktemp -d)"
+
+  local output
+  output="$(
+    env -u TMUX TERM=xterm-256color HOME="$tmp_home" XDG_STATE_HOME= bash -c "
+      eval \"\$('$REPO_DIR/profile_helper.sh')\"
+      walh onedark >/dev/null
+      [ -L \"\$HOME/.local/state/walh/current_theme\" ] && echo LINK_BEFORE
+      walh reset >\"\$HOME/reset.out\"
+      od -An -c \"\$HOME/reset.out\" | tr -d ' \n'
+      echo
+      [ -e \"\$HOME/.local/state/walh/current_theme\" ] || echo LINK_GONE
+      [ -e \"\$HOME/.local/state/walh/state.toml\" ] || echo STATE_GONE
+      echo \"THEME:\${WALH_THEME:-unset}\"
+    "
+  )"
+
+  assert_contains "$output" "LINK_BEFORE" "theme symlink exists before reset"
+  assert_contains "$output" '033]104033' "reset emits OSC 104 palette reset"
+  assert_contains "$output" '033]111033' "reset emits OSC 111 background reset"
+  assert_contains "$output" "LINK_GONE" "reset removes current_theme"
+  assert_contains "$output" "STATE_GONE" "reset removes state.toml"
+  assert_contains "$output" "THEME:unset" "reset unsets WALH_THEME"
+
+  rm -rf "$tmp_home"
+}
+
+# ---------------------------------------------------------------------------
 # Runner
 # ---------------------------------------------------------------------------
 echo "Running Slice 3 CLI tests..."
@@ -257,6 +289,7 @@ test_toggle
 test_list
 test_random
 test_errors
+test_reset
 
 if [ "$FAILED" -ne 0 ]; then
   echo "Some CLI tests failed!"

@@ -152,6 +152,12 @@ def gen_palette256(background, foreground, accents):
         entries.append(to_entry(lerp_oklab(lab[0], lab[7], (i + 1) / 25)))
     return ",".join(f"{16 + i};rgb:{entry}" for i, entry in enumerate(entries))
 
+def derive_selection(background, foreground, amount=0.22):
+    bg = rgb_to_oklab(hex_to_rgb(background))
+    fg = rgb_to_oklab(hex_to_rgb(foreground))
+    return rgb_to_hex(oklab_to_rgb_gamut_mapped(*lerp_oklab(bg, fg, amount)))
+
+
 def darken(hex_color, amount):
     rgb = hex_to_rgb(hex_color)
     return rgb_to_hex(tuple(max(int(c * (1 - amount)), 0) for c in rgb))
@@ -289,6 +295,7 @@ def gen_theme():
             "foreground": foreground,
             "background": background,
             "base208": color208,
+            "select": derive_selection(background, foreground),
         }
         for i in range(16):
             color_map[f"base{i:02d}"] = locals()[f"color{i:02d}"]

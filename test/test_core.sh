@@ -307,6 +307,9 @@ test_256_color_palette() {
   # 16 ANSI + 240 cube/gray + the derived orange re-applied at 208
   assert_eq "257" "$(count_osc4 "$out_bash")" "bash emits OSC 4 for colors 0-255 plus orange override"
   assert_contains "$out_bash" '033]4;255;rgb:' "palette reaches index 255"
+  assert_contains "$out_bash" '033]12;rgb:' "cursor color is set explicitly"
+  assert_contains "$out_bash" '033]17;rgb:' "selection background is set"
+  assert_contains "$out_bash" '033]19;rgb:' "selection foreground is set"
 
   out_off="$(emit env WALH_SHELL_256_COLORS=false bash)"
   assert_eq "17" "$(count_osc4 "$out_off")" "WALH_SHELL_256_COLORS=false limits output to 16 colors + orange"
