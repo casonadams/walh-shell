@@ -7,6 +7,8 @@ import shutil
 import chevron
 import toml
 
+REPO_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 def srgb_to_linear(c):
     c = c / 255.0
@@ -141,20 +143,21 @@ def is_dark_theme(background, foreground):
 
 
 def gen_theme():
-    output_dir = "scripts"
+    output_dir = os.path.join(REPO_DIR, "scripts")
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
     os.makedirs(output_dir, exist_ok=True)
 
-    with open("template/default.mustache", "r") as f:
+    with open(os.path.join(REPO_DIR, "template", "default.mustache"), "r") as f:
         template = f.read()
 
     theme_entries = []
-    for theme_file in sorted(os.listdir("themes")):
+    themes_dir = os.path.join(REPO_DIR, "themes")
+    for theme_file in sorted(os.listdir(themes_dir)):
         if not theme_file.endswith(".toml"):
             continue
 
-        theme_path = os.path.join("themes", theme_file)
+        theme_path = os.path.join(themes_dir, theme_file)
         with open(theme_path, "r") as f:
             data = toml.load(f)
 
@@ -268,7 +271,7 @@ def gen_theme():
         f.writelines(manifest_lines)
 
     theme_records.sort(key=lambda item: item["slug"])
-    web_dir = os.path.join("www", "js")
+    web_dir = os.path.join(REPO_DIR, "www", "js")
     os.makedirs(web_dir, exist_ok=True)
     web_data_path = os.path.join(web_dir, "themes-data.js")
     with open(web_data_path, "w") as f:

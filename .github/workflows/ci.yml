@@ -27,3 +27,8 @@ jobs:
 
       - name: Run test suite
         run: ./test/run_all.sh
+
+      - name: Verify generated artifacts are up to date
+        run: |
+          uv run generate_themes.py
+          git diff --exit-code -- scripts www/js/themes-data.js
