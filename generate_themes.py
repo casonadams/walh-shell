@@ -82,7 +82,7 @@ def oklch_brighten(hex_color, dark=True):
     C = math.sqrt(a * a + b_ * b_)
     h = math.atan2(b_, a)
     if dark:
-        new_L = min(0.92, L + 0.12)
+        new_L = min(0.92, L + 0.08)
         new_C = C * 1.05
     else:
         new_L = max(0.25, L - 0.08)
@@ -158,10 +158,6 @@ def derive_selection(background, foreground, amount=0.22):
     return rgb_to_hex(oklab_to_rgb_gamut_mapped(*lerp_oklab(bg, fg, amount)))
 
 
-def darken(hex_color, amount):
-    rgb = hex_to_rgb(hex_color)
-    return rgb_to_hex(tuple(max(int(c * (1 - amount)), 0) for c in rgb))
-
 def relative_luminance(hex_color):
     r, g, b = hex_to_rgb(hex_color)
     def linear(channel):
@@ -175,18 +171,31 @@ def contrast_ratio(hex1, hex2):
     return (lighter + 0.05) / (darker + 0.05)
 
 def ensure_contrast(hex_color, background, min_ratio):
+    """Shift OKLab lightness away from the background until min_ratio is met,
+    keeping hue and chroma (gamut-mapped)."""
+    L, a, b = rgb_to_oklab(hex_to_rgb(hex_color))
+    step = -0.01 if relative_luminance(background) > 0.5 else 0.01
     color = hex_color
-    for _ in range(20):
-        if contrast_ratio(color, background) >= min_ratio:
-            break
-        color = darken(color, 0.08)
+    while contrast_ratio(color, background) < min_ratio and 0.0 <= L + step <= 1.0:
+        L += step
+        color = rgb_to_hex(oklab_to_rgb_gamut_mapped(L, a, b))
     return color
 
-def warn_low_contrast(theme_name, background, slots, min_ratio=3.0):
+def lightness_star(hex_color):
+    y = relative_luminance(hex_color)
+    f = y ** (1 / 3) if y > 216 / 24389 else (24389 / 27 * y + 16) / 116
+    return 116 * f - 16
+
+def warn_low_contrast(theme_name, background, slots, min_ratio=3.0, min_delta_lstar=33):
     for slot, color in slots.items():
         ratio = contrast_ratio(color, background)
-        if ratio < min_ratio:
-            print(f"warning: {theme_name} {slot} {color} contrast {ratio:.2f}:1 < {min_ratio}:1", file=sys.stderr)
+        delta = abs(lightness_star(color) - lightness_star(background))
+        if ratio < min_ratio or delta < min_delta_lstar:
+            print(
+                f"warning: {theme_name} {slot} {color} contrast {ratio:.2f}:1, "
+                f"delta L* {delta:.0f} (want >= {min_ratio}:1 and >= {min_delta_lstar})",
+                file=sys.stderr,
+            )
 
 def is_dark_theme(background, foreground):
     return relative_luminance(background) < relative_luminance(foreground)
@@ -240,6 +249,13 @@ def gen_theme():
         color05 = theme.get("color05") or "#B294BB"
         color06 = theme.get("color06") or "#8ABE87"
 
+        if not dark_theme:
+            foreground = ensure_contrast(foreground, background, 4.5)
+            color01, color02, color03, color04, color05, color06 = (
+                ensure_contrast(c, background, 3.0)
+                for c in (color01, color02, color03, color04, color05, color06)
+            )
+
         d_c00, d_c07, d_c08, d_c15 = derive_neutrals(background, foreground, dark_theme)
 
         color00 = theme.get("color00") or d_c00
@@ -257,15 +273,12 @@ def gen_theme():
         color208 = theme.get("color208") or derive_orange(color01, color03)
 
         if not dark_theme:
-            foreground = ensure_contrast(foreground, background, 4.5)
             (
-                color01, color02, color03, color04, color05, color06,
                 color09, color10, color11, color12, color13, color14,
                 color208,
             ) = (
                 ensure_contrast(c, background, 3.0)
                 for c in (
-                    color01, color02, color03, color04, color05, color06,
                     color09, color10, color11, color12, color13, color14,
                     color208,
                 )

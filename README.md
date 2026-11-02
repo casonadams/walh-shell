@@ -20,10 +20,15 @@ walh-shell lets you instantly change your terminal’s color scheme with a singl
 - **Mode announcement**: Every theme script exports `WALH_MODE=dark|light` and `COLORFGBG` (the
   ncurses/rxvt convention), both derived from palette luminance, so programs launched from the
   shell can adopt the mode without querying the terminal.
-- **Derived base colors**: `color00` (surface: background mixed 15% toward the foreground) and
-  `color08` (dim: foreground washed 40% toward the background on dark palettes, 50% on light) are
-  computed from each theme's own foreground/background, so panels and secondary text stay distinct
-  on any palette while tools keep using the base 16 colors.
+- **Derived base colors**: when a theme does not define them, `color00` (surface) is the background
+  shifted 0.04 (dark) or 0.045 (light) darker in OKLab lightness, `color08` (dim) sits 38% of the way
+  from background lightness toward the foreground, and `color15` (bright white) is the foreground
+  pushed 0.08 brighter (dark) or 0.10 darker (light). Panels and secondary text stay distinct on any
+  palette while tools keep using the base 16 colors.
+- **Contrast floor on light themes**: foreground is held to 4.5:1 and accents to 3:1 against the
+  background by moving OKLab lightness only (hue and chroma are kept). Bright variants are derived
+  after that adjustment so they stay distinct. Dark themes are never recolored; the generator
+  prints a warning for any accent under 3:1 or under 33 L* from the background.
 - **Full 256-color palette**: colors 16-255 are generated from each theme's own palette (a 6x6x6
   cube interpolated in OKLab between background, the six accents, and foreground, plus a 24-step
   background-to-foreground gray ramp), so tools using the xterm 256-color cube (`fzf`, `bat`, vim,
