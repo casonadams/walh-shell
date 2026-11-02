@@ -3,6 +3,7 @@ import json
 import math
 import os
 import shutil
+import sys
 
 import chevron
 import toml
@@ -138,6 +139,12 @@ def ensure_contrast(hex_color, background, min_ratio):
         color = darken(color, 0.08)
     return color
 
+def warn_low_contrast(theme_name, background, slots, min_ratio=3.0):
+    for slot, color in slots.items():
+        ratio = contrast_ratio(color, background)
+        if ratio < min_ratio:
+            print(f"warning: {theme_name} {slot} {color} contrast {ratio:.2f}:1 < {min_ratio}:1", file=sys.stderr)
+
 def is_dark_theme(background, foreground):
     return relative_luminance(background) < relative_luminance(foreground)
 
@@ -219,6 +226,23 @@ def gen_theme():
                     color09, color10, color11, color12, color13, color14,
                     color208,
                 )
+            )
+        else:
+            warn_low_contrast(
+                theme_name,
+                background,
+                {
+                    f"color{i:02d}": c
+                    for i, c in enumerate(
+                        (color01, color02, color03, color04, color05, color06), start=1
+                    )
+                }
+                | {
+                    f"color{i:02d}": c
+                    for i, c in enumerate(
+                        (color09, color10, color11, color12, color13, color14), start=9
+                    )
+                },
             )
 
         colorfgbg = "15;0" if dark_theme else "0;15"
