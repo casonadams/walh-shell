@@ -289,6 +289,36 @@ test_shellspec() {
 }
 
 # ---------------------------------------------------------------------------
+# Test 10: 256-color palette emission, opt-out, and bash/zsh parity
+# ---------------------------------------------------------------------------
+test_256_color_palette() {
+  local script="$REPO_DIR/scripts/nord.sh"
+  local shell_cmd out_bash out_zsh out_off
+  local tmp_cache
+  tmp_cache="$(mktemp -d)"
+
+  emit() {
+    env -u TMUX TERM=xterm-256color WALH_SHELL="$REPO_DIR" XDG_CACHE_HOME="$tmp_cache" "$@" -c ". '$script'" | od -An -c | tr -d ' \n'
+  }
+  count_osc4() { printf '%s' "$1" | grep -o '033\]4;' | wc -l | tr -d ' '; }
+
+  out_bash="$(emit bash)"
+  # 16 ANSI + 240 cube/gray + the derived orange re-applied at 208
+  assert_eq "257" "$(count_osc4 "$out_bash")" "bash emits OSC 4 for colors 0-255 plus orange override"
+  assert_contains "$out_bash" '033]4;255;rgb:' "palette reaches index 255"
+
+  out_off="$(emit env WALH_SHELL_256_COLORS=false bash)"
+  assert_eq "17" "$(count_osc4 "$out_off")" "WALH_SHELL_256_COLORS=false limits output to 16 colors + orange"
+
+  if command -v zsh >/dev/null 2>&1; then
+    out_zsh="$(emit zsh)"
+    assert_eq "$out_bash" "$out_zsh" "zsh emits byte-identical sequences to bash"
+  fi
+
+  rm -rf "$tmp_cache"
+}
+
+# ---------------------------------------------------------------------------
 # Runner
 # ---------------------------------------------------------------------------
 echo "Running tests..."
@@ -299,6 +329,7 @@ test_generate_themes
 test_xdg_base_directory_state_file
 test_startup_alias_behavior
 test_interactive_walh_dispatcher
+test_256_color_palette
 "$REPO_DIR/test/test_walh_cli.sh"
 "$REPO_DIR/test/test_preview_and_hooks.sh"
 test_shellspec

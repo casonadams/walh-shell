@@ -35,11 +35,15 @@ fi
 if [ -n "${TMUX:-}" ]; then
   # Tell tmux to pass the escape sequences through
   # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
+  _walh_osc4_pre='\033Ptmux;\033\033]4;'
+  _walh_osc4_suf='\033\033\\\033\\'
   put_template() { walh_append '\033Ptmux;\033\033]4;%d;rgb:%s\033\033\\\033\\' "$@"; }
   put_template_var() { walh_append '\033Ptmux;\033\033]%d;rgb:%s\033\033\\\033\\' "$@"; }
   put_template_custom() { walh_append '\033Ptmux;\033\033]%s%s\033\033\\\033\\' "$@"; }
 elif [ "${TERM%%[-.]*}" = "screen" ]; then
   # GNU screen (screen, screen-256color, screen-256color-bce)
+  _walh_osc4_pre='\033P\033]4;'
+  _walh_osc4_suf='\007\033\\'
   put_template() { walh_append '\033P\033]4;%d;rgb:%s\007\033\\' "$@"; }
   put_template_var() { walh_append '\033P\033]%d;rgb:%s\007\033\\' "$@"; }
   put_template_custom() { walh_append '\033P\033]%s%s\007\033\\' "$@"; }
@@ -52,6 +56,8 @@ elif [ "${TERM%%-*}" = "linux" ]; then
   put_template_var() { true; }
   put_template_custom() { true; }
 else
+  _walh_osc4_pre='\033]4;'
+  _walh_osc4_suf='\033\\'
   put_template() { walh_append '\033]4;%d;rgb:%s\033\\' "$@"; }
   put_template_var() { walh_append '\033]%d;rgb:%s\033\\' "$@"; }
   put_template_custom() { walh_append '\033]%s%s\033\\' "$@"; }
@@ -75,7 +81,26 @@ put_template 13 "$color13"
 put_template 14 "$color14"
 put_template 15 "$color15"
 
-# 256 color space
+# 256 color space: cube (16-231) and gray ramp (232-255) from the theme
+# palette, then the derived orange over its cube slot
+if [ -n "${walh_palette256:-}" ] && [ "${WALH_SHELL_256_COLORS:-}" != false ] &&
+  [ -n "${_walh_osc4_pre:-}" ]; then
+  # Entries are "<idx>;rgb:rr/gg/bb" joined by commas. bash 3.2 makes global
+  # substitution on long strings slow, so bash splits into an array and lets
+  # printf cycle the format; zsh substitutes in one pass.
+  if [ -n "${BASH_VERSION:-}" ]; then
+    IFS=, read -r -a _walh_entries <<<"$walh_palette256"
+    # shellcheck disable=SC2059
+    printf -v _walh_seq "${_walh_osc4_pre}%s${_walh_osc4_suf}" "${_walh_entries[@]}"
+    walh_buffer="${walh_buffer}${_walh_seq}"
+  elif [ -n "${ZSH_VERSION:-}" ]; then
+    # shellcheck disable=SC2059
+    printf -v _walh_osc4_pre "$_walh_osc4_pre"
+    # shellcheck disable=SC2059
+    printf -v _walh_osc4_suf "$_walh_osc4_suf"
+    walh_buffer="${walh_buffer}${_walh_osc4_pre}${walh_palette256//,/${_walh_osc4_suf}${_walh_osc4_pre}}${_walh_osc4_suf}"
+  fi
+fi
 put_template 208 "$color208"
 
 # foreground / background / cursor color
@@ -108,7 +133,7 @@ for fn in walh_append put_template put_template_var put_template_custom; do
   unset -f "$fn" 2>/dev/null || true
 done
 for var in \
-  walh_buffer \
+  walh_buffer walh_palette256 _walh_entries _walh_seq _walh_osc4_pre _walh_osc4_suf \
   color00 color01 color02 color03 color04 color05 color06 color07 \
   color08 color09 color10 color11 color12 color13 color14 color15 \
   color208 color_foreground color_background state_dir \

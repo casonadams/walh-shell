@@ -24,6 +24,11 @@ walh-shell lets you instantly change your terminal’s color scheme with a singl
   `color08` (dim: foreground washed 40% toward the background on dark palettes, 50% on light) are
   computed from each theme's own foreground/background, so panels and secondary text stay distinct
   on any palette while tools keep using the base 16 colors.
+- **Full 256-color palette**: colors 16-255 are generated from each theme's own palette (a 6x6x6
+  cube interpolated in OKLab between background, the six accents, and foreground, plus a 24-step
+  background-to-foreground gray ramp), so tools using the xterm 256-color cube (`fzf`, `bat`, vim,
+  `ls`) match the theme. Adds under 1 ms per apply. Set `WALH_SHELL_256_COLORS=false` to leave the
+  terminal's own 16-255 colors alone.
 
 ---
 

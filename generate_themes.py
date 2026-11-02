@@ -115,6 +115,43 @@ def derive_orange(c01_hex, c03_hex):
     b = (b1 + b3) / 2
     return rgb_to_hex(oklab_to_rgb_gamut_mapped(L, a, b))
 
+def lerp_oklab(p, q, t):
+    return tuple(a + (b - a) * t for a, b in zip(p, q))
+
+def gen_palette256(background, foreground, accents):
+    """Colors 16-255: a 6x6x6 cube trilinearly interpolated in OKLab between
+    the corners bg, red, green, yellow, blue, magenta, cyan, fg, followed by
+    a 24-step bg->fg gray ramp."""
+    lab = [rgb_to_oklab(hex_to_rgb(c)) for c in (background, *accents, foreground)]
+    corners = {
+        (0, 0, 0): lab[0],
+        (1, 0, 0): lab[1],
+        (0, 1, 0): lab[2],
+        (1, 1, 0): lab[3],
+        (0, 0, 1): lab[4],
+        (1, 0, 1): lab[5],
+        (0, 1, 1): lab[6],
+        (1, 1, 1): lab[7],
+    }
+
+    def to_entry(point):
+        h = rgb_to_hex(oklab_to_rgb_gamut_mapped(*point)).lstrip("#")
+        return f"{h[0:2]}/{h[2:4]}/{h[4:6]}"
+
+    entries = []
+    for r in range(6):
+        for g in range(6):
+            for b in range(6):
+                tr, tg, tb = r / 5, g / 5, b / 5
+                c00 = lerp_oklab(corners[(0, 0, 0)], corners[(1, 0, 0)], tr)
+                c10 = lerp_oklab(corners[(0, 1, 0)], corners[(1, 1, 0)], tr)
+                c01 = lerp_oklab(corners[(0, 0, 1)], corners[(1, 0, 1)], tr)
+                c11 = lerp_oklab(corners[(0, 1, 1)], corners[(1, 1, 1)], tr)
+                entries.append(to_entry(lerp_oklab(lerp_oklab(c00, c10, tg), lerp_oklab(c01, c11, tg), tb)))
+    for i in range(24):
+        entries.append(to_entry(lerp_oklab(lab[0], lab[7], (i + 1) / 25)))
+    return ",".join(f"{16 + i};rgb:{entry}" for i, entry in enumerate(entries))
+
 def darken(hex_color, amount):
     rgb = hex_to_rgb(hex_color)
     return rgb_to_hex(tuple(max(int(c * (1 - amount)), 0) for c in rgb))
@@ -261,6 +298,9 @@ def gen_theme():
             "theme": theme_name,
             "mode": mode,
             "colorfgbg": colorfgbg,
+            "palette256": gen_palette256(
+                background, foreground, (color01, color02, color03, color04, color05, color06)
+            ),
         }
         for prefix, hex_val in color_map.items():
             h = hex_val.lstrip("#")
