@@ -55,6 +55,87 @@ window.WALH_THEMES = [
     ]
   },
   {
+    "slug": "ayu-mirage",
+    "family": "ayu-mirage",
+    "mode": "dark",
+    "pairSlug": "ayu-light",
+    "background": "#1f2430",
+    "foreground": "#cccac2",
+    "color208": "#ED9358",
+    "colors": [
+      "#161B26",
+      "#f06b5c",
+      "#bfe76d",
+      "#e6b752",
+      "#3bbbf4",
+      "#d09ffd",
+      "#84ceb5",
+      "#cccac2",
+      "#5C5E61",
+      "#FF8F80",
+      "#CDF775",
+      "#FFD174",
+      "#7CD3FF",
+      "#E1C3FF",
+      "#9AE9CE",
+      "#E6E4DC"
+    ]
+  },
+  {
+    "slug": "carbonfox",
+    "family": "carbonfox",
+    "mode": "dark",
+    "pairSlug": "dayfox",
+    "background": "#161616",
+    "foreground": "#f2f4f8",
+    "color208": "#AF93A8",
+    "colors": [
+      "#0D0D0D",
+      "#ee5396",
+      "#25be6a",
+      "#08bdba",
+      "#78a9ff",
+      "#be95ff",
+      "#33b1ff",
+      "#f2f4f8",
+      "#606162",
+      "#FF7BAF",
+      "#3FDA7F",
+      "#30D8D5",
+      "#A2C4FF",
+      "#D2B8FF",
+      "#80C9FF",
+      "#FAFCFF"
+    ]
+  },
+  {
+    "slug": "catppuccin-frappe",
+    "family": "catppuccin-frappe",
+    "mode": "dark",
+    "pairSlug": "catppuccin-latte",
+    "background": "#303446",
+    "foreground": "#c6d0f5",
+    "color208": "#E8A68A",
+    "colors": [
+      "#262A3B",
+      "#e78284",
+      "#a6d189",
+      "#e5c890",
+      "#8caaee",
+      "#f4b8e4",
+      "#81c8be",
+      "#c6d0f5",
+      "#646B85",
+      "#FF9E9E",
+      "#BEEC9F",
+      "#FFE1A6",
+      "#AAC4FF",
+      "#FFD6F4",
+      "#97E3D8",
+      "#E5EBFF"
+    ]
+  },
+  {
     "slug": "catppuccin-latte",
     "family": "catppuccin",
     "mode": "light",
@@ -82,6 +163,33 @@ window.WALH_THEMES = [
     ]
   },
   {
+    "slug": "catppuccin-macchiato",
+    "family": "catppuccin-macchiato",
+    "mode": "dark",
+    "pairSlug": "catppuccin-latte",
+    "background": "#24273a",
+    "foreground": "#cad3f5",
+    "color208": "#EFAE9B",
+    "colors": [
+      "#1B1D30",
+      "#ed8796",
+      "#a6da95",
+      "#eed49f",
+      "#8aadf4",
+      "#f5bde6",
+      "#8bd5ca",
+      "#cad3f5",
+      "#5D637D",
+      "#FFA7B2",
+      "#BEF5AB",
+      "#FDE1A9",
+      "#ABC7FF",
+      "#FFD6F4",
+      "#A1F0E4",
+      "#E9EEFF"
+    ]
+  },
+  {
     "slug": "catppuccin-mocha",
     "family": "catppuccin",
     "mode": "dark",
@@ -106,6 +214,33 @@ window.WALH_THEMES = [
       "#DFC6FF",
       "#A4F7E9",
       "#EDF1FF"
+    ]
+  },
+  {
+    "slug": "dawnfox",
+    "family": "dawnfox",
+    "mode": "light",
+    "pairSlug": "nightfox",
+    "background": "#faf4ed",
+    "foreground": "#575279",
+    "color208": "#BB7154",
+    "colors": [
+      "#EBE5DE",
+      "#b4637a",
+      "#618774",
+      "#C37C00",
+      "#286983",
+      "#907aa9",
+      "#56949f",
+      "#575279",
+      "#B7B3C6",
+      "#A04662",
+      "#45715C",
+      "#A36700",
+      "#00526D",
+      "#7A6195",
+      "#317D8A",
+      "#3C375C"
     ]
   },
   {
@@ -187,6 +322,33 @@ window.WALH_THEMES = [
       "#D03597",
       "#008498",
       "#11121D"
+    ]
+  },
+  {
+    "slug": "duskfox",
+    "family": "duskfox",
+    "mode": "dark",
+    "pairSlug": "dayfox",
+    "background": "#232136",
+    "foreground": "#e0def4",
+    "color208": "#F29A88",
+    "colors": [
+      "#1A182C",
+      "#eb6f92",
+      "#a3be8c",
+      "#f6c177",
+      "#569fba",
+      "#c4a7e7",
+      "#9ccfd8",
+      "#e0def4",
+      "#646278",
+      "#FF8FAC",
+      "#BBD8A3",
+      "#FFDFB5",
+      "#6BB9D6",
+      "#DDC1FF",
+      "#B3EAF3",
+      "#FBFBFF"
     ]
   },
   {
@@ -325,6 +487,33 @@ window.WALH_THEMES = [
     ]
   },
   {
+    "slug": "github-dark-high-contrast",
+    "family": "github-dark-high-contrast",
+    "mode": "dark",
+    "pairSlug": "github-light-high-contrast",
+    "background": "#0a0c10",
+    "foreground": "#f0f3f6",
+    "color208": "#F8A76C",
+    "colors": [
+      "#040508",
+      "#ff9492",
+      "#26cd4d",
+      "#f0b72f",
+      "#71b7ff",
+      "#cb9eff",
+      "#39c5cf",
+      "#f0f3f6",
+      "#56595C",
+      "#FFBDBB",
+      "#41E961",
+      "#FFD57F",
+      "#A4D0FF",
+      "#DDC2FF",
+      "#50E0EB",
+      "#F9FCFF"
+    ]
+  },
+  {
     "slug": "github-light",
     "family": "github",
     "mode": "light",
@@ -352,6 +541,33 @@ window.WALH_THEMES = [
     ]
   },
   {
+    "slug": "github-light-high-contrast",
+    "family": "github-light-high-contrast",
+    "mode": "light",
+    "pairSlug": "github-dark-high-contrast",
+    "background": "#ffffff",
+    "foreground": "#0e1116",
+    "color208": "#6E220E",
+    "colors": [
+      "#F0F0F0",
+      "#a0111f",
+      "#024c1a",
+      "#3f2200",
+      "#0349b4",
+      "#622cbc",
+      "#1b7c83",
+      "#0e1116",
+      "#989A9E",
+      "#7D0012",
+      "#00340F",
+      "#341B00",
+      "#00358B",
+      "#4E00A2",
+      "#00646A",
+      "#010203"
+    ]
+  },
+  {
     "slug": "gruvbox-dark",
     "family": "gruvbox",
     "mode": "dark",
@@ -369,6 +585,33 @@ window.WALH_THEMES = [
       "#689d6a",
       "#D5C4A1",
       "#665E4F",
+      "#ED3E32",
+      "#B1B033",
+      "#F4B239",
+      "#5A9EA1",
+      "#CE789F",
+      "#7EB780",
+      "#EFDEBA"
+    ]
+  },
+  {
+    "slug": "gruvbox-dark-hard",
+    "family": "gruvbox-hard",
+    "mode": "dark",
+    "pairSlug": "gruvbox-light-hard",
+    "background": "#1d2021",
+    "foreground": "#d5c4a1",
+    "color208": "#D46820",
+    "colors": [
+      "#141718",
+      "#cc241d",
+      "#98971a",
+      "#d79921",
+      "#458588",
+      "#b16286",
+      "#689d6a",
+      "#d5c4a1",
+      "#5E584A",
       "#ED3E32",
       "#B1B033",
       "#F4B239",
@@ -403,6 +646,60 @@ window.WALH_THEMES = [
       "#7B1E5C",
       "#1F653F",
       "#362F2B"
+    ]
+  },
+  {
+    "slug": "gruvbox-light-hard",
+    "family": "gruvbox-hard",
+    "mode": "light",
+    "pairSlug": "gruvbox-dark-hard",
+    "background": "#f9f5d7",
+    "foreground": "#504945",
+    "color208": "#AB4A0D",
+    "colors": [
+      "#EAE6C8",
+      "#9d0006",
+      "#79740e",
+      "#b57614",
+      "#076678",
+      "#8f3f71",
+      "#427b58",
+      "#504945",
+      "#B5AF9F",
+      "#770003",
+      "#615D00",
+      "#986000",
+      "#004E5D",
+      "#7B1E5C",
+      "#1F653F",
+      "#362F2B"
+    ]
+  },
+  {
+    "slug": "kanagawa-dragon",
+    "family": "kanagawa-dragon",
+    "mode": "dark",
+    "pairSlug": "kanagawa-lotus",
+    "background": "#181616",
+    "foreground": "#c5c9c5",
+    "color208": "#C6937C",
+    "colors": [
+      "#0F0D0D",
+      "#c4746e",
+      "#8a9a7b",
+      "#c4b28a",
+      "#8ba4b0",
+      "#a292a3",
+      "#8ea4a2",
+      "#c5c9c5",
+      "#535351",
+      "#E18B84",
+      "#A2B392",
+      "#DFCBA0",
+      "#A2BDCA",
+      "#BCAABD",
+      "#A6BDBB",
+      "#DFE3DF"
     ]
   },
   {
@@ -538,6 +835,60 @@ window.WALH_THEMES = [
       "#6A03F5",
       "#00878E",
       "#39525D"
+    ]
+  },
+  {
+    "slug": "modus-operandi",
+    "family": "modus",
+    "mode": "light",
+    "pairSlug": "modus-vivendi",
+    "background": "#ffffff",
+    "foreground": "#000000",
+    "color208": "#8D3D00",
+    "colors": [
+      "#F0F0F0",
+      "#a60000",
+      "#006800",
+      "#6f5500",
+      "#0031a9",
+      "#721045",
+      "#005e8b",
+      "#000000",
+      "#868686",
+      "#7F0000",
+      "#004E00",
+      "#554000",
+      "#00217B",
+      "#540030",
+      "#00476A",
+      "#000000"
+    ]
+  },
+  {
+    "slug": "modus-vivendi",
+    "family": "modus",
+    "mode": "dark",
+    "pairSlug": "modus-operandi",
+    "background": "#000000",
+    "foreground": "#ffffff",
+    "color208": "#EC9342",
+    "colors": [
+      "#000000",
+      "#ff5f59",
+      "#44bc44",
+      "#d0bc00",
+      "#2fafff",
+      "#feacd0",
+      "#00d3d0",
+      "#ffffff",
+      "#424242",
+      "#FF9289",
+      "#5AD858",
+      "#EBD629",
+      "#7DC7FF",
+      "#FFD5E6",
+      "#2FEFEB",
+      "#FCFCFC"
     ]
   },
   {
@@ -703,6 +1054,33 @@ window.WALH_THEMES = [
     ]
   },
   {
+    "slug": "nordfox",
+    "family": "nordfox",
+    "mode": "dark",
+    "pairSlug": "dayfox",
+    "background": "#2e3440",
+    "foreground": "#cdcecf",
+    "color208": "#D7967B",
+    "colors": [
+      "#242A36",
+      "#bf616a",
+      "#a3be8c",
+      "#ebcb8b",
+      "#81a1c1",
+      "#b48ead",
+      "#88c0d0",
+      "#cdcecf",
+      "#666A72",
+      "#DD7780",
+      "#BBD8A3",
+      "#FFE1A5",
+      "#98BADD",
+      "#CFA6C7",
+      "#9EDAEC",
+      "#E7E8E9"
+    ]
+  },
+  {
     "slug": "onedark",
     "family": "one",
     "mode": "dark",
@@ -754,6 +1132,33 @@ window.WALH_THEMES = [
       "#8A0089",
       "#006B9A",
       "#1F2128"
+    ]
+  },
+  {
+    "slug": "oxocarbon-dark",
+    "family": "oxocarbon-dark",
+    "mode": "dark",
+    "pairSlug": null,
+    "background": "#161616",
+    "foreground": "#ffffff",
+    "color208": "#FBA48F",
+    "colors": [
+      "#0D0D0D",
+      "#ee5396",
+      "#42be65",
+      "#ffe97b",
+      "#33b1ff",
+      "#ff7eb6",
+      "#3ddbd9",
+      "#ffffff",
+      "#646464",
+      "#FF7BAF",
+      "#58DA7A",
+      "#FDE670",
+      "#80C9FF",
+      "#FFADCD",
+      "#54F7F5",
+      "#FCFCFC"
     ]
   },
   {
@@ -862,6 +1267,33 @@ window.WALH_THEMES = [
       "#7A6195",
       "#B65956",
       "#3C375C"
+    ]
+  },
+  {
+    "slug": "rose-pine-moon",
+    "family": "rose-pine-moon",
+    "mode": "dark",
+    "pairSlug": "rose-pine-dawn",
+    "background": "#232136",
+    "foreground": "#e0def4",
+    "color208": "#F29A88",
+    "colors": [
+      "#1A182C",
+      "#eb6f92",
+      "#3e8fb0",
+      "#f6c177",
+      "#9ccfd8",
+      "#c4a7e7",
+      "#ea9a97",
+      "#e0def4",
+      "#646278",
+      "#FF8FAC",
+      "#53A8CC",
+      "#FFDFB5",
+      "#B3EAF3",
+      "#DDC1FF",
+      "#FFB7B3",
+      "#FBFBFF"
     ]
   },
   {
@@ -1027,6 +1459,33 @@ window.WALH_THEMES = [
     ]
   },
   {
+    "slug": "terafox",
+    "family": "terafox",
+    "mode": "dark",
+    "pairSlug": "dayfox",
+    "background": "#152528",
+    "foreground": "#e6eaea",
+    "color208": "#F38168",
+    "colors": [
+      "#0C1B1E",
+      "#e85c51",
+      "#7aa4a1",
+      "#fda47f",
+      "#5a93aa",
+      "#ad5c7c",
+      "#a1cdd8",
+      "#e6eaea",
+      "#5E696A",
+      "#FF7B6E",
+      "#91BEBA",
+      "#FFC9B4",
+      "#6FACC5",
+      "#CA7294",
+      "#B8E8F3",
+      "#F9FDFD"
+    ]
+  },
+  {
     "slug": "tokyo-night",
     "family": "tokyo-night",
     "mode": "dark",
@@ -1078,6 +1537,60 @@ window.WALH_THEMES = [
       "#8523E5",
       "#005978",
       "#1D429E"
+    ]
+  },
+  {
+    "slug": "tokyo-night-moon",
+    "family": "tokyo-night-moon",
+    "mode": "dark",
+    "pairSlug": "tokyo-night-day",
+    "background": "#222436",
+    "foreground": "#c8d3f5",
+    "color208": "#FFA17E",
+    "colors": [
+      "#191A2C",
+      "#ff757f",
+      "#c3e88d",
+      "#ffc777",
+      "#82aaff",
+      "#c099ff",
+      "#86e1fc",
+      "#c8d3f5",
+      "#5B617A",
+      "#FFA3A6",
+      "#CEF594",
+      "#FFDFB4",
+      "#A9C5FF",
+      "#D4BCFF",
+      "#BAEFFF",
+      "#E8EEFF"
+    ]
+  },
+  {
+    "slug": "tokyo-night-storm",
+    "family": "tokyo-night-storm",
+    "mode": "dark",
+    "pairSlug": "tokyo-night-day",
+    "background": "#24283b",
+    "foreground": "#c0caf5",
+    "color208": "#ED957D",
+    "colors": [
+      "#1B1E31",
+      "#f7768e",
+      "#9ece6a",
+      "#e0af68",
+      "#7aa2f7",
+      "#bb9af7",
+      "#7dcfff",
+      "#c0caf5",
+      "#5A607E",
+      "#FF9FAD",
+      "#B6E97F",
+      "#FDC87C",
+      "#9DBDFF",
+      "#D1BAFF",
+      "#BBE5FF",
+      "#DFE5FF"
     ]
   },
   {

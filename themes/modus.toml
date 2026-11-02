@@ -1,0 +1,23 @@
+name = "modus"
+
+[dark]
+slug = "modus-vivendi"
+background = "#000000"
+foreground = "#ffffff"
+color01 = "#ff5f59"
+color02 = "#44bc44"
+color03 = "#d0bc00"
+color04 = "#2fafff"
+color05 = "#feacd0"
+color06 = "#00d3d0"
+
+[light]
+slug = "modus-operandi"
+background = "#ffffff"
+foreground = "#000000"
+color01 = "#a60000"
+color02 = "#006800"
+color03 = "#6f5500"
+color04 = "#0031a9"
+color05 = "#721045"
+color06 = "#005e8b"

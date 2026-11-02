@@ -18,7 +18,7 @@ class TestWebArtifacts(unittest.TestCase):
         self.assertIsNotNone(match, "Could not find window.WALH_THEMES in themes-data.js")
 
         themes = json.loads(match.group(1))
-        self.assertGreaterEqual(len(themes), 40, "Expected at least 40 themes")
+        self.assertGreaterEqual(len(themes), 60, "Expected at least 60 themes")
 
         hex_pattern = re.compile(r"^#[0-9a-fA-F]{6}$")
 

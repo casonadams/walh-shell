@@ -1,0 +1,992 @@
+# walh: catppuccin-frappe
+[colors.primary]
+background = "#303446"
+foreground = "#c6d0f5"
+
+[colors.cursor]
+text = "#303446"
+cursor = "#E5EBFF"
+
+[colors.selection]
+text = "#c6d0f5"
+background = "#4E5369"
+
+[colors.normal]
+black = "#262A3B"
+red = "#e78284"
+green = "#a6d189"
+yellow = "#e5c890"
+blue = "#8caaee"
+magenta = "#f4b8e4"
+cyan = "#81c8be"
+white = "#c6d0f5"
+
+[colors.bright]
+black = "#646B85"
+red = "#FF9E9E"
+green = "#BEEC9F"
+yellow = "#FFE1A6"
+blue = "#AAC4FF"
+magenta = "#FFD6F4"
+cyan = "#97E3D8"
+white = "#E5EBFF"
+
+[[colors.indexed]]
+index = 16
+color = "#303446"
+
+[[colors.indexed]]
+index = 17
+color = "#414A65"
+
+[[colors.indexed]]
+index = 18
+color = "#536085"
+
+[[colors.indexed]]
+index = 19
+color = "#6578A7"
+
+[[colors.indexed]]
+index = 20
+color = "#7891CA"
+
+[[colors.indexed]]
+index = 21
+color = "#8CAAEE"
+
+[[colors.indexed]]
+index = 22
+color = "#455155"
+
+[[colors.indexed]]
+index = 23
+color = "#526370"
+
+[[colors.indexed]]
+index = 24
+color = "#60768C"
+
+[[colors.indexed]]
+index = 25
+color = "#6D89A9"
+
+[[colors.indexed]]
+index = 26
+color = "#7B9CC6"
+
+[[colors.indexed]]
+index = 27
+color = "#8AB1E5"
+
+[[colors.indexed]]
+index = 28
+color = "#5C6F63"
+
+[[colors.indexed]]
+index = 29
+color = "#647D7A"
+
+[[colors.indexed]]
+index = 30
+color = "#6D8B92"
+
+[[colors.indexed]]
+index = 31
+color = "#769AAA"
+
+[[colors.indexed]]
+index = 32
+color = "#7FA8C3"
+
+[[colors.indexed]]
+index = 33
+color = "#88B7DC"
+
+[[colors.indexed]]
+index = 34
+color = "#748F70"
+
+[[colors.indexed]]
+index = 35
+color = "#779884"
+
+[[colors.indexed]]
+index = 36
+color = "#7BA197"
+
+[[colors.indexed]]
+index = 37
+color = "#7EAAAB"
+
+[[colors.indexed]]
+index = 38
+color = "#82B4BE"
+
+[[colors.indexed]]
+index = 39
+color = "#85BDD2"
+
+[[colors.indexed]]
+index = 40
+color = "#8CAF7D"
+
+[[colors.indexed]]
+index = 41
+color = "#8BB38D"
+
+[[colors.indexed]]
+index = 42
+color = "#89B79C"
+
+[[colors.indexed]]
+index = 43
+color = "#87BBAB"
+
+[[colors.indexed]]
+index = 44
+color = "#85BFBA"
+
+[[colors.indexed]]
+index = 45
+color = "#83C2C8"
+
+[[colors.indexed]]
+index = 46
+color = "#A6D189"
+
+[[colors.indexed]]
+index = 47
+color = "#9FCF95"
+
+[[colors.indexed]]
+index = 48
+color = "#98CEA0"
+
+[[colors.indexed]]
+index = 49
+color = "#90CCAA"
+
+[[colors.indexed]]
+index = 50
+color = "#89CAB4"
+
+[[colors.indexed]]
+index = 51
+color = "#81C8BE"
+
+[[colors.indexed]]
+index = 52
+color = "#524453"
+
+[[colors.indexed]]
+index = 53
+color = "#62586F"
+
+[[colors.indexed]]
+index = 54
+color = "#726C8D"
+
+[[colors.indexed]]
+index = 55
+color = "#8281AC"
+
+[[colors.indexed]]
+index = 56
+color = "#9297CC"
+
+[[colors.indexed]]
+index = 57
+color = "#A2AEEC"
+
+[[colors.indexed]]
+index = 58
+color = "#655E5F"
+
+[[colors.indexed]]
+index = 59
+color = "#716F78"
+
+[[colors.indexed]]
+index = 60
+color = "#7C7F93"
+
+[[colors.indexed]]
+index = 61
+color = "#8890AE"
+
+[[colors.indexed]]
+index = 62
+color = "#93A2C9"
+
+[[colors.indexed]]
+index = 63
+color = "#9FB4E6"
+
+[[colors.indexed]]
+index = 64
+color = "#78796A"
+
+[[colors.indexed]]
+index = 65
+color = "#7F8681"
+
+[[colors.indexed]]
+index = 66
+color = "#869398"
+
+[[colors.indexed]]
+index = 67
+color = "#8D9FAF"
+
+[[colors.indexed]]
+index = 68
+color = "#95ACC7"
+
+[[colors.indexed]]
+index = 69
+color = "#9CB9DF"
+
+[[colors.indexed]]
+index = 70
+color = "#8C9576"
+
+[[colors.indexed]]
+index = 71
+color = "#8E9E89"
+
+[[colors.indexed]]
+index = 72
+color = "#91A69D"
+
+[[colors.indexed]]
+index = 73
+color = "#93AEB0"
+
+[[colors.indexed]]
+index = 74
+color = "#96B7C4"
+
+[[colors.indexed]]
+index = 75
+color = "#98BFD8"
+
+[[colors.indexed]]
+index = 76
+color = "#A0B280"
+
+[[colors.indexed]]
+index = 77
+color = "#9EB691"
+
+[[colors.indexed]]
+index = 78
+color = "#9BBAA1"
+
+[[colors.indexed]]
+index = 79
+color = "#99BDB1"
+
+[[colors.indexed]]
+index = 80
+color = "#97C1C1"
+
+[[colors.indexed]]
+index = 81
+color = "#94C5D0"
+
+[[colors.indexed]]
+index = 82
+color = "#B4CF8A"
+
+[[colors.indexed]]
+index = 83
+color = "#ADCF98"
+
+[[colors.indexed]]
+index = 84
+color = "#A6CEA5"
+
+[[colors.indexed]]
+index = 85
+color = "#9FCDB2"
+
+[[colors.indexed]]
+index = 86
+color = "#97CBBD"
+
+[[colors.indexed]]
+index = 87
+color = "#90CAC9"
+
+[[colors.indexed]]
+index = 88
+color = "#76535F"
+
+[[colors.indexed]]
+index = 89
+color = "#83657A"
+
+[[colors.indexed]]
+index = 90
+color = "#907895"
+
+[[colors.indexed]]
+index = 91
+color = "#9D8AB1"
+
+[[colors.indexed]]
+index = 92
+color = "#AB9DCD"
+
+[[colors.indexed]]
+index = 93
+color = "#B8B1EB"
+
+[[colors.indexed]]
+index = 94
+color = "#856B69"
+
+[[colors.indexed]]
+index = 95
+color = "#8E7A81"
+
+[[colors.indexed]]
+index = 96
+color = "#98899A"
+
+[[colors.indexed]]
+index = 97
+color = "#A198B3"
+
+[[colors.indexed]]
+index = 98
+color = "#AAA7CC"
+
+[[colors.indexed]]
+index = 99
+color = "#B3B6E6"
+
+[[colors.indexed]]
+index = 100
+color = "#948372"
+
+[[colors.indexed]]
+index = 101
+color = "#9A8E88"
+
+[[colors.indexed]]
+index = 102
+color = "#9F9A9E"
+
+[[colors.indexed]]
+index = 103
+color = "#A4A5B5"
+
+[[colors.indexed]]
+index = 104
+color = "#A9B0CB"
+
+[[colors.indexed]]
+index = 105
+color = "#AEBCE2"
+
+[[colors.indexed]]
+index = 106
+color = "#A39B7B"
+
+[[colors.indexed]]
+index = 107
+color = "#A5A38F"
+
+[[colors.indexed]]
+index = 108
+color = "#A6ABA3"
+
+[[colors.indexed]]
+index = 109
+color = "#A7B2B6"
+
+[[colors.indexed]]
+index = 110
+color = "#A8BACA"
+
+[[colors.indexed]]
+index = 111
+color = "#A9C1DD"
+
+[[colors.indexed]]
+index = 112
+color = "#B2B484"
+
+[[colors.indexed]]
+index = 113
+color = "#AFB896"
+
+[[colors.indexed]]
+index = 114
+color = "#ADBCA7"
+
+[[colors.indexed]]
+index = 115
+color = "#AAC0B8"
+
+[[colors.indexed]]
+index = 116
+color = "#A7C3C8"
+
+[[colors.indexed]]
+index = 117
+color = "#A4C6D9"
+
+[[colors.indexed]]
+index = 118
+color = "#C1CE8C"
+
+[[colors.indexed]]
+index = 119
+color = "#BACE9C"
+
+[[colors.indexed]]
+index = 120
+color = "#B3CDAB"
+
+[[colors.indexed]]
+index = 121
+color = "#ACCDB9"
+
+[[colors.indexed]]
+index = 122
+color = "#A5CCC7"
+
+[[colors.indexed]]
+index = 123
+color = "#9ECCD4"
+
+[[colors.indexed]]
+index = 124
+color = "#9A636C"
+
+[[colors.indexed]]
+index = 125
+color = "#A57384"
+
+[[colors.indexed]]
+index = 126
+color = "#AF839C"
+
+[[colors.indexed]]
+index = 127
+color = "#B993B5"
+
+[[colors.indexed]]
+index = 128
+color = "#C3A3CF"
+
+[[colors.indexed]]
+index = 129
+color = "#CCB3E9"
+
+[[colors.indexed]]
+index = 130
+color = "#A57873"
+
+[[colors.indexed]]
+index = 131
+color = "#AC858A"
+
+[[colors.indexed]]
+index = 132
+color = "#B392A0"
+
+[[colors.indexed]]
+index = 133
+color = "#BA9FB8"
+
+[[colors.indexed]]
+index = 134
+color = "#C0ACCF"
+
+[[colors.indexed]]
+index = 135
+color = "#C6B9E7"
+
+[[colors.indexed]]
+index = 136
+color = "#B08C7A"
+
+[[colors.indexed]]
+index = 137
+color = "#B3978F"
+
+[[colors.indexed]]
+index = 138
+color = "#B7A1A5"
+
+[[colors.indexed]]
+index = 139
+color = "#BAABBA"
+
+[[colors.indexed]]
+index = 140
+color = "#BDB4CF"
+
+[[colors.indexed]]
+index = 141
+color = "#C0BEE5"
+
+[[colors.indexed]]
+index = 142
+color = "#BAA181"
+
+[[colors.indexed]]
+index = 143
+color = "#BAA995"
+
+[[colors.indexed]]
+index = 144
+color = "#BAAFA9"
+
+[[colors.indexed]]
+index = 145
+color = "#BAB6BC"
+
+[[colors.indexed]]
+index = 146
+color = "#BABDD0"
+
+[[colors.indexed]]
+index = 147
+color = "#BAC3E3"
+
+[[colors.indexed]]
+index = 148
+color = "#C4B787"
+
+[[colors.indexed]]
+index = 149
+color = "#C1BB9A"
+
+[[colors.indexed]]
+index = 150
+color = "#BEBEAC"
+
+[[colors.indexed]]
+index = 151
+color = "#BAC2BE"
+
+[[colors.indexed]]
+index = 152
+color = "#B7C5D0"
+
+[[colors.indexed]]
+index = 153
+color = "#B3C8E1"
+
+[[colors.indexed]]
+index = 154
+color = "#CDCC8D"
+
+[[colors.indexed]]
+index = 155
+color = "#C7CD9F"
+
+[[colors.indexed]]
+index = 156
+color = "#C0CDB0"
+
+[[colors.indexed]]
+index = 157
+color = "#B9CDC0"
+
+[[colors.indexed]]
+index = 158
+color = "#B3CDD0"
+
+[[colors.indexed]]
+index = 159
+color = "#ACCDDF"
+
+[[colors.indexed]]
+index = 160
+color = "#C07278"
+
+[[colors.indexed]]
+index = 161
+color = "#C7808E"
+
+[[colors.indexed]]
+index = 162
+color = "#CE8EA3"
+
+[[colors.indexed]]
+index = 163
+color = "#D49BB9"
+
+[[colors.indexed]]
+index = 164
+color = "#DAA9D0"
+
+[[colors.indexed]]
+index = 165
+color = "#E0B6E6"
+
+[[colors.indexed]]
+index = 166
+color = "#C6847D"
+
+[[colors.indexed]]
+index = 167
+color = "#CA8F92"
+
+[[colors.indexed]]
+index = 168
+color = "#CE9BA7"
+
+[[colors.indexed]]
+index = 169
+color = "#D2A5BC"
+
+[[colors.indexed]]
+index = 170
+color = "#D6B0D2"
+
+[[colors.indexed]]
+index = 171
+color = "#D9BBE7"
+
+[[colors.indexed]]
+index = 172
+color = "#CC9681"
+
+[[colors.indexed]]
+index = 173
+color = "#CD9F96"
+
+[[colors.indexed]]
+index = 174
+color = "#CFA7AB"
+
+[[colors.indexed]]
+index = 175
+color = "#D0B0BF"
+
+[[colors.indexed]]
+index = 176
+color = "#D1B8D4"
+
+[[colors.indexed]]
+index = 177
+color = "#D2C0E8"
+
+[[colors.indexed]]
+index = 178
+color = "#D1A786"
+
+[[colors.indexed]]
+index = 179
+color = "#D0AE9B"
+
+[[colors.indexed]]
+index = 180
+color = "#CFB4AE"
+
+[[colors.indexed]]
+index = 181
+color = "#CDBAC2"
+
+[[colors.indexed]]
+index = 182
+color = "#CCC0D5"
+
+[[colors.indexed]]
+index = 183
+color = "#CAC5E9"
+
+[[colors.indexed]]
+index = 184
+color = "#D5B98A"
+
+[[colors.indexed]]
+index = 185
+color = "#D2BD9F"
+
+[[colors.indexed]]
+index = 186
+color = "#CEC0B2"
+
+[[colors.indexed]]
+index = 187
+color = "#CAC4C5"
+
+[[colors.indexed]]
+index = 188
+color = "#C6C7D7"
+
+[[colors.indexed]]
+index = 189
+color = "#C2CAE9"
+
+[[colors.indexed]]
+index = 190
+color = "#D9CA8F"
+
+[[colors.indexed]]
+index = 191
+color = "#D3CCA3"
+
+[[colors.indexed]]
+index = 192
+color = "#CDCDB6"
+
+[[colors.indexed]]
+index = 193
+color = "#C6CEC8"
+
+[[colors.indexed]]
+index = 194
+color = "#C0CED9"
+
+[[colors.indexed]]
+index = 195
+color = "#B9CFEA"
+
+[[colors.indexed]]
+index = 196
+color = "#E78284"
+
+[[colors.indexed]]
+index = 197
+color = "#EA8D97"
+
+[[colors.indexed]]
+index = 198
+color = "#ED98AA"
+
+[[colors.indexed]]
+index = 199
+color = "#EFA3BE"
+
+[[colors.indexed]]
+index = 200
+color = "#F2AED1"
+
+[[colors.indexed]]
+index = 201
+color = "#F4B8E4"
+
+[[colors.indexed]]
+index = 202
+color = "#E89187"
+
+[[colors.indexed]]
+index = 203
+color = "#E99A9A"
+
+[[colors.indexed]]
+index = 204
+color = "#EAA3AE"
+
+[[colors.indexed]]
+index = 205
+color = "#EBACC1"
+
+[[colors.indexed]]
+index = 206
+color = "#EBB5D4"
+
+[[colors.indexed]]
+index = 207
+color = "#ECBDE7"
+
+[[colors.indexed]]
+index = 208
+color = "#E8A68A"
+
+[[colors.indexed]]
+index = 209
+color = "#E7A69D"
+
+[[colors.indexed]]
+index = 210
+color = "#E6AEB1"
+
+[[colors.indexed]]
+index = 211
+color = "#E5B5C4"
+
+[[colors.indexed]]
+index = 212
+color = "#E4BBD8"
+
+[[colors.indexed]]
+index = 213
+color = "#E3C2EB"
+
+[[colors.indexed]]
+index = 214
+color = "#E7AD8C"
+
+[[colors.indexed]]
+index = 215
+color = "#E5B3A0"
+
+[[colors.indexed]]
+index = 216
+color = "#E2B8B4"
+
+[[colors.indexed]]
+index = 217
+color = "#E0BDC8"
+
+[[colors.indexed]]
+index = 218
+color = "#DDC2DB"
+
+[[colors.indexed]]
+index = 219
+color = "#DAC7EE"
+
+[[colors.indexed]]
+index = 220
+color = "#E7BA8E"
+
+[[colors.indexed]]
+index = 221
+color = "#E2BEA3"
+
+[[colors.indexed]]
+index = 222
+color = "#DEC2B8"
+
+[[colors.indexed]]
+index = 223
+color = "#D9C6CB"
+
+[[colors.indexed]]
+index = 224
+color = "#D5C9DF"
+
+[[colors.indexed]]
+index = 225
+color = "#D0CCF2"
+
+[[colors.indexed]]
+index = 226
+color = "#E5C890"
+
+[[colors.indexed]]
+index = 227
+color = "#DFCAA6"
+
+[[colors.indexed]]
+index = 228
+color = "#D9CCBB"
+
+[[colors.indexed]]
+index = 229
+color = "#D3CECF"
+
+[[colors.indexed]]
+index = 230
+color = "#CCCFE2"
+
+[[colors.indexed]]
+index = 231
+color = "#C6D0F5"
+
+[[colors.indexed]]
+index = 232
+color = "#35394C"
+
+[[colors.indexed]]
+index = 233
+color = "#3B3F52"
+
+[[colors.indexed]]
+index = 234
+color = "#404559"
+
+[[colors.indexed]]
+index = 235
+color = "#454A5F"
+
+[[colors.indexed]]
+index = 236
+color = "#4B5066"
+
+[[colors.indexed]]
+index = 237
+color = "#51566C"
+
+[[colors.indexed]]
+index = 238
+color = "#565C73"
+
+[[colors.indexed]]
+index = 239
+color = "#5C627A"
+
+[[colors.indexed]]
+index = 240
+color = "#626881"
+
+[[colors.indexed]]
+index = 241
+color = "#686E87"
+
+[[colors.indexed]]
+index = 242
+color = "#6E748E"
+
+[[colors.indexed]]
+index = 243
+color = "#747A95"
+
+[[colors.indexed]]
+index = 244
+color = "#7A819C"
+
+[[colors.indexed]]
+index = 245
+color = "#8087A3"
+
+[[colors.indexed]]
+index = 246
+color = "#868DAB"
+
+[[colors.indexed]]
+index = 247
+color = "#8C94B2"
+
+[[colors.indexed]]
+index = 248
+color = "#929AB9"
+
+[[colors.indexed]]
+index = 249
+color = "#99A1C0"
+
+[[colors.indexed]]
+index = 250
+color = "#9FA7C8"
+
+[[colors.indexed]]
+index = 251
+color = "#A5AECF"
+
+[[colors.indexed]]
+index = 252
+color = "#ACB5D7"
+
+[[colors.indexed]]
+index = 253
+color = "#B2BCDE"
+
+[[colors.indexed]]
+index = 254
+color = "#B9C2E6"
+
+[[colors.indexed]]
+index = 255
+color = "#BFC9ED"
