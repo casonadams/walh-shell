@@ -64,7 +64,7 @@ EOF
   assert_contains "$output" "COMP_GRUV:gruvbox-" "bash completion suggests themes for 'gruv'"
   assert_contains "$output" "gruvbox-light-hard" "bash completion includes every gruvbox variant"
   assert_contains "$output" "COMP_TOG:toggle" "bash completion suggests toggle for 'tog'"
-  assert_contains "$output" "current toggle list random reset help" "bash completion suggests subcommands"
+  assert_contains "$output" "current toggle auto list random reset help" "bash completion suggests subcommands"
   assert_contains "$output" "COMP_LIST:--dark" "bash completion suggests --dark for list"
   assert_contains "$output" "COMP_RANDOM:light" "bash completion suggests light for random"
 }

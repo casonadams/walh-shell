@@ -22,7 +22,7 @@ _walh_bash_completion() {
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD - 1]}"
 
-  local subcommands="current toggle list random reset help"
+  local subcommands="current toggle auto list random reset help"
 
   if [ "$COMP_CWORD" -eq 1 ]; then
     local themes=""

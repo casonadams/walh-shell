@@ -16,6 +16,7 @@ shellcheck \
   "$REPO_DIR/profile_helper.sh" \
   "$REPO_DIR/walh.sh" \
   "$REPO_DIR/engine.sh" \
+  "$REPO_DIR/palette.sh" \
   "$REPO_DIR/list-themes.sh" \
   "$REPO_DIR/completions/walh.bash" \
   "$REPO_DIR/test/test_core.sh" \
@@ -31,6 +32,7 @@ if command -v shfmt >/dev/null 2>&1; then
     "$REPO_DIR/profile_helper.sh" \
     "$REPO_DIR/walh.sh" \
     "$REPO_DIR/engine.sh" \
+    "$REPO_DIR/palette.sh" \
     "$REPO_DIR/list-themes.sh" \
     "$REPO_DIR/completions/walh.bash" \
     "$REPO_DIR/test/test_core.sh" \

@@ -242,60 +242,92 @@ _walh_pair_of() {
   fi
 }
 
-_walh_toggle() {
+# _walh_current_mode VAR: set VAR to the active mode (dark when unknown).
+_walh_current_mode() {
+  local m="${WALH_MODE:-}"
+  [ -z "$m" ] && _walh_state_get mode m
+  printf -v "$1" '%s' "${m:-dark}"
+}
+
+# _walh_system_mode VAR: set VAR to the OS appearance (dark|light); fail when unknown.
+_walh_system_mode() {
+  local v
+  case "${OSTYPE:-}" in
+    darwin*)
+      # AppleInterfaceStyle is only defined in dark mode
+      v="$(defaults read -g AppleInterfaceStyle 2>/dev/null)"
+      if [ "$v" = "Dark" ]; then v=dark; else v=light; fi
+      ;;
+    *)
+      command -v gsettings >/dev/null 2>&1 || return 1
+      v="$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null)" || return 1
+      case "$v" in
+        *dark*) v=dark ;;
+        *) v=light ;;
+      esac
+      ;;
+  esac
+  printf -v "$1" '%s' "$v"
+}
+
+# _walh_switch_to MODE [LABEL]: apply the last theme used in MODE, else the
+# current theme's pair, else a default for MODE.
+_walh_switch_to() {
+  local want="$1" label="${2:-toggle}"
   local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/walh"
-  local current_mode="${WALH_MODE:-}"
   local current_theme="${WALH_THEME:-}"
+  local target_theme="" pair fallback_a fallback_b
 
-  if [ -z "$current_mode" ] || [ -z "$current_theme" ]; then
-    [ -z "$current_mode" ] && _walh_state_get mode current_mode
-    [ -z "$current_theme" ] && _walh_state_get theme current_theme
+  [ -z "$current_theme" ] && _walh_state_get theme current_theme
+
+  if [ -f "$state_dir/last_$want" ]; then
+    IFS= read -r target_theme <"$state_dir/last_$want" || true
   fi
-
-  [ -z "$current_mode" ] && current_mode="dark"
-
-  local target_theme=""
-  if [ "$current_mode" = "dark" ]; then
-    if [ -f "$state_dir/last_light" ]; then
-      target_theme="$(cat "$state_dir/last_light" 2>/dev/null)"
+  if [ -z "$target_theme" ] || [ ! -f "$WALH_SHELL/scripts/$target_theme.sh" ]; then
+    pair="$(_walh_pair_of "$current_theme")"
+    if [ "$want" = "light" ]; then
+      fallback_a=solarized-light fallback_b=github-light
+    else
+      fallback_a=gruvbox-dark fallback_b=onedark
     fi
-    if [ -z "$target_theme" ] || [ ! -f "$WALH_SHELL/scripts/$target_theme.sh" ]; then
-      local pair
-      pair="$(_walh_pair_of "$current_theme")"
-      if [ -n "$pair" ] && [ -f "$WALH_SHELL/scripts/$pair.sh" ]; then
-        target_theme="$pair"
-      elif [ -f "$WALH_SHELL/scripts/solarized-light.sh" ]; then
-        target_theme="solarized-light"
-      elif [ -f "$WALH_SHELL/scripts/github-light.sh" ]; then
-        target_theme="github-light"
-      else
-        target_theme="$(_walh_list --light | head -n1)"
-      fi
-    fi
-  else
-    if [ -f "$state_dir/last_dark" ]; then
-      target_theme="$(cat "$state_dir/last_dark" 2>/dev/null)"
-    fi
-    if [ -z "$target_theme" ] || [ ! -f "$WALH_SHELL/scripts/$target_theme.sh" ]; then
-      local pair
-      pair="$(_walh_pair_of "$current_theme")"
-      if [ -n "$pair" ] && [ -f "$WALH_SHELL/scripts/$pair.sh" ]; then
-        target_theme="$pair"
-      elif [ -f "$WALH_SHELL/scripts/gruvbox-dark.sh" ]; then
-        target_theme="gruvbox-dark"
-      elif [ -f "$WALH_SHELL/scripts/onedark.sh" ]; then
-        target_theme="onedark"
-      else
-        target_theme="$(_walh_list --dark | head -n1)"
-      fi
+    if [ -n "$pair" ] && [ -f "$WALH_SHELL/scripts/$pair.sh" ]; then
+      target_theme="$pair"
+    elif [ -f "$WALH_SHELL/scripts/$fallback_a.sh" ]; then
+      target_theme="$fallback_a"
+    elif [ -f "$WALH_SHELL/scripts/$fallback_b.sh" ]; then
+      target_theme="$fallback_b"
+    else
+      target_theme="$(_walh_list "--$want" | head -n1)"
     fi
   fi
   if [ -n "$target_theme" ]; then
     _walh_apply "$target_theme"
   else
-    echo "walh toggle: no opposite-mode theme available" >&2
+    echo "walh $label: no $want theme available" >&2
     return 1
   fi
+}
+
+_walh_toggle() {
+  local mode
+  _walh_current_mode mode
+  if [ "$mode" = "dark" ]; then
+    _walh_switch_to light toggle
+  else
+    _walh_switch_to dark toggle
+  fi
+}
+
+# Match the theme mode to the OS appearance; a no-op when it already matches.
+_walh_auto() {
+  local system mode
+  if ! _walh_system_mode system; then
+    echo "walh auto: cannot detect system appearance (needs macOS or GNOME gsettings)" >&2
+    return 1
+  fi
+  _walh_current_mode mode
+  [ "$mode" = "$system" ] && return 0
+  _walh_switch_to "$system" auto
 }
 
 # Restore the terminal's own colors and forget the active theme.
@@ -336,8 +368,10 @@ Commands:
   <theme>               Apply the specified theme
   current               Show active theme name, mode, and colors
   toggle                Toggle between active dark and light themes
+  auto                  Match the theme mode to the system appearance (macOS, GNOME)
   list [--dark|--light] List available themes
   random [dark|light]   Apply a random theme
+  palette [--check]     Show the 256-color palette; --check verifies the terminal applied it
   reset                 Restore terminal default colors and forget the active theme
   help, -h, --help      Show this help message
 EOF
@@ -354,6 +388,14 @@ walh() {
       ;;
     toggle)
       _walh_toggle
+      ;;
+    auto)
+      _walh_auto
+      ;;
+    palette)
+      shift
+      # shellcheck disable=SC1091
+      . "${WALH_SHELL}/palette.sh" && _walh_palette "$@"
       ;;
     reset)
       _walh_reset

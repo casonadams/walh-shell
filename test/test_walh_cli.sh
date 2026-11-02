@@ -280,6 +280,67 @@ test_reset() {
 }
 
 # ---------------------------------------------------------------------------
+# Test 8: walh auto follows the system appearance
+# ---------------------------------------------------------------------------
+test_auto() {
+  local tmp_home
+  tmp_home="$(mktemp -d)"
+  mkdir -p "$tmp_home/bin"
+  # Stub `defaults`: dark when STUB_APPEARANCE=Dark, otherwise fail like a light macOS
+  cat >"$tmp_home/bin/defaults" <<'STUB'
+#!/bin/sh
+[ "$STUB_APPEARANCE" = "Dark" ] && echo Dark && exit 0
+exit 1
+STUB
+  chmod +x "$tmp_home/bin/defaults"
+
+  local output
+  output="$(
+    env -u TMUX TERM=xterm-256color HOME="$tmp_home" PATH="$tmp_home/bin:$PATH" XDG_STATE_HOME= bash -c "
+      OSTYPE=darwin24
+      eval \"\$('$REPO_DIR/profile_helper.sh')\"
+      walh onedark >/dev/null
+      walh onelight >/dev/null
+      STUB_APPEARANCE=Dark walh auto >/dev/null
+      echo \"DARK_SYSTEM:\$WALH_THEME:\$WALH_MODE\"
+      STUB_APPEARANCE=Dark walh auto >/dev/null
+      echo \"NOOP:\$WALH_THEME\"
+      STUB_APPEARANCE=Light walh auto >/dev/null
+      echo \"LIGHT_SYSTEM:\$WALH_THEME:\$WALH_MODE\"
+    "
+  )"
+
+  assert_contains "$output" "DARK_SYSTEM:onedark:dark" "auto switches to the last dark theme when the system is dark"
+  assert_contains "$output" "NOOP:onedark" "auto is a no-op when the mode already matches"
+  assert_contains "$output" "LIGHT_SYSTEM:onelight:light" "auto switches to the last light theme when the system is light"
+
+  rm -rf "$tmp_home"
+}
+
+# ---------------------------------------------------------------------------
+# Test 9: walh palette shows swatches and --check verifies the terminal
+# ---------------------------------------------------------------------------
+test_palette() {
+  local tmp_home output
+  tmp_home="$(mktemp -d)"
+
+  output="$(env -u TMUX HOME="$tmp_home" WALH_SHELL="$REPO_DIR" bash -c ". '$REPO_DIR/walh.sh'; walh palette" | od -An -c | tr -d ' \n')"
+  assert_contains "$output" "Grayramp232-255" "walh palette prints the gray ramp"
+  assert_contains "$output" "[48;5;255m" "walh palette paints color 255"
+
+  if command -v python3 >/dev/null 2>&1; then
+    output="$(python3 "$REPO_DIR/test/fake_terminal.py" "$REPO_DIR" nord)"
+    assert_contains "$output" "256/256 colors match the theme" "--check passes when the terminal reports the theme palette"
+    output="$(python3 "$REPO_DIR/test/fake_terminal.py" "$REPO_DIR" nord corrupt)"
+    assert_contains "$output" "mismatch 100" "--check reports a color the terminal got wrong"
+    output="$(python3 "$REPO_DIR/test/fake_terminal.py" "$REPO_DIR" nord mute)"
+    assert_contains "$output" "256 unanswered" "--check reports a terminal that ignores queries"
+  fi
+
+  rm -rf "$tmp_home"
+}
+
+# ---------------------------------------------------------------------------
 # Runner
 # ---------------------------------------------------------------------------
 echo "Running Slice 3 CLI tests..."
@@ -290,6 +351,8 @@ test_list
 test_random
 test_errors
 test_reset
+test_auto
+test_palette
 
 if [ "$FAILED" -ne 0 ]; then
   echo "Some CLI tests failed!"

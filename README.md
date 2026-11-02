@@ -134,6 +134,13 @@ walh list
 walh list --dark
 walh list --light
 
+# Match the theme mode to the system appearance (macOS, GNOME); no-op if it already matches
+walh auto
+
+# Show the 256-color palette, and verify your terminal actually applied it
+walh palette
+walh palette --check
+
 # Apply a random theme
 walh random
 walh random dark
@@ -142,6 +149,19 @@ walh random light
 # Restore the terminal's own colors and forget the active theme
 walh reset
 ```
+
+### Following the system appearance
+
+Put `walh auto` in your shell startup file to pick the dark or light theme that matches your OS
+each time a shell starts. It switches to the last dark or light theme you used (falling back to the
+current theme's pair), and does nothing when the mode already matches.
+
+### Verifying the palette
+
+`walh palette` paints colors 0-255 so you can eyeball them. `walh palette --check` asks the
+terminal for each color (OSC 4 query) and compares it with the active theme, reporting mismatches.
+It needs a terminal that answers queries (xterm, iTerm2, kitty, WezTerm, Ghostty) and must run
+outside tmux; Terminal.app does not answer.
 
 ### Tab Completions
 

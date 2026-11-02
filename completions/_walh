@@ -8,6 +8,7 @@ _walh() {
   subcommands=(
     'current:Show active theme name, mode, and colors'
     'toggle:Toggle between active dark and light themes'
+    'auto:Match the theme mode to the system appearance'
     'list:List available themes'
     'random:Apply a random theme'
     'reset:Restore terminal default colors'
