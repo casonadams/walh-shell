@@ -24,10 +24,12 @@ _walh_apply() {
     return 1
   fi
 
-  if ! printf '%s\n' "$theme" | grep -Eq '^[a-zA-Z0-9_-]+$'; then
-    echo "walh: invalid theme name: $theme" >&2
-    return 1
-  fi
+  case "$theme" in
+    *[!a-zA-Z0-9_-]*)
+      echo "walh: invalid theme name: $theme" >&2
+      return 1
+      ;;
+  esac
 
   local script="${WALH_SHELL}/scripts/${theme}.sh"
   if [ ! -f "$script" ]; then
@@ -38,15 +40,12 @@ _walh_apply() {
   # shellcheck disable=SC1090
   . "$script"
 
-  local theme_file
-  theme_file="$(_walh_theme_file)"
-  mkdir -p "$(dirname "$theme_file")"
-  ln -fs "$script" "$theme_file"
+  local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/walh"
+  mkdir -p "$state_dir"
+  ln -fs "$script" "$state_dir/current_theme"
   export WALH_THEME="$theme"
 
   # Record mode history for walh toggle
-  local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/walh"
-  mkdir -p "$state_dir"
   if [ "${WALH_MODE:-}" = "dark" ]; then
     printf '%s\n' "$theme" >"$state_dir/last_dark"
   elif [ "${WALH_MODE:-}" = "light" ]; then

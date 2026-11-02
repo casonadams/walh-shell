@@ -44,7 +44,11 @@ elif [ "${TERM%%[-.]*}" = "screen" ]; then
   put_template_var() { walh_append '\033P\033]%d;rgb:%s\007\033\\' "$@"; }
   put_template_custom() { walh_append '\033P\033]%s%s\007\033\\' "$@"; }
 elif [ "${TERM%%-*}" = "linux" ]; then
-  put_template() { [ "$1" -lt 16 ] && walh_append '\033]P%x%s' "$1" "$(echo "$2" | sed 's/\///g')"; }
+  put_template() {
+    [ "$1" -lt 16 ] || return 0
+    local _r="${2%%/*}" _g="${2#*/}" _b="${2##*/}"
+    walh_append '\033]P%x%s%s%s' "$1" "$_r" "${_g%/*}" "$_b"
+  }
   put_template_var() { true; }
   put_template_custom() { true; }
 else
