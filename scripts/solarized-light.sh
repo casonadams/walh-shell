@@ -7,11 +7,11 @@
 # shellcheck disable=SC2034
 color00="EE/E7/D4"
 color01="dc/32/2f"
-color02="85/99/00"
-color03="b5/89/00"
+color02="7A/8C/00"
+color03="A6/7E/00"
 color04="26/8b/d2"
 color05="6c/71/c4"
-color06="2a/a1/98"
+color06="26/94/8B"
 color07="58/6e/75"
 color08="B8/C1/BC"
 color09="BF/00/12"
@@ -35,7 +35,7 @@ _walh_bg_hex="fdf6e3"
 _walh_fg_hex="586e75"
 _walh_surface_hex="EEE7D4"
 _walh_dim_hex="B8C1BC"
-_walh_b03_hex="b58900"
+_walh_b03_hex="A67E00"
 _walh_b15_hex="3D5259"
 
 if [ -n "${WALH_SHELL:-}" ] && [ -f "${WALH_SHELL}/engine.sh" ]; then

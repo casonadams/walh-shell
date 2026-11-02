@@ -205,22 +205,18 @@ def gen_theme():
 
         if not dark_theme:
             foreground = ensure_contrast(foreground, background, 4.5)
-            for slot in (
-                "color01",
-                "color02",
-                "color03",
-                "color04",
-                "color05",
-                "color06",
-                "color09",
-                "color10",
-                "color11",
-                "color12",
-                "color13",
-                "color14",
-                "color208",
-            ):
-                locals()[slot] = ensure_contrast(locals()[slot], background, 3.0)
+            (
+                color01, color02, color03, color04, color05, color06,
+                color09, color10, color11, color12, color13, color14,
+                color208,
+            ) = (
+                ensure_contrast(c, background, 3.0)
+                for c in (
+                    color01, color02, color03, color04, color05, color06,
+                    color09, color10, color11, color12, color13, color14,
+                    color208,
+                )
+            )
 
         colorfgbg = "15;0" if dark_theme else "0;15"
         mode = "dark" if dark_theme else "light"

@@ -58,6 +58,33 @@ class TestWebArtifacts(unittest.TestCase):
             f"Difference between manifest and web themes: {manifest_slugs ^ web_slugs}",
         )
 
+    def test_light_themes_meet_contrast_floor(self):
+        def luminance(hex_color):
+            def linear(c):
+                c /= 255
+                return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+
+            h = hex_color.lstrip("#")
+            r, g, b = (int(h[i : i + 2], 16) for i in (0, 2, 4))
+            return 0.2126 * linear(r) + 0.7152 * linear(g) + 0.0722 * linear(b)
+
+        def contrast(a, b):
+            la, lb = luminance(a), luminance(b)
+            return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
+
+        data_path = os.path.join(REPO_DIR, "www", "js", "themes-data.js")
+        with open(data_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        themes = json.loads(re.search(r"window\.WALH_THEMES\s*=\s*(\[[\s\S]*\]);", content).group(1))
+
+        accent_slots = [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14]
+        for item in (t for t in themes if t["mode"] == "light"):
+            bg = item["background"]
+            self.assertGreaterEqual(contrast(item["foreground"], bg), 4.5, f"{item['slug']} foreground")
+            for slot in accent_slots:
+                self.assertGreaterEqual(contrast(item["colors"][slot], bg), 3.0, f"{item['slug']} color{slot:02d}")
+            self.assertGreaterEqual(contrast(item["color208"], bg), 3.0, f"{item['slug']} color208")
+
     def test_web_static_assets(self):
         assets = [
             ("www", "index.html"),
