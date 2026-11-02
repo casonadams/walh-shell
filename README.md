@@ -150,6 +150,13 @@ Automatic tab completions are provided for both Zsh and Bash:
 - `walh list --<TAB>` suggests `--dark` and `--light`.
 - `walh random <TAB>` suggests `dark` and `light`.
 
+### Live Preview (zsh)
+
+With the zsh plugin, a theme is previewed as soon as `walh <theme>` is on the command line, so you
+can cycle through themes with `walh <TAB>` and watch the colors change. Nothing is saved until you
+press Enter; clearing or editing the line restores your saved theme. Set `WALH_SHELL_PREVIEW=false`
+to disable it.
+
 ### User Hooks
 
 You can define hooks that run every time a theme is applied. Place executable scripts in `$HOME/.config/walh/hooks` (or customize the path via `$WALH_SHELL_HOOKS`):

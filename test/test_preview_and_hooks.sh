@@ -241,6 +241,27 @@ EOF
 }
 
 # ---------------------------------------------------------------------------
+# Test 5: zsh previews a theme while it is on the command line
+# ---------------------------------------------------------------------------
+test_zsh_tab_preview() {
+  if ! command -v zsh >/dev/null 2>&1 || ! command -v python3 >/dev/null 2>&1; then
+    echo "SKIP: zsh tab preview needs zsh and python3"
+    return
+  fi
+
+  local output
+  output="$(python3 "$REPO_DIR/test/zsh_tab_preview.py" "$REPO_DIR")"
+  assert_contains "$output" "TAB=28/28/28" "completing gruvbox-dark previews its background"
+  assert_contains "$output" "CLEARED=2e/34/40" "clearing the line restores the saved theme"
+  assert_contains "$output" "FINAL=dracula" "accepting a theme applies it"
+  assert_contains "$output" "SAVED=dracula.sh" "accepted theme is persisted"
+
+  output="$(python3 "$REPO_DIR/test/zsh_tab_preview.py" "$REPO_DIR" preview=false)"
+  assert_contains "$output" "TAB=
+" "WALH_SHELL_PREVIEW=false disables preview"
+}
+
+# ---------------------------------------------------------------------------
 # Runner
 # ---------------------------------------------------------------------------
 echo "Running Native Completions and Hooks tests..."
@@ -248,6 +269,7 @@ test_bash_completions
 test_zsh_completions
 test_rich_hook_variables
 test_default_hook_directory
+test_zsh_tab_preview
 
 if [ "$FAILED" -ne 0 ]; then
   echo "Some tests failed!"
