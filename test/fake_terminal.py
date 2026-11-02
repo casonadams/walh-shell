@@ -17,15 +17,16 @@ import time
 
 def expected_colors(path):
     colors = {}
-    text = open(path).read()
-    for n, rgb in re.findall(r'^color(\d\d)="([0-9A-Fa-f/]+)"', text, re.M):
+    with open(path) as f:
+        text = f.read()
+    for n, rgb in re.findall(r'^color(\d\d)="([0-9A-Fa-f/]+)"', text, re.MULTILINE):
         colors[int(n)] = rgb.replace("/", "")
-    m = re.search(r'^walh_palette256="([^"]+)"', text, re.M)
+    m = re.search(r'^walh_palette256="([^"]+)"', text, re.MULTILINE)
     for entry in m.group(1).split(","):
         idx, rgb = entry.split(";rgb:")
         if int(idx) != 208:
             colors[int(idx)] = rgb.replace("/", "")
-    colors[208] = re.search(r'^color208="([^"]+)"', text, re.M).group(1).replace("/", "")
+    colors[208] = re.search(r'^color208="([^"]+)"', text, re.MULTILINE).group(1).replace("/", "")
     return colors
 
 
