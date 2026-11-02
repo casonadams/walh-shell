@@ -61,25 +61,34 @@ _walh_apply() {
   fi
 }
 
+# _walh_state_get KEY VAR: set VAR to the unquoted value of KEY in state.toml
+# (no forks); VAR is left untouched when the key or file is missing.
+_walh_state_get() {
+  local file="${XDG_STATE_HOME:-$HOME/.local/state}/walh/state.toml"
+  local k v
+  [ -f "$file" ] || return 1
+  while IFS=' =' read -r k v; do
+    if [ "$k" = "$1" ]; then
+      v="${v#[\"\']}"
+      printf -v "$2" '%s' "${v%[\"\']}"
+      return 0
+    fi
+  done <"$file"
+  return 1
+}
+
 _walh_current() {
   local theme_name="${WALH_THEME:-}"
   local mode="${WALH_MODE:-}"
   local bg=""
-  local state_file="${XDG_CACHE_HOME:-$HOME/.cache}/walh/state.toml"
 
-  if [ -f "$state_file" ]; then
-    local val
-    if [ -z "$theme_name" ]; then
-      val="$(grep -m1 '^theme[[:space:]]*=' "$state_file" | sed 's/theme[[:space:]]*=[[:space:]]*["'\'']\(.*\)["'\'']/\1/')"
-      [ -n "$val" ] && theme_name="$val"
-    fi
-    if [ -z "$mode" ]; then
-      val="$(grep -m1 '^mode[[:space:]]*=' "$state_file" | sed 's/mode[[:space:]]*=[[:space:]]*["'\'']\(.*\)["'\'']/\1/')"
-      [ -n "$val" ] && mode="$val"
-    fi
-    val="$(grep -m1 '^background[[:space:]]*=' "$state_file" | sed 's/background[[:space:]]*=[[:space:]]*["'\'']\(.*\)["'\'']/\1/')"
-    [ -n "$val" ] && bg="$val"
+  if [ -z "$theme_name" ]; then
+    _walh_state_get theme theme_name
   fi
+  if [ -z "$mode" ]; then
+    _walh_state_get mode mode
+  fi
+  _walh_state_get background bg
 
   if [ -z "$theme_name" ]; then
     local tf
@@ -239,11 +248,8 @@ _walh_toggle() {
   local current_theme="${WALH_THEME:-}"
 
   if [ -z "$current_mode" ] || [ -z "$current_theme" ]; then
-    local state_file="${XDG_CACHE_HOME:-$HOME/.cache}/walh/state.toml"
-    if [ -f "$state_file" ]; then
-      [ -z "$current_mode" ] && current_mode="$(grep -m1 '^mode[[:space:]]*=' "$state_file" | sed 's/mode[[:space:]]*=[[:space:]]*["'\'']\(.*\)["'\'']/\1/')"
-      [ -z "$current_theme" ] && current_theme="$(grep -m1 '^theme[[:space:]]*=' "$state_file" | sed 's/theme[[:space:]]*=[[:space:]]*["'\'']\(.*\)["'\'']/\1/')"
-    fi
+    [ -z "$current_mode" ] && _walh_state_get mode current_mode
+    [ -z "$current_theme" ] && _walh_state_get theme current_theme
   fi
 
   [ -z "$current_mode" ] && current_mode="dark"

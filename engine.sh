@@ -4,7 +4,7 @@
 
 # Write state.toml unless restoring
 if [ -z "${WALH_RESTORE:-}" ]; then
-  state_dir="${XDG_CACHE_HOME:-$HOME/.cache}/walh"
+  state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/walh"
   mkdir -p "$state_dir"
   cat >"$state_dir/state.toml" <<STATEEOF
 theme = "${WALH_THEME}"

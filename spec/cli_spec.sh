@@ -52,7 +52,7 @@ Describe 'Unified walh CLI Dispatcher'
       unset WALH_THEME || true
       unset WALH_MODE || true
       rm -f "$HOME/.walh_theme"
-      rm -rf "$HOME/.local/state/walh" "$HOME/.cache/walh"
+      rm -rf "$HOME/.local/state/walh" "$HOME/.local/state/walh"
       When call walh current
       The status should be failure
       The stderr should include "walh: no active theme"

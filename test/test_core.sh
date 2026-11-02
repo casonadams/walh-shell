@@ -2,6 +2,7 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export WALH_SHELL="$REPO_DIR"
 FAILED=0
 
 assert_eq() {
@@ -72,7 +73,7 @@ test_escape_batching_and_cleanup() {
   local check_script
   check_script="$(
     cat <<EOF
-XDG_CACHE_HOME="$tmp_cache" . "$script"
+XDG_STATE_HOME="$tmp_cache" . "$script"
 # Check that temporary variables were unset
 [ -z "\${walh_buffer+x}" ] || echo "LEAK: walh_buffer"
 [ -z "\${color00+x}" ] || echo "LEAK: color00"
@@ -112,7 +113,7 @@ test_walh_restore_skips_state_write() {
   tmp_cache="$(mktemp -d)"
 
   # With WALH_RESTORE=1, state.toml should NOT be created
-  XDG_CACHE_HOME="$tmp_cache" WALH_RESTORE=1 bash -c ". \"$script\"" >/dev/null
+  XDG_STATE_HOME="$tmp_cache" WALH_RESTORE=1 bash -c ". \"$script\"" >/dev/null
   if [ -f "$tmp_cache/walh/state.toml" ]; then
     echo "FAIL: state.toml was created despite WALH_RESTORE=1"
     FAILED=1
@@ -121,7 +122,7 @@ test_walh_restore_skips_state_write() {
   fi
 
   # Without WALH_RESTORE, state.toml SHOULD be created
-  XDG_CACHE_HOME="$tmp_cache" bash -c ". \"$script\"" >/dev/null
+  XDG_STATE_HOME="$tmp_cache" bash -c ". \"$script\"" >/dev/null
   if [ -f "$tmp_cache/walh/state.toml" ]; then
     echo "PASS: state.toml created when WALH_RESTORE is empty"
     local state_content
@@ -138,7 +139,7 @@ test_walh_restore_skips_state_write() {
   local initial_mtime
   initial_mtime="$(stat -f "%m" "$tmp_cache/walh/state.toml" 2>/dev/null || stat -c "%Y" "$tmp_cache/walh/state.toml" 2>/dev/null)"
 
-  XDG_CACHE_HOME="$tmp_cache" WALH_RESTORE=1 bash -c ". \"$script\"" >/dev/null
+  XDG_STATE_HOME="$tmp_cache" WALH_RESTORE=1 bash -c ". \"$script\"" >/dev/null
   local after_mtime
   after_mtime="$(stat -f "%m" "$tmp_cache/walh/state.toml" 2>/dev/null || stat -c "%Y" "$tmp_cache/walh/state.toml" 2>/dev/null)"
   assert_eq "$initial_mtime" "$after_mtime" "WALH_RESTORE=1 did not touch state.toml mtime"
@@ -298,7 +299,7 @@ test_256_color_palette() {
   tmp_cache="$(mktemp -d)"
 
   emit() {
-    env -u TMUX TERM=xterm-256color WALH_SHELL="$REPO_DIR" XDG_CACHE_HOME="$tmp_cache" "$@" -c ". '$script'" | od -An -c | tr -d ' \n'
+    env -u TMUX TERM=xterm-256color WALH_SHELL="$REPO_DIR" XDG_STATE_HOME="$tmp_cache" "$@" -c ". '$script'" | od -An -c | tr -d ' \n'
   }
   count_osc4() { printf '%s' "$1" | grep -o '033\]4;' | wc -l | tr -d ' '; }
 

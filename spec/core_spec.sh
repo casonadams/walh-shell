@@ -95,7 +95,7 @@ Describe 'Core Theme Infrastructure'
   Describe 'template/default.mustache rendered scripts'
     Describe 'WALH_RESTORE behavior'
       It 'skips state.toml creation when WALH_RESTORE=1'
-        export XDG_CACHE_HOME="$SHELLSPEC_TMPBASE/cache1"
+        export XDG_STATE_HOME="$SHELLSPEC_TMPBASE/cache1"
         export WALH_RESTORE=1
         When run script scripts/gruvbox-dark.sh
         The status should be success
@@ -104,7 +104,7 @@ Describe 'Core Theme Infrastructure'
       End
 
       It 'creates state.toml when WALH_RESTORE is unset'
-        export XDG_CACHE_HOME="$SHELLSPEC_TMPBASE/cache2"
+        export XDG_STATE_HOME="$SHELLSPEC_TMPBASE/cache2"
         unset WALH_RESTORE || true
         When run script scripts/gruvbox-dark.sh
         The status should be success
@@ -118,7 +118,7 @@ Describe 'Core Theme Infrastructure'
 
     Describe 'escape sequence buffering and variable cleanup'
       source_and_audit() {
-        XDG_CACHE_HOME="$SHELLSPEC_TMPBASE/cache3" . "$PWD/scripts/gruvbox-dark.sh"
+        XDG_STATE_HOME="$SHELLSPEC_TMPBASE/cache3" . "$PWD/scripts/gruvbox-dark.sh"
         [ -z "${walh_buffer+x}" ] || echo "LEAK: walh_buffer"
         [ -z "${color00+x}" ] || echo "LEAK: color00"
         [ -z "${color15+x}" ] || echo "LEAK: color15"
