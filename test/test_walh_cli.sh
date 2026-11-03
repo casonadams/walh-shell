@@ -71,7 +71,7 @@ EOF
 }
 
 # ---------------------------------------------------------------------------
-# Test 2: walh current outputs theme, mode, and background
+# Test 2: walh current outputs theme and mode
 # ---------------------------------------------------------------------------
 test_current() {
   local tmp_home
@@ -90,7 +90,7 @@ EOF
   local output
   output="$(bash -c "$test_script")"
   assert_contains "$output" "Active theme: gruvbox-dark (dark)" "walh current prints theme name and mode"
-  assert_contains "$output" "Background: #282828" "walh current prints background color"
+  assert_not_contains "$output" "Background:" "walh current no longer prints the background color"
 
   rm -rf "$tmp_home"
 }
@@ -341,6 +341,57 @@ test_palette() {
 }
 
 # ---------------------------------------------------------------------------
+# Test: the picker lists dark before light, applies the choice, cancels cleanly
+# ---------------------------------------------------------------------------
+test_pick() {
+  local tmp_home
+  tmp_home="$(mktemp -d)"
+  mkdir -p "$tmp_home/bin"
+  cat >"$tmp_home/bin/fzf" <<'EOF'
+#!/bin/sh
+cat >"$FAKE_FZF_ROWS"
+[ -n "$FAKE_FZF_PICK" ] && grep "^$FAKE_FZF_PICK " "$FAKE_FZF_ROWS"
+exit 0
+EOF
+  chmod +x "$tmp_home/bin/fzf"
+
+  local test_script
+  test_script="$(
+    cat <<EOF
+HOME="$tmp_home"
+PATH="$tmp_home/bin:\$PATH"
+export FAKE_FZF_ROWS="$tmp_home/rows"
+eval "\$("$REPO_DIR/profile_helper.sh")"
+FAKE_FZF_PICK=gruvbox-light _walh_pick >/dev/null
+echo "PICKED:\$WALH_THEME"
+FAKE_FZF_PICK= _walh_pick >/dev/null
+echo "CANCELLED:\$WALH_THEME"
+echo "ALL_ROWS:\$(grep -n ' light\$' "$tmp_home/rows" | head -n1 | cut -d: -f1) \$(grep -n ' dark\$' "$tmp_home/rows" | tail -n1 | cut -d: -f1)"
+echo "BARE:\$(walh | head -n1)"
+EOF
+  )"
+
+  local output
+  output="$(bash -c "$test_script")"
+  assert_contains "$output" "PICKED:gruvbox-light" "the picker applies the chosen theme"
+  assert_contains "$output" "CANCELLED:gruvbox-light" "the picker keeps the theme when cancelled"
+  assert_contains "$output" "BARE:Usage: walh" "bare walh prints help when output is not a terminal"
+
+  local line first_light last_dark
+  line="$(printf '%s\n' "$output" | grep '^ALL_ROWS:')"
+  first_light="$(printf '%s' "$line" | cut -d' ' -f1 | cut -d: -f2)"
+  last_dark="$(printf '%s' "$line" | cut -d' ' -f2)"
+  if [ -n "$first_light" ] && [ "$last_dark" -lt "$first_light" ]; then
+    echo "PASS: the picker lists every dark theme before any light theme"
+  else
+    echo "FAIL: the picker lists every dark theme before any light theme ($line)"
+    FAILED=1
+  fi
+
+  rm -rf "$tmp_home"
+}
+
+# ---------------------------------------------------------------------------
 # Runner
 # ---------------------------------------------------------------------------
 echo "Running Slice 3 CLI tests..."
@@ -353,6 +404,7 @@ test_errors
 test_reset
 test_auto
 test_palette
+test_pick
 
 if [ "$FAILED" -ne 0 ]; then
   echo "Some CLI tests failed!"

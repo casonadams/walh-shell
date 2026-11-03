@@ -6,7 +6,7 @@ _walh() {
 
   local -a subcommands
   subcommands=(
-    'current:Show active theme name, mode, and colors'
+    'current:Show active theme name, mode, and palette'
     'toggle:Toggle between active dark and light themes'
     'auto:Match the theme mode to the system appearance'
     'list:List available themes'

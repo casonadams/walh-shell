@@ -80,7 +80,6 @@ _walh_state_get() {
 _walh_current() {
   local theme_name="${WALH_THEME:-}"
   local mode="${WALH_MODE:-}"
-  local bg=""
 
   if [ -z "$theme_name" ]; then
     _walh_state_get theme theme_name
@@ -88,7 +87,6 @@ _walh_current() {
   if [ -z "$mode" ]; then
     _walh_state_get mode mode
   fi
-  _walh_state_get background bg
 
   if [ -z "$theme_name" ]; then
     local tf
@@ -125,8 +123,9 @@ _walh_current() {
     printf 'Active theme: %s\n' "$theme_name"
   fi
 
-  if [ -n "$bg" ]; then
-    printf 'Background: %s\n' "$bg"
+  if [ -t 1 ]; then
+    printf '\n'
+    _walh_palette_rows ''
   fi
 }
 
@@ -231,6 +230,72 @@ _walh_random() {
   chosen=$(printf '%s\n' "$themes" | sed -n "${idx}p")
   if [ -n "$chosen" ]; then
     _walh_apply "$chosen"
+  fi
+}
+
+# _walh_pick_rows: aligned "theme  mode" rows, dark first, then light.
+_walh_pick_rows() {
+  local m t
+  for m in dark light; do
+    _walh_list "--$m" | while IFS= read -r t; do
+      printf '%-27s %s\n' "$t" "$m"
+    done
+  done
+}
+
+# _walh_palette_rows INDENT: colors 0-15 as two rows of 8 swatches (32 columns).
+_walh_palette_rows() {
+  local i row
+  for row in 0 8; do
+    printf '%s' "$1"
+    for i in 0 1 2 3 4 5 6 7; do
+      printf '\033[48;5;%dm    \033[0m' "$((row + i))"
+    done
+    printf '\n'
+  done
+}
+
+# _walh_pick_swatch THEME MODE: preview pane body; indexed colors follow the
+# palette the focused theme has just applied.
+_walh_pick_swatch() {
+  printf '\n  %s (%s)\n\n' "$1" "$2"
+  _walh_palette_rows '  '
+}
+
+# _walh_pick: fzf browser that previews each theme as it is focused. Enter
+# applies and saves it; Esc restores the saved theme.
+_walh_pick() {
+  if ! command -v fzf >/dev/null 2>&1; then
+    echo "walh: fzf is required for the theme picker (https://github.com/junegunn/fzf)" >&2
+    return 1
+  fi
+
+  # These run in fzf's shell with WALH_SHELL exported; bash -c keeps them shell-agnostic.
+  # shellcheck disable=SC2016
+  local apply='WALH_RESTORE=1 bash -c ". \"\$WALH_SHELL/scripts/\$1.sh\"" _ {1} >/dev/tty 2>&1'
+  # shellcheck disable=SC2016
+  local swatch='bash -c ". \"\$WALH_SHELL/walh.sh\"; _walh_pick_swatch \"\$1\" \"\$2\"" _ {1} {2}'
+
+  local choice
+  choice="$(
+    _walh_pick_rows | WALH_SHELL="$WALH_SHELL" fzf \
+      --no-sort --layout=reverse --height=100% --prompt='theme> ' --with-nth=1 \
+      --header='enter apply  esc cancel' \
+      --preview="$swatch" --preview-window='right,60%,border-left' \
+      --bind "focus:execute-silent($apply)"
+  )"
+
+  if [ -n "$choice" ]; then
+    _walh_apply "${choice%%[[:space:]]*}"
+    return
+  fi
+
+  local saved="${XDG_STATE_HOME:-$HOME/.local/state}/walh/current_theme"
+  if [ -e "$saved" ]; then
+    # shellcheck disable=SC1090
+    WALH_RESTORE=1 . "$saved"
+  else
+    _walh_reset
   fi
 }
 
@@ -366,11 +431,12 @@ Usage: walh [command|theme] [options]
 
 Commands:
   <theme>               Apply the specified theme
-  current               Show active theme name, mode, and colors
+  current               Show active theme name, mode, and palette
   toggle                Toggle between active dark and light themes
   auto                  Match the theme mode to the system appearance (macOS, GNOME)
   list [--dark|--light] List available themes
   random [dark|light]   Apply a random theme
+  (no arguments)        Browse themes in fzf with live preview (falls back to this help)
   palette [--check]     Show the 256-color palette; --check verifies the terminal applied it
   reset                 Restore terminal default colors and forget the active theme
   help, -h, --help      Show this help message
@@ -380,7 +446,14 @@ EOF
 walh() {
   local cmd="${1:-}"
   case "$cmd" in
-    "" | -h | --help | help)
+    "")
+      if [ -t 0 ] && [ -t 1 ] && command -v fzf >/dev/null 2>&1; then
+        _walh_pick
+      else
+        _walh_help
+      fi
+      ;;
+    -h | --help | help)
       _walh_help
       ;;
     current)

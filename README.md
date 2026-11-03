@@ -118,12 +118,15 @@ You can use walh-shell in Bash as well!
 Switch themes and manage palettes using the unified `walh` command:
 
 ```sh
+# Browse themes in fzf with a live preview
+walh
+
 # Apply a theme
 walh onedark
 walh gruvbox-dark
 walh solarized-light
 
-# Show active theme name, mode, and colors
+# Show active theme name, mode, and palette
 walh current
 
 # Toggle between your active dark and light themes
@@ -170,12 +173,14 @@ Automatic tab completions are provided for both Zsh and Bash:
 - `walh list --<TAB>` suggests `--dark` and `--light`.
 - `walh random <TAB>` suggests `dark` and `light`.
 
-### Live Preview (zsh)
+### Theme Picker
 
-With the zsh plugin, a theme is previewed as soon as `walh <theme>` is on the command line, so you
-can cycle through themes with `walh <TAB>` and watch the colors change. Nothing is saved until you
-press Enter; clearing or editing the line restores your saved theme. Set `WALH_SHELL_PREVIEW=false`
-to disable it.
+Run `walh` with no arguments in a terminal to open an fzf picker (requires [fzf](https://github.com/junegunn/fzf);
+without fzf, or when output is not a terminal, `walh` prints help instead). Each theme is applied live as you
+move through the list, with its palette shown in a preview pane. Dark themes are listed first, then light.
+
+- `enter` applies and saves the highlighted theme.
+- `esc` cancels and restores your saved theme.
 
 ### User Hooks
 

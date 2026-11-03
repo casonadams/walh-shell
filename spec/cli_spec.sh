@@ -40,12 +40,12 @@ Describe 'Unified walh CLI Dispatcher'
   End
 
   Describe 'walh current'
-    It 'prints current theme, mode, and background'
+    It 'prints current theme and mode'
       walh gruvbox-dark >/dev/null 2>&1
       When call walh current
       The status should be success
       The output should include "Active theme: gruvbox-dark (dark)"
-      The output should include "Background: #282828"
+      The output should not include "Background:"
     End
 
     It 'fails cleanly if no theme is active'
