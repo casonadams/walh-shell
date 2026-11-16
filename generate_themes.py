@@ -268,7 +268,7 @@ def gen_theme():
 
         color00 = theme.get("color00") or d_c00
         color07 = theme.get("color07") or d_c07
-        color08 = theme.get("color08") or d_c08
+        color08 = ensure_contrast(theme.get("color08") or d_c08, background, 3.0)
         color15 = theme.get("color15") or d_c15
 
         color09 = theme.get("color09") or oklch_brighten(color01, dark_theme)
