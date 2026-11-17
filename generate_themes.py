@@ -9,6 +9,9 @@ import chevron
 import toml
 
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
+DIM_MIN_LC = 30
+DIM_FG_GAP_LC = 15
+ACCENT_MIN_LC = 45
 
 
 def srgb_to_linear(c):
@@ -189,19 +192,44 @@ def ensure_contrast(hex_color, background, min_ratio):
         color = rgb_to_hex(oklab_to_rgb_gamut_mapped(L, a, b))
     return color
 
-def lightness_star(hex_color):
-    y = relative_luminance(hex_color)
-    f = y ** (1 / 3) if y > 216 / 24389 else (24389 / 27 * y + 16) / 116
-    return 116 * f - 16
+def apca_luminance(hex_color):
+    r, g, b = (c / 255 for c in hex_to_rgb(hex_color))
+    y = 0.2126729 * r**2.4 + 0.7151522 * g**2.4 + 0.0721750 * b**2.4
+    return y + (0.022 - y) ** 1.414 if y < 0.022 else y
 
-def warn_low_contrast(theme_name, background, slots, min_ratio=3.0, min_delta_lstar=33):
+def apca_lc(text_hex, background_hex):
+    """Absolute APCA 0.0.98G-4g lightness contrast (Lc) of text on background."""
+    text, bg = apca_luminance(text_hex), apca_luminance(background_hex)
+    if abs(bg - text) < 0.0005:
+        return 0.0
+    if bg > text:
+        sapc = (bg**0.56 - text**0.57) * 1.14
+        return 0.0 if sapc < 0.1 else (sapc - 0.027) * 100
+    sapc = (bg**0.65 - text**0.62) * 1.14
+    return 0.0 if sapc > -0.1 else -(sapc + 0.027) * 100
+
+def ensure_apca(hex_color, background, min_lc, max_lc=math.inf):
+    """Shift OKLab lightness until min_lc <= APCA Lc <= max_lc, keeping hue and chroma."""
+    L, a, b = rgb_to_oklab(hex_to_rgb(hex_color))
+    away = -0.005 if relative_luminance(background) > 0.5 else 0.005
+    color = hex_color
+    while round(apca_lc(color, background)) < min_lc and 0.0 <= L + away <= 1.0:
+        L += away
+        color = rgb_to_hex(oklab_to_rgb_gamut_mapped(L, a, b))
+    while round(apca_lc(color, background)) > max_lc and 0.0 <= L - away <= 1.0:
+        L -= away
+        color = rgb_to_hex(oklab_to_rgb_gamut_mapped(L, a, b))
+    return color
+
+def derive_bright(base, background, dark):
+    return ensure_apca(oklch_brighten(base, dark), background, ACCENT_MIN_LC)
+
+def warn_low_contrast(theme_name, background, slots, min_lc=ACCENT_MIN_LC):
     for slot, color in slots.items():
-        ratio = contrast_ratio(color, background)
-        delta = abs(lightness_star(color) - lightness_star(background))
-        if ratio < min_ratio or delta < min_delta_lstar:
+        lc = apca_lc(color, background)
+        if lc < min_lc:
             print(
-                f"warning: {theme_name} {slot} {color} contrast {ratio:.2f}:1, "
-                f"delta L* {delta:.0f} (want >= {min_ratio}:1 and >= {min_delta_lstar})",
+                f"warning: {theme_name} {slot} {color} APCA Lc {lc:.0f} (want >= {min_lc})",
                 file=sys.stderr,
             )
 
@@ -268,15 +296,22 @@ def gen_theme():
 
         color00 = theme.get("color00") or d_c00
         color07 = theme.get("color07") or d_c07
-        color08 = ensure_contrast(theme.get("color08") or d_c08, background, 3.0)
+        fg_lc = apca_lc(foreground, background)
+        color08 = ensure_apca(
+            theme.get("color08") or d_c08,
+            background,
+            DIM_MIN_LC,
+            max(DIM_MIN_LC, fg_lc - DIM_FG_GAP_LC),
+        )
+        color08 = ensure_contrast(color08, background, 3.0)
         color15 = theme.get("color15") or d_c15
 
-        color09 = theme.get("color09") or oklch_brighten(color01, dark_theme)
-        color10 = theme.get("color10") or oklch_brighten(color02, dark_theme)
-        color11 = theme.get("color11") or oklch_brighten(color03, dark_theme)
-        color12 = theme.get("color12") or oklch_brighten(color04, dark_theme)
-        color13 = theme.get("color13") or oklch_brighten(color05, dark_theme)
-        color14 = theme.get("color14") or oklch_brighten(color06, dark_theme)
+        color09 = theme.get("color09") or derive_bright(color01, background, dark_theme)
+        color10 = theme.get("color10") or derive_bright(color02, background, dark_theme)
+        color11 = theme.get("color11") or derive_bright(color03, background, dark_theme)
+        color12 = theme.get("color12") or derive_bright(color04, background, dark_theme)
+        color13 = theme.get("color13") or derive_bright(color05, background, dark_theme)
+        color14 = theme.get("color14") or derive_bright(color06, background, dark_theme)
 
         color208 = theme.get("color208") or derive_orange(color01, color03)
 
@@ -291,23 +326,22 @@ def gen_theme():
                     color208,
                 )
             )
-        else:
-            warn_low_contrast(
-                theme_name,
-                background,
-                {
-                    f"color{i:02d}": c
-                    for i, c in enumerate(
-                        (color01, color02, color03, color04, color05, color06), start=1
-                    )
-                }
-                | {
-                    f"color{i:02d}": c
-                    for i, c in enumerate(
-                        (color09, color10, color11, color12, color13, color14), start=9
-                    )
-                },
-            )
+        warn_low_contrast(
+            theme_name,
+            background,
+            {
+                f"color{i:02d}": c
+                for i, c in enumerate(
+                    (color01, color02, color03, color04, color05, color06), start=1
+                )
+            }
+            | {
+                f"color{i:02d}": c
+                for i, c in enumerate(
+                    (color09, color10, color11, color12, color13, color14), start=9
+                )
+            },
+        )
 
         colorfgbg = "15;0" if dark_theme else "0;15"
         mode = "dark" if dark_theme else "light"
